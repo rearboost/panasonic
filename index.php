@@ -148,11 +148,11 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>ITEM</label>
-                              <select class="form-control form-selectBox" id="name" name = "item" required>
+                              <select class="form-control form-selectBox" id="item" name = "item" required>
                                   <option value="default">--Select Item--</option>
                                   <?php
                                 
-                                      $get_item = mysqli_query($con,"SELECT item_name FROM item WHERE category='' ");
+                                      $get_item = mysqli_query($con,"SELECT item_name FROM item");
 
                                       $numRows2 = mysqli_num_rows($get_item); 
                        
@@ -173,7 +173,7 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>SIZE</label>
-                              <input type="text" class="form-control" placeholder="SIZE" name = "size" required>
+                              <input type="text" class="form-control" placeholder="SIZE" id="size" name = "size" required>
                             </div>
                           </div>
                           <div class="col-md-6 pr-1">
@@ -439,29 +439,20 @@ if (!isset($_SESSION['loged_user'])) {
   
   <script>
 
-  var data = [
-    <?php echo $chart_data; ?>
-  ],
+    ////////////////////Fetch Items according to the category////////////////////////////
+    $('#item').on('change', function() {
 
-  //console.log("data",data)
-  config = {
-    data: data,
-    xkey: 'y',
-    ykeys: ['a', 'b'],
-    labels: ['Total loans', 'Total Collection'],
-    fillOpacity: 0.6,
-    hideHover: 'auto',
-    behaveLikeLine: true,
-    resize: true,
-    pointFillColors:['#ffffff'],
-    pointStrokeColors: ['black'],
-    lineColors:['gray','red']
-    };
-
-    config.element = 'myfirstchart';
-    Morris.Bar(config);
-    config.element = 'stacked';
-    config.stacked = true;
+      $.ajax({
+        url: 'get_size.php',
+        method:"POST",
+        data:{type:this.value},
+        success: function (response) {
+          var obj = JSON.parse(response);
+          $('#size').val(obj.size);
+        }
+      });
+    });
+    ///////////////////////////////////////////////////////////////////////////////////////
 
   </script>
 
