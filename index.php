@@ -107,7 +107,7 @@ if (!isset($_SESSION['loged_user'])) {
               </div>
               <div class="col-md-1">
                 <div class="card-header">
-                <button type="button" class="btn btn-primary add-btn" data-toggle="modal" data-target="#Form1">CREATE</button>
+                <button type="button" class="btn btn-primary add-btn" data-toggle="modal" data-target="#Form1" id="create" onclick="date_func()">CREATE</button>
                 </div> 
               </div> 
               </div> 
@@ -119,7 +119,7 @@ if (!isset($_SESSION['loged_user'])) {
                       <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">Loading & Daily Sales</h5>
                       </div> 
-                      <form id="itemAdd">
+                      <form id="trxnAdd">
                         <div class="col-md-12">
                         <div class="row">
                           <div class="col-md-6 pr-1">
@@ -173,13 +173,13 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>SIZE</label>
-                              <input type="text" class="form-control" placeholder="SIZE" id="size" name = "size" required>
+                              <input type="text" class="form-control" placeholder="Size" id="size" name = "size" required>
                             </div>
                           </div>
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>LOAD</label>
-                              <input type="text" class="form-control" placeholder="Laod" name = "load" required>
+                              <input type="text" class="form-control" placeholder="Load" name = "load" required>
                             </div>
                           </div>
                         </div>
@@ -339,15 +339,34 @@ if (!isset($_SESSION['loged_user'])) {
 
                             <?php
                                 if(isset($_POST['submit'])){
-                                  $item             = $_POST['item'];
-                                  $batch_no         = $_POST['batch_no'];
-                                  $size             = $_POST['size'];
-                                  $purchase         = $_POST['purchase'];
-                                  $sale             = $_POST['sale'];
-                                  $warehouse_stock  = $_POST['warehouse_stock'];
-                                  $lorry_stock      = $_POST['lorry_stock'];
+                                  $category  = $_POST['category'];
+                                  $item      = $_POST['item'];
+                                  $size      = $_POST['size'];
+                                  $load      = $_POST['load'];
+                                  $bf_bal    = $_POST['bf_bal'];
+                                  $tot       = $_POST['tot'];
+                                  $shop1     = $_POST['1'];
+                                  $shop2     = $_POST['2'];
+                                  $shop3     = $_POST['3'];
+                                  $shop4     = $_POST['4'];
+                                  $shop5     = $_POST['5'];
+                                  $shop6     = $_POST['6'];
+                                  $shop7     = $_POST['7'];
+                                  $shop8     = $_POST['8'];
+                                  $shop9     = $_POST['9'];
+                                  $shop10    = $_POST['10'];
+                                  $shop11    = $_POST['11'];
+                                  $shop12    = $_POST['12'];
+                                  $shop13    = $_POST['13'];
+                                  $shop14    = $_POST['14'];
+                                  $shop15    = $_POST['15'];
+                                  $shop16    = $_POST['16'];
+                                  $sale      = $_POST['sale'];
+                                  $free      = $_POST['free'];
+                                  $bal       = $_POST['bal'];
+                                  $create_date  = $_POST['create_date'];
 
-                                $insert1 = "INSERT INTO item (category,item_name,batch_no,size,purchase_cost,sales_cost,warehouse_stock,lorry_stock) VALUES ('$category','$item','$batch_no','$size',$purchase,$sale,$warehouse_stock,$lorry_stock)";
+                                $insert1 = "INSERT INTO trxn (category,item,size,load_bal,bf_bal,total,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,sale,free,af_bal,create_date) VALUES ('$category','$item','$size',$load,$bf_bal,$tot,'$shop1','$shop2','$shop3','$shop4','$shop5','$shop6','$shop7','$shop8','$shop9','$shop10','$shop11','$shop12','$shop13','$shop14','$shop15','$shop16',$sale,$free,$bal,'create_date')";
                                 mysqli_query($con,$insert1);
                                 }
                             ?>
@@ -363,20 +382,38 @@ if (!isset($_SESSION['loged_user'])) {
                 <div class="table-responsive">
                   <table class="table" id="myTable">
                     <thead class="text-primary">
-                      <th>                     CATEGORY        </th>
-                      <th>                     ITEM            </th>
-                      <th>                     BATCH NO        </th>
-                      <th>                     SIZE            </th>
-                      <th class="text-right">  PURCHASE PRICE  </th>
-                      <th class="text-right">  SALE PRICE      </th>
-                      <th class="text-right">  WAREHOUSE QTY   </th>
-                      <th class="text-right">  LORRY QTY       </th>
-                      <th class="text-center"> EDIT            </th>
-                      <th class="text-center"> DELETE          </th>
+                      <th>                     CATEGORY    </th>
+                      <th>                     ITEM        </th>
+                      <th>                     SIZE        </th>
+                      <th>                     LOAD        </th>
+                      <th>                     BF BAL      </th>
+                      <th>                     TOT         </th>
+                      <th>                     1           </th>
+                      <th>                     2           </th>
+                      <th>                     3           </th>
+                      <th>                     4           </th>
+                      <th>                     5           </th>
+                      <th>                     6           </th>
+                      <th>                     7           </th>
+                      <th>                     8           </th>
+                      <th>                     9           </th>
+                      <th>                     10          </th>
+                      <th>                     11          </th>
+                      <th>                     12          </th>
+                      <th>                     13          </th>
+                      <th>                     14          </th>
+                      <th>                     15          </th>
+                      <th>                     16          </th>
+                      <th>                     SALE        </th>
+                      <th>                     FREE        </th>
+                      <th>                     AF BAL      </th>
+                      <th>                     CREATE DATE </th>
+                      <th class="text-center"> EDIT        </th>
+                      <th class="text-center"> DELETE      </th>
                     </thead>
                     <tbody>
                       <?php
-                      $sql=mysqli_query($con,"SELECT * FROM item");
+                      $sql=mysqli_query($con,"SELECT * FROM trxn");
 
                       $numRows = mysqli_num_rows($sql); 
                  
@@ -384,22 +421,40 @@ if (!isset($_SESSION['loged_user'])) {
                         while($row = mysqli_fetch_assoc($sql)) {
                           ?>
                           <tr>
-                            <td>                    <?php echo $row['category'] ?>        </td>
-                            <td>                    <?php echo $row['item_name'] ?>       </td>
-                            <td>                    <?php echo $row['batch_no'] ?>        </td>
-                            <td>                    <?php echo $row['size'] ?>            </td>
-                            <td class="text-right"> <?php echo $row['purchase_cost'] ?>   </td>
-                            <td class="text-right"> <?php echo $row['sales_cost'] ?>      </td>
-                            <td class="text-right"> <?php echo $row['warehouse_stock'] ?> </td>
-                            <td class="text-right"> <?php echo $row['lorry_stock'] ?>     </td>
+                            <td> <?php echo $row['category'] ?>     </td>
+                            <td> <?php echo $row['item'] ?>         </td>
+                            <td> <?php echo $row['size'] ?>         </td>
+                            <td> <?php echo $row['load_bal'] ?>     </td>
+                            <td> <?php echo $row['bf_bal'] ?>       </td>
+                            <td> <?php echo $row['total'] ?>        </td>
+                            <td> <?php echo $row['S1'] ?>           </td>
+                            <td> <?php echo $row['S2'] ?>           </td>
+                            <td> <?php echo $row['S3'] ?>           </td>
+                            <td> <?php echo $row['S4'] ?>           </td>
+                            <td> <?php echo $row['S5'] ?>           </td>
+                            <td> <?php echo $row['S6'] ?>           </td>
+                            <td> <?php echo $row['S7'] ?>           </td>
+                            <td> <?php echo $row['S8'] ?>           </td>
+                            <td> <?php echo $row['S9'] ?>           </td>
+                            <td> <?php echo $row['S10'] ?>          </td>
+                            <td> <?php echo $row['S11'] ?>          </td>
+                            <td> <?php echo $row['S12'] ?>          </td>
+                            <td> <?php echo $row['S13'] ?>          </td>
+                            <td> <?php echo $row['S14'] ?>          </td>
+                            <td> <?php echo $row['S15'] ?>          </td>
+                            <td> <?php echo $row['S16'] ?>          </td>
+                            <td> <?php echo $row['sale'] ?>         </td>
+                            <td> <?php echo $row['free'] ?>         </td>
+                            <td> <?php echo $row['af_bal'] ?>       </td>
+                            <td> <?php echo $row['create_date'] ?>  </td>
 
                             <td class="text-center">  
-                             <a href="#" onclick="editView('<?php echo $row['item_id']; ?>')" name="edit">
+                             <a href="#" onclick="editView('<?php echo $row['trxn_id']; ?>')" name="edit">
                               <h6 style='color:green;'>EDIT</h6></a>
                             </td>
 
                             <td class="text-center">  
-                              <a href="#" onclick="confirmation('event','<?php echo $row['item_id']; ?>')" name="delete">
+                              <a href="#" onclick="confirmation('event','<?php echo $row['trxn_id']; ?>')" name="delete">
                               <h6 style='color:red;'>DELETE</h6></a>
                             </td>
 
@@ -439,20 +494,111 @@ if (!isset($_SESSION['loged_user'])) {
   
   <script>
 
-    ////////////////////Fetch Items according to the category////////////////////////////
+  ////////////////////Fetch Items according to the category////////////////////////////
     $('#item').on('change', function() {
 
       $.ajax({
         url: 'get_size.php',
         method:"POST",
-        data:{type:this.value},
+        data:{id:this.value},
         success: function (response) {
+
           var obj = JSON.parse(response);
           $('#size').val(obj.size);
+
         }
       });
+  });
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+
+  function date_func(){
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+
+
+  $(function () {
+
+    $('#trxnAdd').on('submit', function (e) {
+
+      e.preventDefault();
+
+      $.ajax({
+        type: 'post',
+        url: 'index.php',
+        data: $('#trxnAdd').serialize(),
+        success: function () {
+          swal({
+            title: "Good job !",
+            text: "Successfully Submited",
+            icon: "success",
+            button: "Ok !",
+            });
+            setTimeout(function(){ location.reload(); }, 2500);
+           }
+      });
+
     });
-    ///////////////////////////////////////////////////////////////////////////////////////
+
+  });
+  ///////////////////////////////////////////////////////////////////////
+
+  function form_reset(){
+      document.getElementById("trxnAdd").reset();
+  }
+
+  ///////////////////////////////////////////////////////////////////////
+
+  function editView(id){
+
+      $.ajax({
+              url:"edit_trxn.php",
+              method:"POST",
+              data:{"id":id},
+              success:function(data){
+                $('#show_view').html(data);
+                $('#Form2').modal('show');
+              }
+        });
+  }
+  ///////////////////////////////////////////////////////////////////////
+
+  function delete_loan(id){
+
+      $.ajax({
+              url:"delete_trxn",
+              method:"POST",
+              data:{"id":id},
+              success:function(data){
+                  swal({
+                  title: "Good job !",
+                  text: data,
+                  icon: "success",
+                  button: "Ok !",
+                  });
+                  setTimeout(function(){ location.reload(); }, 2500);
+      
+              }
+        });
+    }
+
+    /////////////////////////////
+    function confirmation(e,id) {
+        swal({
+        title: "Are you sure?",
+        text: "Want to Delete this recode !",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+               delete_trxn(id)
+            } 
+        });
+    }
+    ///////////////////////////////////////////////////////////////////////
 
   </script>
 
@@ -462,6 +608,5 @@ if (!isset($_SESSION['loged_user'])) {
 
 
 <?php
-mysqli_close($con);
 }
 ?>
