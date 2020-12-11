@@ -1,6 +1,5 @@
 <?php
 include("db_config.php");
-//include("card.php");
 session_start();
 if (!isset($_SESSION['loged_user'])) {
     //echo "Access Denied";
@@ -102,12 +101,14 @@ if (!isset($_SESSION['loged_user'])) {
               </div>
               <div class="col-md-3">
                 <div class="card-header"> 
-                  <input type="date" style="margin-top:11px;" class="form-control" name="create_date" required>
+                  <form>
+                  <input type="date" style="margin-top:11px;" class="form-control" id="create_date" name="create_date" required>
+                  </form>
                 </div>
               </div>
               <div class="col-md-1">
                 <div class="card-header">
-                <button type="button" class="btn btn-primary add-btn" data-toggle="modal" data-target="#Form1" id="create" onclick="date_func()">CREATE</button>
+                <button type="button" class="btn btn-primary add-btn" data-toggle="modal" data-target="#Form1" id="create" onclick="date_func()" disabled>CREATE</button>
                 </div> 
               </div> 
               </div> 
@@ -179,7 +180,7 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>LOAD</label>
-                              <input type="text" class="form-control" placeholder="Load" name = "load" required>
+                              <input type="text" class="form-control total" placeholder="Load" id="load" name = "load" required>
                             </div>
                           </div>
                         </div>
@@ -188,13 +189,13 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>BF BAL</label>
-                              <input type="text" class="form-control" placeholder="BF BAL" name = "bf_bal" required>
+                              <input type="text" class="form-control total" placeholder="BF BAL" id="bf_bal" name = "bf_bal" required>
                             </div>
                           </div>
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>TOT</label>
-                              <input type="text" class="form-control" placeholder="TOT" name = "tot" required>
+                              <input type="text" class="form-control" placeholder="TOT" id="tot" name = "tot" required readonly>
                             </div>
                           </div>
                         </div>
@@ -203,25 +204,25 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>1</label>
-                              <input type="text" class="form-control" placeholder="" name = "1">
+                              <input type="text" class="form-control stock_out" id="1" name = "1">
                             </div>
                           </div>
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>2</label>
-                              <input type="text" class="form-control" placeholder="" name = "2">
+                              <input type="text" class="form-control stock_out" id="2" name = "2">
                             </div>
                           </div>
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>3</label>
-                              <input type="text" class="form-control" placeholder="" name = "3">
+                              <input type="text" class="form-control stock_out" id="3" name = "3">
                             </div>
                           </div>
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>4</label>
-                              <input type="text" class="form-control" placeholder="" name = "4">
+                              <input type="text" class="form-control stock_out" id="4" name = "4">
                             </div>
                           </div>
                           
@@ -231,25 +232,25 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>5</label>
-                              <input type="text" class="form-control" placeholder="" name = "5">
+                              <input type="text" class="form-control stock_out" id="5" name = "5">
                             </div>
                           </div>
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>6</label>
-                              <input type="text" class="form-control" placeholder="" name = "6">
+                              <input type="text" class="form-control stock_out" id="6" name = "6">
                             </div>
                           </div>
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>7</label>
-                              <input type="text" class="form-control" placeholder="" name = "7">
+                              <input type="text" class="form-control stock_out" id="7" name = "7">
                             </div>
                           </div>
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>8</label>
-                              <input type="text" class="form-control" placeholder="" name = "8">
+                              <input type="text" class="form-control stock_out" id="8" name = "8">
                             </div>
                           </div>
                         </div>
@@ -258,25 +259,25 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>9</label>
-                              <input type="text" class="form-control" placeholder="" name = "9">
+                              <input type="text" class="form-control stock_out" id="9" name = "9">
                             </div>
                           </div>
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>10</label>
-                              <input type="text" class="form-control" placeholder="" name = "10">
+                              <input type="text" class="form-control stock_out" id="10" name = "10">
                             </div>
                           </div>
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>11</label>
-                              <input type="text" class="form-control" placeholder="" name = "11">
+                              <input type="text" class="form-control stock_out" id="11" name = "11">
                             </div>
                           </div>
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>12</label>
-                              <input type="text" class="form-control" placeholder="" name = "12">
+                              <input type="text" class="form-control stock_out" id="12" name = "12">
                             </div>
                           </div>
                         </div>
@@ -285,25 +286,25 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>13</label>
-                              <input type="text" class="form-control" placeholder="" name = "13">
+                              <input type="text" class="form-control stock_out" id="13" name = "13">
                             </div>
                           </div>
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>14</label>
-                              <input type="text" class="form-control" placeholder="" name = "14">
+                              <input type="text" class="form-control stock_out" id="14" name = "14">
                             </div>
                           </div>
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>15</label>
-                              <input type="text" class="form-control" placeholder="" name = "15">
+                              <input type="text" class="form-control stock_out" id="15" name = "15">
                             </div>
                           </div>
                           <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>16</label>
-                              <input type="text" class="form-control" placeholder="" name = "16">
+                              <input type="text" class="form-control stock_out" id="16" name = "16">
                             </div>
                           </div>
                         </div>
@@ -312,7 +313,7 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>SALE</label>
-                              <input type="text" class="form-control" placeholder="Sale" name = "sale" required>
+                              <input type="text" class="form-control" placeholder="Sale" id="sale" name = "sale" required>
                             </div>
                           </div>
                         </div>
@@ -320,13 +321,13 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>FREE</label>
-                              <input type="text" class="form-control" placeholder="Free" name = "free" required>
+                              <input type="text" class="form-control" placeholder="Free" id="free" name = "free" required>
                             </div>
                           </div>
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>BAL</label>
-                              <input type="text" class="form-control" placeholder="Bal" name = "bal" required>
+                              <input type="text" class="form-control" placeholder="Bal" id="bal" name = "bal" required>
                             </div>
                           </div>
                         </div>
@@ -366,9 +367,14 @@ if (!isset($_SESSION['loged_user'])) {
                                   $bal       = $_POST['bal'];
                                   $create_date  = $_POST['create_date'];
 
-                                $insert1 = "INSERT INTO trxn (category,item,size,load_bal,bf_bal,total,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,sale,free,af_bal,create_date) VALUES ('$category','$item','$size',$load,$bf_bal,$tot,'$shop1','$shop2','$shop3','$shop4','$shop5','$shop6','$shop7','$shop8','$shop9','$shop10','$shop11','$shop12','$shop13','$shop14','$shop15','$shop16',$sale,$free,$bal,'create_date')";
+                                $insert1 = "INSERT INTO trxn (category,item,size,load_bal,bf_bal,total,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,sale,free,af_bal,create_date) VALUES ('$category','$item','$size',$load,$bf_bal,$tot,'$shop1','$shop2','$shop3','$shop4','$shop5','$shop6','$shop7','$shop8','$shop9','$shop10','$shop11','$shop12','$shop13','$shop14','$shop15','$shop16',$sale,$free,$bal,'$create_date')";
                                 mysqli_query($con,$insert1);
-                                }
+
+                               
+                                $update_stock = mysqli_query($con,"UPDATE item SET lorry_stock = '$bal' WHERE item_name='$item'");
+                          
+
+                          }
                             ?>
                           </div>
                         </div>
@@ -479,6 +485,11 @@ if (!isset($_SESSION['loged_user'])) {
       <!-- FOOTER -->
     </div>
   </div>
+
+  <div id="show_view">
+
+  </div>
+  
   <!--   Core JS Files   -->
   <script src="assets/js/core/jquery.min.js"></script>
   <script src="assets/js/core/popper.min.js"></script>
@@ -495,16 +506,26 @@ if (!isset($_SESSION['loged_user'])) {
   <script>
 
   ////////////////////Fetch Items according to the category////////////////////////////
-    $('#item').on('change', function() {
+  $('#create_date').on('change', function() {
+
+        $('#create').prop('disabled', false);
+
+  });
+
+  //////////////////////////////////////////////////////////////////////////////////////
+
+   $('#item').on('change', function() {
 
       $.ajax({
-        url: 'get_size.php',
+        url: 'get_bf_bal.php',
         method:"POST",
-        data:{id:this.value},
+        data:{"item":this.value},
+
         success: function (response) {
 
           var obj = JSON.parse(response);
           $('#size').val(obj.size);
+          $('#bf_bal').val(obj.bf_bal);
 
         }
       });
@@ -512,7 +533,95 @@ if (!isset($_SESSION['loged_user'])) {
 
   ///////////////////////////////////////////////////////////////////////////////////////
 
+  $('.total').on('keyup',function(){
+        total()
+    });
+
+  ///////////////////////////////////////////
+
+  function total(){
+
+    var load_amt = $('#load').val();
+    var bal_amt  = $('#bf_bal').val();
+    
+    var tot_amt;
+
+    tot_amt = Number(load_amt) + Number(bal_amt);
+    
+    $('#tot').val(tot_amt);
+  
+  } 
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+
+  $('.stock_out').on('keyup',function(){
+        stock()
+    });
+
+  ///////////////////////////////////////////
+
+  function stock(){
+
+      // array for calculate all shops values
+
+      var shop1 = $('#1').val();
+      
+      var operator = shop1.split('/');
+
+      var up = operator[0];
+      var core = operator[1];
+
+      $('#free').val(up);
+      $('#sale').val(core);
+
+      var sale  = $('#sale').val();
+      var free  = $('#free').val();
+      var total = $('#tot').val();
+
+      var bal = Number(total) - (Number(sale) + Number(free));
+
+      $('#bal').val(bal);
+
+    // array end
+  } 
+  //   function stock(){
+
+  //     // array for calculate all shops values
+
+  //     var shop[] = $('#1').val();
+  //     var shop[] = $('#2').val();
+  //     var shop[] = $('#3').val();
+  //     var shop[] = $('#4').val();
+  //     var shop[] = $('#5').val();
+  //     var shop[] = $('#6').val();
+  //     var shop[] = $('#7').val();
+  //     var shop[] = $('#8').val();
+                         
+
+  //     for(var i=1; i<=8; i++){
+  //       var operator = shop[i].split('/');
+  //       var up += operator[0];
+  //       var core += operator[1];
+  //     }
+
+  //     $('#free').val(up);
+  //     $('#sale').val(core);
+
+  //     var sale  = $('#sale').val();
+  //     var free  = $('#free').val();
+  //     var total = $('#tot').val();
+
+  //     var bal = Number(total) - (Number(sale) + Number(free));
+
+  //     $('#bal').val(bal);
+
+  //   // array end
+  // }
+
+  //////////////////////////////////////////////////////////////////////////////////////
+
   function date_func(){
+
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////
@@ -564,7 +673,7 @@ if (!isset($_SESSION['loged_user'])) {
   }
   ///////////////////////////////////////////////////////////////////////
 
-  function delete_loan(id){
+  function delete_trxn(id){
 
       $.ajax({
               url:"delete_trxn",
