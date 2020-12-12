@@ -111,6 +111,7 @@ if (!isset($_SESSION['loged_user'])) {
                         <input type="date" style="margin-top:11px;" class="form-control" id="create_date" name="create_date" required>
                         </div>
                       </div>
+
                       <div class="col-md-2">
                       <input type="hidden" name ="submit" value="Submit"/>
                       <button type="submit" class="btn btn-primary add-btn" name="submit" id="create" disabled>CREATE</button>
@@ -118,6 +119,7 @@ if (!isset($_SESSION['loged_user'])) {
                   <?php
                       if(isset($_POST['submit'])){
 
+                        // need to insert this date into trxn table [column - create_date]
                         $create_date      = $_POST['create_date'];
 
                         $sql = mysqli_query($con,"SELECT create_date FROM trxn WHERE create_date = '$create_date'");
