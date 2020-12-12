@@ -88,331 +88,62 @@ if (!isset($_SESSION['loged_user'])) {
           <div class="col-md-12">         
             <div class="card">
               <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-4">
               <div class="card-header">
                 <h2 class="card-title"> Panasonic</h2>
                 <!-- <input class="form-control myInput" id="myInput" type="text" placeholder="Search.."> -->                
               </div>
               </div>
-              <div class="col-md-5">
+              <div class="col-md-8">
                 <div class="card-header">
-                  <center><h4 class="card-title"> Loading & Daily Sales Report</h4></center>
+                  <h4 class="card-title"> Loading & Daily Sales Report</h4>
                 </div>
               </div>
-              <div class="col-md-3">
-                <div class="card-header"> 
-                  <form>
-                  <input type="date" style="margin-top:11px;" class="form-control" id="create_date" name="create_date" required>
-                  </form>
-                </div>
               </div>
-              <div class="col-md-1">
-                <div class="card-header">
-                <button type="button" class="btn btn-primary add-btn" data-toggle="modal" data-target="#Form1" id="create" onclick="date_func()" disabled>CREATE</button>
-                </div> 
-              </div> 
-              </div> 
-
+              <!--  -->
+ 
               <div class="card-body">
-                <div class="modal fade" id="Form1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Loading & Daily Sales</h5>
-                      </div> 
-                      <form id="trxnAdd">
-                        <div class="col-md-12">
-                        <div class="row">
-                          <div class="col-md-6 pr-1">
-                            <div class="form-group">
-                              <label>ITEM CATEGORY</label>
-                                <select class="form-control form-selectBox" id="category" name = "category" required>
-                                  <option value="default">--Select Category--</option>
-                                  <?php
-                                
-                                      $get_category = mysqli_query($con,"SELECT * FROM category");
-
-                                      $numRows1 = mysqli_num_rows($get_category); 
-                       
-                                        if($numRows1 > 0) {
-                                          while($row1 = mysqli_fetch_assoc($get_category)) {
-                                            echo "<option value = ".$row1['category_name'].">" . $row1['category_name'] . "</option>";
-                                            
-                                          }
-                                        }
-                                  ?>
-
-                                  
-                                </select>
-                            </div>
-                          </div>
-                          <div class="col-md-6 pr-1">
-                            <div class="form-group">
-                              <label>ITEM</label>
-                              <select class="form-control form-selectBox" id="item" name = "item" required>
-                                  <option value="default">--Select Item--</option>
-                                  <?php
-                                
-                                      $get_item = mysqli_query($con,"SELECT item_name FROM item");
-
-                                      $numRows2 = mysqli_num_rows($get_item); 
-                       
-                                        if($numRows2 > 0) {
-                                          while($row2 = mysqli_fetch_assoc($get_item)) {
-                                            echo "<option value = ".$row2['item_name'].">" . $row2['item_name'] . "</option>";
-                                            
-                                          }
-                                        }
-                                  ?>
-                                  
-                                </select>
-                            </div>
-                          </div>
+                <form action="" method="post">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-3 pl-1">
+                        <div class="form-group"> 
+                        <input type="date" style="margin-top:11px;" class="form-control" id="create_date" name="create_date" required>
                         </div>
+                      </div>
+                      <div class="col-md-2">
+                      <input type="hidden" name ="submit" value="Submit"/>
+                      <button type="submit" class="btn btn-primary add-btn" name="submit" id="create" disabled>CREATE</button>
+                  
+                  <?php
+                      if(isset($_POST['submit'])){
 
-                        <div class="row">
-                          <div class="col-md-6 pr-1">
-                            <div class="form-group">
-                              <label>SIZE</label>
-                              <input type="text" class="form-control" placeholder="Size" id="size" name = "size" required>
-                            </div>
-                          </div>
-                          <div class="col-md-6 pr-1">
-                            <div class="form-group">
-                              <label>LOAD</label>
-                              <input type="text" class="form-control total" placeholder="Load" id="load" name = "load" required>
-                            </div>
-                          </div>
-                        </div>
+                        $create_date      = $_POST['create_date'];
 
-                        <div class="row">
-                          <div class="col-md-6 pr-1">
-                            <div class="form-group">
-                              <label>BF BAL</label>
-                              <input type="text" class="form-control total" placeholder="BF BAL" id="bf_bal" name = "bf_bal" required>
-                            </div>
-                          </div>
-                          <div class="col-md-6 pr-1">
-                            <div class="form-group">
-                              <label>TOT</label>
-                              <input type="text" class="form-control" placeholder="TOT" id="tot" name = "tot" required readonly>
-                            </div>
-                          </div>
-                        </div>
+                        $sql = mysqli_query($con,"SELECT create_date FROM trxn WHERE create_date = '$create_date'");
 
-                        <div class="row">
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>1</label>
-                              <input type="text" class="form-control stock_out" id="1" name = "1">
-                            </div>
-                          </div>
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>2</label>
-                              <input type="text" class="form-control stock_out" id="2" name = "2">
-                            </div>
-                          </div>
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>3</label>
-                              <input type="text" class="form-control stock_out" id="3" name = "3">
-                            </div>
-                          </div>
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>4</label>
-                              <input type="text" class="form-control stock_out" id="4" name = "4">
-                            </div>
-                          </div>
-                          
-                        </div>
+                        if(empty($sql)){
+                          $insert = mysqli_query($con,"INSERT INTO trxn (category,item,size,bf_bal) (SELECT category,item_name,size,lorry_stock FROM item)");
 
-                        <div class="row">
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>5</label>
-                              <input type="text" class="form-control stock_out" id="5" name = "5">
-                            </div>
-                          </div>
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>6</label>
-                              <input type="text" class="form-control stock_out" id="6" name = "6">
-                            </div>
-                          </div>
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>7</label>
-                              <input type="text" class="form-control stock_out" id="7" name = "7">
-                            </div>
-                          </div>
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>8</label>
-                              <input type="text" class="form-control stock_out" id="8" name = "8">
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>9</label>
-                              <input type="text" class="form-control stock_out" id="9" name = "9">
-                            </div>
-                          </div>
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>10</label>
-                              <input type="text" class="form-control stock_out" id="10" name = "10">
-                            </div>
-                          </div>
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>11</label>
-                              <input type="text" class="form-control stock_out" id="11" name = "11">
-                            </div>
-                          </div>
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>12</label>
-                              <input type="text" class="form-control stock_out" id="12" name = "12">
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>13</label>
-                              <input type="text" class="form-control stock_out" id="13" name = "13">
-                            </div>
-                          </div>
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>14</label>
-                              <input type="text" class="form-control stock_out" id="14" name = "14">
-                            </div>
-                          </div>
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>15</label>
-                              <input type="text" class="form-control stock_out" id="15" name = "15">
-                            </div>
-                          </div>
-                          <div class="col-md-3 pr-1">
-                            <div class="form-group">
-                              <label>16</label>
-                              <input type="text" class="form-control stock_out" id="16" name = "16">
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-6 pr-1">
-                            <div class="form-group">
-                              <label>SALE</label>
-                              <input type="text" class="form-control" placeholder="Sale" id="sale" name = "sale" required>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6 pr-1">
-                            <div class="form-group">
-                              <label>FREE</label>
-                              <input type="text" class="form-control" placeholder="Free" id="free" name = "free" required>
-                            </div>
-                          </div>
-                          <div class="col-md-6 pr-1">
-                            <div class="form-group">
-                              <label>BAL</label>
-                              <input type="text" class="form-control" placeholder="Bal" id="bal" name = "bal" required>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="update ml-auto mr-auto">
-                            <input type="hidden" name ="submit" value="Submit"/>
-                            <button type="submit" class="btn btn-primary btn-round">Submit</button>
-                            <Input type="button" onclick="form_reset()" class="btn btn-danger btn-round" data-dismiss="modal" value="Close">
-
-                            <?php
-                                if(isset($_POST['submit'])){
-                                  $category  = $_POST['category'];
-                                  $item      = $_POST['item'];
-                                  $size      = $_POST['size'];
-                                  $load      = $_POST['load'];
-                                  $bf_bal    = $_POST['bf_bal'];
-                                  $tot       = $_POST['tot'];
-                                  $shop1     = $_POST['1'];
-                                  $shop2     = $_POST['2'];
-                                  $shop3     = $_POST['3'];
-                                  $shop4     = $_POST['4'];
-                                  $shop5     = $_POST['5'];
-                                  $shop6     = $_POST['6'];
-                                  $shop7     = $_POST['7'];
-                                  $shop8     = $_POST['8'];
-                                  $shop9     = $_POST['9'];
-                                  $shop10    = $_POST['10'];
-                                  $shop11    = $_POST['11'];
-                                  $shop12    = $_POST['12'];
-                                  $shop13    = $_POST['13'];
-                                  $shop14    = $_POST['14'];
-                                  $shop15    = $_POST['15'];
-                                  $shop16    = $_POST['16'];
-                                  $sale      = $_POST['sale'];
-                                  $free      = $_POST['free'];
-                                  $bal       = $_POST['bal'];
-                                  $create_date  = $_POST['create_date'];
-
-                                $insert1 = "INSERT INTO trxn (category,item,size,load_bal,bf_bal,total,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,sale,free,af_bal,create_date) VALUES ('$category','$item','$size',$load,$bf_bal,$tot,'$shop1','$shop2','$shop3','$shop4','$shop5','$shop6','$shop7','$shop8','$shop9','$shop10','$shop11','$shop12','$shop13','$shop14','$shop15','$shop16',$sale,$free,$bal,'$create_date')";
-                                mysqli_query($con,$insert1);
-
-                               
-                                $update_stock = mysqli_query($con,"UPDATE item SET lorry_stock = '$bal' WHERE item_name='$item'");
-                          
-
-                          }
-                            ?>
-                          </div>
-                        </div>
-                        </div>
-                      </form>
-                    </div>
+                        }else{
+                          $del = mysqli_query($con,"DELETE FROM trxn WHERE create_date='$create_date'");
+                          $insert = mysqli_query($con,"INSERT INTO trxn (category,item,size,bf_bal) SELECT category,item_name,size,lorry_stock FROM item");
+                        }
+                      } 
+                  ?> 
+                      </div>
+                      <div class="7"></div> 
+                    </div> 
                   </div>
-                </div>
-              </div><!-- card body-->
-              <div class="card-body">
+                </form> 
+
                 <div class="table-responsive">
                   <table class="table" id="myTable">
                     <thead class="text-primary">
                       <th>                     CATEGORY    </th>
                       <th>                     ITEM        </th>
                       <th>                     SIZE        </th>
-                      <th>                     LOAD        </th>
                       <th>                     BF BAL      </th>
-                      <th>                     TOT         </th>
-                      <th>                     1           </th>
-                      <th>                     2           </th>
-                      <th>                     3           </th>
-                      <th>                     4           </th>
-                      <th>                     5           </th>
-                      <th>                     6           </th>
-                      <th>                     7           </th>
-                      <th>                     8           </th>
-                      <th>                     9           </th>
-                      <th>                     10          </th>
-                      <th>                     11          </th>
-                      <th>                     12          </th>
-                      <th>                     13          </th>
-                      <th>                     14          </th>
-                      <th>                     15          </th>
-                      <th>                     16          </th>
-                      <th>                     SALE        </th>
-                      <th>                     FREE        </th>
-                      <th>                     AF BAL      </th>
                       <th>                     CREATE DATE </th>
                       <th class="text-center"> EDIT        </th>
                       <th class="text-center"> DELETE      </th>
@@ -425,33 +156,13 @@ if (!isset($_SESSION['loged_user'])) {
                  
                       if($numRows > 0) {
                         while($row = mysqli_fetch_assoc($sql)) {
+
                           ?>
                           <tr>
                             <td> <?php echo $row['category'] ?>     </td>
                             <td> <?php echo $row['item'] ?>         </td>
                             <td> <?php echo $row['size'] ?>         </td>
-                            <td> <?php echo $row['load_bal'] ?>     </td>
                             <td> <?php echo $row['bf_bal'] ?>       </td>
-                            <td> <?php echo $row['total'] ?>        </td>
-                            <td> <?php echo $row['S1'] ?>           </td>
-                            <td> <?php echo $row['S2'] ?>           </td>
-                            <td> <?php echo $row['S3'] ?>           </td>
-                            <td> <?php echo $row['S4'] ?>           </td>
-                            <td> <?php echo $row['S5'] ?>           </td>
-                            <td> <?php echo $row['S6'] ?>           </td>
-                            <td> <?php echo $row['S7'] ?>           </td>
-                            <td> <?php echo $row['S8'] ?>           </td>
-                            <td> <?php echo $row['S9'] ?>           </td>
-                            <td> <?php echo $row['S10'] ?>          </td>
-                            <td> <?php echo $row['S11'] ?>          </td>
-                            <td> <?php echo $row['S12'] ?>          </td>
-                            <td> <?php echo $row['S13'] ?>          </td>
-                            <td> <?php echo $row['S14'] ?>          </td>
-                            <td> <?php echo $row['S15'] ?>          </td>
-                            <td> <?php echo $row['S16'] ?>          </td>
-                            <td> <?php echo $row['sale'] ?>         </td>
-                            <td> <?php echo $row['free'] ?>         </td>
-                            <td> <?php echo $row['af_bal'] ?>       </td>
                             <td> <?php echo $row['create_date'] ?>  </td>
 
                             <td class="text-center">  
@@ -471,20 +182,18 @@ if (!isset($_SESSION['loged_user'])) {
                       }
                     ?>                      
                     </table>
-                  <?php
-                  mysqli_close($con);
-                  ?>
+                  
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+              </div><!-- card-body -->
+            </div><!-- card -->
+          </div><!-- col-md_12 -->
+        </div><!-- row -->
+      </div><!-- content -->
       <!-- FOOTER -->
        <?php include('include/footer.php');  ?>
       <!-- FOOTER -->
-    </div>
-  </div>
+    </div><!-- main panel -->
+  </div><!-- wrapper -->
 
   <div id="show_view">
 
@@ -507,206 +216,86 @@ if (!isset($_SESSION['loged_user'])) {
 
   ////////////////////Fetch Items according to the category////////////////////////////
   $('#create_date').on('change', function() {
-
         $('#create').prop('disabled', false);
-
   });
 
   //////////////////////////////////////////////////////////////////////////////////////
 
-   $('#item').on('change', function() {
 
-      $.ajax({
-        url: 'get_bf_bal.php',
-        method:"POST",
-        data:{"item":this.value},
+  // $(function () {
 
-        success: function (response) {
+  //   $('#trxnAdd').on('submit', function (e) {
 
-          var obj = JSON.parse(response);
-          $('#size').val(obj.size);
-          $('#bf_bal').val(obj.bf_bal);
+  //     e.preventDefault();
 
-        }
-      });
-  });
+  //     $.ajax({
+  //       type: 'post',
+  //       url: 'index.php',
+  //       data: $('#trxnAdd').serialize(),
+  //       success: function () {
+  //         swal({
+  //           title: "Good job !",
+  //           text: "Successfully Submited",
+  //           icon: "success",
+  //           button: "Ok !",
+  //           });
+  //           setTimeout(function(){ location.reload(); }, 2500);
+  //          }
+  //     });
 
-  ///////////////////////////////////////////////////////////////////////////////////////
+  //   });
 
-  $('.total').on('keyup',function(){
-        total()
-    });
-
-  ///////////////////////////////////////////
-
-  function total(){
-
-    var load_amt = $('#load').val();
-    var bal_amt  = $('#bf_bal').val();
-    
-    var tot_amt;
-
-    tot_amt = Number(load_amt) + Number(bal_amt);
-    
-    $('#tot').val(tot_amt);
-  
-  } 
-
-  ///////////////////////////////////////////////////////////////////////////////////////
-
-  $('.stock_out').on('keyup',function(){
-        stock()
-    });
-
-  ///////////////////////////////////////////
-
-  function stock(){
-
-      // array for calculate all shops values
-
-      var shop1 = $('#1').val();
-      
-      var operator = shop1.split('/');
-
-      var up = operator[0];
-      var core = operator[1];
-
-      $('#free').val(up);
-      $('#sale').val(core);
-
-      var sale  = $('#sale').val();
-      var free  = $('#free').val();
-      var total = $('#tot').val();
-
-      var bal = Number(total) - (Number(sale) + Number(free));
-
-      $('#bal').val(bal);
-
-    // array end
-  } 
-  //   function stock(){
-
-  //     // array for calculate all shops values
-
-  //     var shop[] = $('#1').val();
-  //     var shop[] = $('#2').val();
-  //     var shop[] = $('#3').val();
-  //     var shop[] = $('#4').val();
-  //     var shop[] = $('#5').val();
-  //     var shop[] = $('#6').val();
-  //     var shop[] = $('#7').val();
-  //     var shop[] = $('#8').val();
-                         
-
-  //     for(var i=1; i<=8; i++){
-  //       var operator = shop[i].split('/');
-  //       var up += operator[0];
-  //       var core += operator[1];
-  //     }
-
-  //     $('#free').val(up);
-  //     $('#sale').val(core);
-
-  //     var sale  = $('#sale').val();
-  //     var free  = $('#free').val();
-  //     var total = $('#tot').val();
-
-  //     var bal = Number(total) - (Number(sale) + Number(free));
-
-  //     $('#bal').val(bal);
-
-  //   // array end
-  // }
-
-  //////////////////////////////////////////////////////////////////////////////////////
-
-  function date_func(){
-
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////////////
-
-
-  $(function () {
-
-    $('#trxnAdd').on('submit', function (e) {
-
-      e.preventDefault();
-
-      $.ajax({
-        type: 'post',
-        url: 'index.php',
-        data: $('#trxnAdd').serialize(),
-        success: function () {
-          swal({
-            title: "Good job !",
-            text: "Successfully Submited",
-            icon: "success",
-            button: "Ok !",
-            });
-            setTimeout(function(){ location.reload(); }, 2500);
-           }
-      });
-
-    });
-
-  });
-  ///////////////////////////////////////////////////////////////////////
-
-  function form_reset(){
-      document.getElementById("trxnAdd").reset();
-  }
-
+  // });
   ///////////////////////////////////////////////////////////////////////
 
   function editView(id){
 
-      $.ajax({
-              url:"edit_trxn.php",
-              method:"POST",
-              data:{"id":id},
-              success:function(data){
-                $('#show_view').html(data);
-                $('#Form2').modal('show');
-              }
-        });
+    $.ajax({
+        url:"edit_trxn.php",
+        method:"POST",
+        data:{"id":id},
+        success:function(data){
+          $('#show_view').html(data);
+          $('#Form2').modal('show');
+        }
+      });
   }
   ///////////////////////////////////////////////////////////////////////
 
   function delete_trxn(id){
 
-      $.ajax({
-              url:"delete_trxn",
-              method:"POST",
-              data:{"id":id},
-              success:function(data){
-                  swal({
-                  title: "Good job !",
-                  text: data,
-                  icon: "success",
-                  button: "Ok !",
-                  });
-                  setTimeout(function(){ location.reload(); }, 2500);
-      
-              }
-        });
-    }
+    $.ajax({
+        url:"delete_trxn",
+        method:"POST",
+        data:{"id":id},
+        success:function(data){
+            swal({
+            title: "Good job !",
+            text: data,
+            icon: "success",
+            button: "Ok !",
+            });
+            setTimeout(function(){ location.reload(); }, 2500);
 
-    /////////////////////////////
-    function confirmation(e,id) {
-        swal({
-        title: "Are you sure?",
-        text: "Want to Delete this recode !",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-               delete_trxn(id)
-            } 
-        });
-    }
+        }
+      });
+  }
+
+  /////////////////////////////
+  function confirmation(e,id) {
+      swal({
+      title: "Are you sure?",
+      text: "Want to Delete this recode !",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+      })
+      .then((willDelete) => {
+          if (willDelete) {
+             delete_trxn(id)
+          } 
+      });
+  }
     ///////////////////////////////////////////////////////////////////////
 
   </script>
@@ -717,5 +306,6 @@ if (!isset($_SESSION['loged_user'])) {
 
 
 <?php
+mysqli_close($con);
 }
 ?>

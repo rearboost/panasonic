@@ -8,26 +8,22 @@
 ?>
   <table class="table" id="get_data1">
     <thead class="text-primary">
-      <th>                    LOAN NO         </th>
-      <th class="text-right"> BORROWED DATE   </th>
-      <th class="text-right"> LOAN AMOUNT     </th>
-      <th class="text-right"> PAID AMOUNT     </th>
+      <th>                    CATEGORY  </th>
+      <th>                    ITEM      </th>
+      <th class="text-right"> SALE      </th>
+      <th class="text-right"> FREE      </th>
+      <th class="text-right"> TOTAL     </th>
     </thead>
     <tbody>
 
   <?php
 
-  if(isset($_POST['cust_id'])){
+  if(isset($_POST['cdate'])){
 
-    $customer = $_POST['cust_id'];
+    $cdate = $_POST['cdate'];
 
-    $query = mysqli_query($con,"SELECT  L.loan_no AS loan_no, L.l_date as l_date, L.amount as amount, L.total_amt as total
-      FROM customer C
-      INNER JOIN loan L
-        ON C.cust_id = L.cust_id
-      WHERE L.cust_id = '$customer' ");
-
-        
+    $query = mysqli_query($con,"SELECT  * FROM trxn WHERE create_date = '$cdate' ");
+       
     $numRows = mysqli_num_rows($query);
 
       if($numRows > 0) {
@@ -35,13 +31,11 @@
 ?>
      
       <tr>
-        <td>                    <?php echo $row['loan_no'] ?>   </td>
-        <td class="text-right"> <?php echo $row['l_date'] ?>    </td>
-        <td class="text-right"> <?php echo $row['amount'] ?>    </td>
+        <td>                    <?php echo $row['category'] ?>  </td>
+        <td>                    <?php echo $row['item'] ?>      </td>
+        <td class="text-right"> <?php echo $row['sale'] ?>      </td>
+        <td class="text-right"> <?php echo $row['free'] ?>      </td>
         <td class="text-right"> <?php echo $row['total'] ?>     </td>
-        <td class="text-right">    
-         <a href="#" onclick="View('<?php echo $row['loan_no']; ?>')" name="view">History </a>
-        </td>
       </tr>
       <div id = "show_view">
         
@@ -62,19 +56,5 @@
 
  ?>
 <script>
-    // VIEW HISTORY
-    function View(id){
-
-      $.ajax({
-              url:"view_history.php",
-              method:"POST",
-              data:{"id":id},
-              success:function(data){
-                $('#show_view').html(data);
-                $('#get_data2').modal('show');
-                //$('#get_data1').hide();
-              }
-        });
-    }
-    ////////////////////  
+ 
 </script>

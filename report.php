@@ -90,7 +90,7 @@ mysqli_select_db($con,DB_NAME);
             <div class="card">
               <div class="row">
                 <div class="card-header">
-                  <h5 class="card-title pl-3">&nbsp;&nbsp;SUMMARY REPORT</h5>                    
+                  <h5 class="card-title pl-3">&nbsp;&nbsp;DAILY SALES REPORT</h5>                    
                 </div>
               </div>
               <div class="card-body">
@@ -98,33 +98,13 @@ mysqli_select_db($con,DB_NAME);
                   <div class="col-md-12">
                     <div class="row">
                       <div class="col-md-8">
-                        <div class="col-md-8 pl-1">
-                          <div class="form-group">
-                            <label>SELECT CUSTOMER</label>
-                            <select class="form-control form-selectBox" id="customer" name = "cust_id" required>
-                            <option value="default">--Select Customer--</option>
-                            <?php
-                              $custom = "SELECT DISTINCT(C.cust_id) AS cust_id, C.name AS name
-                                        FROM customer C 
-                                        INNER JOIN  loan L
-                                        ON C.cust_id = L.cust_id";
-
-                              $result1 = mysqli_query($con,$custom);
-                              $numRows1 = mysqli_num_rows($result1); 
-                 
-                              if($numRows1 > 0) {
-                                while($row1 = mysqli_fetch_assoc($result1)) {
-                                  echo "<option value = ".$row1['cust_id'].">" . $row1['cust_id'] . " | " . $row1['name'] . "</option>";
-                                  
-                                }
-                              }
-                            ?>
-                            
-                          </select>
-                          </div>
+                        <div class="col-md-5 pl-1">
+                        <div class="form-group"> 
+                        <input type="date" class="form-control" id="cdate" name="cdate" required>
+                        </div>
                         </div>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <div class="col-md-12">
                           <div class="form-group" >
                             <h6 style="text-align:'right';">Date : <?php echo date('Y-m-d'); ?> </h6>
@@ -155,10 +135,7 @@ mysqli_select_db($con,DB_NAME);
   <script src="assets/js/core/jquery.min.js"></script>
   <script src="assets/js/core/popper.min.js"></script>
   <script src="assets/js/core/bootstrap.min.js"></script>
-  <!-- <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script> -->
-  <!--  Google Maps Plugin    -->
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
-  <!-- Chart JS -->
+  
   <script src="assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
   <script src="assets/js/plugins/bootstrap-notify.js"></script>
@@ -170,14 +147,14 @@ mysqli_select_db($con,DB_NAME);
 
   <script>
 
-    $('#customer').on('change', function() {
+    $('#cdate').on('change', function() {
 
-        var customer = $('#customer').val();
+        var cdate = $('#cdate').val();
 
         $.ajax({
               url:"view_report.php",
               method:"POST",
-              data:{"cust_id":customer},
+              data:{"cdate":cdate},
               success:function(data){
                 $('#show_report').html(data);
               }

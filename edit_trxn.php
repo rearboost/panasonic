@@ -121,7 +121,7 @@
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>SIZE</label>
-                  <input type="text" class="form-control" id="size1" name = "size1" value="<?php echo $data['size']?>" >
+                  <input type="text" class="form-control" id="size1" name = "size1" value="<?php echo $data['size']?>" readonly>
                 </div>
               </div>
               <div class="col-md-6 pr-1">
@@ -315,7 +315,38 @@
     $('#tot1').val(tot_amt1);
   
   } 
+  ///////////////////////////////////////////////////////////////////////////////////////
 
+  $('.stock_out').on('keyup',function(){
+        stock()
+    });
+
+  ///////////////////////////////////////////
+
+  function stock(){
+
+      // array for calculate all shops values
+
+      var shop1 = $('#1_1').val();
+      
+      var operator = shop1.split('/');
+
+      var up = operator[0];
+      var core = operator[1];
+
+      $('#free1').val(up);
+      $('#sale1').val(core);
+
+      var sale  = $('#sale1').val();
+      var free  = $('#free1').val();
+      var total = $('#tot1').val();
+
+      var bal = Number(total) - (Number(sale) + Number(free));
+
+      $('#bal1').val(bal);
+
+    // array end
+  } 
   ///////////////////////////////////////////////////////////////////////////////////////
 
  ///////////////////////////////////////////////////
