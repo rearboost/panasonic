@@ -255,7 +255,6 @@
                 </div>
               </div>
             </div>
-
             <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
@@ -326,16 +325,80 @@
   function stock(){
 
       // array for calculate all shops values
-
-      var shop1 = $('#1_1').val();
       
-      var operator = shop1.split('/');
+      //Show Like this 
+      
+      var shop1 = $('#1_1').val();
+      var shop2 = $('#2_1').val();
+      var shop3 = $('#3_1').val();
 
-      var up = operator[0];
-      var core = operator[1];
+      var shop4 = $('#4_1').val();
+      var shop5 = $('#5_1').val();
+      var shop6 = $('#6_1').val();
 
-      $('#free1').val(up);
-      $('#sale1').val(core);
+      if(shop1 !=''){
+        shop1  = $('#1_1').val();
+      }else{
+        shop1 = '0/0';
+      }
+
+      if(shop2 !=''){
+        shop2  = $('#2_1').val();
+      }else{
+        shop2 = '0/0';
+      }
+
+      if(shop3 !=''){
+        shop3  = $('#3_1').val();
+      }else{
+        shop3 = '0/0';
+      }
+
+      if(shop4 !=''){
+        shop4  = $('#4_1').val();
+      }else{
+        shop4 = '0/0';
+      }
+
+      if(shop5 !=''){
+        shop5  = $('#5_1').val();
+      }else{
+        shop5 = '0/0';
+      }
+
+      if(shop6 !=''){
+        shop6  = $('#6_1').val();
+      }else{
+        shop6 = '0/0';
+      }
+
+      var operator1 = shop1.split('/');
+      var operator2 = shop2.split('/');
+      var operator3 = shop3.split('/');
+      var operator4 = shop4.split('/');
+      var operator5 = shop5.split('/');
+      var operator6 = shop6.split('/');
+
+      var up1 = operator1[0];
+      var core1 = operator1[1];
+
+      var up2 = operator2[0];
+      var core2 = operator2[1];
+
+      var up3 = operator3[0];
+      var core3 = operator3[1];
+
+      var up4 = operator4[0];
+      var core4 = operator4[1];
+
+      var up5 = operator5[0];
+      var core5 = operator5[1];
+
+      var up6 = operator6[0];
+      var core6 = operator6[1];
+
+      $('#free1').val(Number(up1)+Number(up2)+Number(up3)+Number(up4)+Number(up5)+Number(up6));
+      $('#sale1').val(Number(core1)+Number(core2)+Number(core3)+Number(core4)+Number(core5)+Number(core6));
 
       var sale  = $('#sale1').val();
       var free  = $('#free1').val();

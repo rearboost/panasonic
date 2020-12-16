@@ -121,15 +121,40 @@ if (!isset($_SESSION['loged_user'])) {
 
                         // need to insert this date into trxn table [column - create_date]
                         $create_date      = $_POST['create_date'];
+                        
+                        $sqli = mysqli_query($con,"SELECT create_date FROM trxn WHERE create_date = '$create_date'");
 
-                        $sql = mysqli_query($con,"SELECT create_date FROM trxn WHERE create_date = '$create_date'");
+                        $numCheck = mysqli_num_rows($sqli); 
 
-                        if(empty($sql)){
-                          $insert = mysqli_query($con,"INSERT INTO trxn (category,item,size,bf_bal) (SELECT category,item_name,size,lorry_stock FROM item)");
+                        if($numCheck==0){
+
+                          $q = mysqli_query($con,"SELECT * FROM item");
+
+                          while($row = mysqli_fetch_assoc($q)) {
+
+                            $category = $row['category'];
+                            $item_name = $row['item_name'];
+                            $size = $row['size'];
+                            $lorry_stock = $row['lorry_stock'];
+                            $insert = mysqli_query($con,"INSERT INTO trxn (category,item,size,bf_bal,create_date) VALUES ('$category','$item_name','$size','$lorry_stock','$create_date')");
+
+                          }
 
                         }else{
                           $del = mysqli_query($con,"DELETE FROM trxn WHERE create_date='$create_date'");
-                          $insert = mysqli_query($con,"INSERT INTO trxn (category,item,size,bf_bal) SELECT category,item_name,size,lorry_stock FROM item");
+
+                          $q = mysqli_query($con,"SELECT * FROM item");
+
+                          while($row = mysqli_fetch_assoc($q)) {
+
+                            $category = $row['category'];
+                            $item_name = $row['item_name'];
+                            $size = $row['size'];
+                            $lorry_stock = $row['lorry_stock'];
+                            $insert = mysqli_query($con,"INSERT INTO trxn (category,item,size,bf_bal,create_date) VALUES ('$category','$item_name','$size','$lorry_stock','$create_date')");
+
+                          }
+                          //$insert = mysqli_query($con,"INSERT INTO trxn (category,item,size,bf_bal) SELECT category,item_name,size,lorry_stock FROM item");
                         }
                       } 
                   ?> 
@@ -152,7 +177,9 @@ if (!isset($_SESSION['loged_user'])) {
                     </thead>
                     <tbody>
                       <?php
-                      $sql=mysqli_query($con,"SELECT * FROM trxn");
+                      $create_date      = $_POST['create_date'];
+
+                      $sql=mysqli_query($con,"SELECT * FROM trxn WHERE create_date = '$create_date'");
 
                       $numRows = mysqli_num_rows($sql); 
                  
