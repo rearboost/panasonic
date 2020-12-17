@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2020 at 05:08 PM
+-- Generation Time: Dec 17, 2020 at 06:11 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -66,7 +66,7 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`item_id`, `category`, `item_name`, `batch_no`, `size`, `purchase_cost`, `sales_cost`, `warehouse_stock`, `lorry_stock`) VALUES
-(1, 'MANGANESE', 'R6NT/1B12', '1', 'AA', 100.00, 110.00, 150, 32),
+(1, 'MANGANESE', 'R6NT/1B12', '1', 'AA', 100.00, 110.00, 150, 5),
 (2, 'CHARGERS', 'R6NT/1B123S', '3', 'AAAA', 160.00, 180.00, 180, 50);
 
 -- --------------------------------------------------------
@@ -102,7 +102,7 @@ CREATE TABLE `trxn` (
   `sale` int(11) NOT NULL,
   `free` int(11) NOT NULL,
   `af_bal` int(11) NOT NULL,
-  `create_date` date NOT NULL
+  `create_date` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -110,10 +110,12 @@ CREATE TABLE `trxn` (
 --
 
 INSERT INTO `trxn` (`trxn_id`, `category`, `item`, `size`, `load_bal`, `bf_bal`, `total`, `S1`, `S2`, `S3`, `S4`, `S5`, `S6`, `S7`, `S8`, `S9`, `S10`, `S11`, `S12`, `S13`, `S14`, `S15`, `S16`, `sale`, `free`, `af_bal`, `create_date`) VALUES
-(1, 'CHARGERS', 'R6NT/5N123S', 'AAAA', 150, 100, 250, '', '', '3/12', '', '3/12', '', '', '', '', '0/6', '', '', '', '0/24', '', '', 54, 6, 190, '2020-12-08'),
-(2, 'MANGANESE', 'R6NT/1B123S', 'AA', 200, 50, 250, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 60, 12, 178, '0000-00-00'),
-(4, 'EVOLTA', 'R6NT/1B12', 'AA', 150, 50, 200, '3/12', '', '', '', '', '0/3', '', '', '', '', '', '', '', '', '', '', 12, 3, 182, '0000-00-00'),
-(6, 'MANGANESE', 'R6NT/1B12', 'AA', 50, 0, 50, '3/12', '', '', '', '', '0/3', '', '', '', '', '', '', '', '', '', '', 12, 3, 32, '0000-00-00');
+(34, 'MANGANESE', 'R6NT/1B12', 'AA', 15, 32, 47, '6/24', '', '', '', '', '', '0/6', '', '', '', '', '', '0/2', '1/3', '', '', 35, 7, 5, '2020-12-11'),
+(35, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 0, 50, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, '0000-00-00'),
+(36, 'MANGANESE', 'R6NT/1B12', 'AA', 0, 17, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, '2020-12-13'),
+(37, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 0, 50, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, '2020-12-13'),
+(38, 'MANGANESE', 'R6NT/1B12', 'AA', 0, 5, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, '2020-12-14'),
+(39, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 0, 50, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, '2020-12-14');
 
 -- --------------------------------------------------------
 
@@ -180,7 +182,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `trxn`
 --
 ALTER TABLE `trxn`
-  MODIFY `trxn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `trxn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT for table `user`
 --

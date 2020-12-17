@@ -177,9 +177,14 @@ if (!isset($_SESSION['loged_user'])) {
                     </thead>
                     <tbody>
                       <?php
-                      $create_date      = $_POST['create_date'];
+                      
+                      $get_date=mysqli_query($con,"SELECT create_date FROM trxn ORDER BY create_date DESC LIMIT 1");
+                      if(mysqli_num_rows($get_date)> 0){
+                        $get = mysqli_fetch_assoc($get_date);
+                        $cur_date      = $get['create_date'];
+                      }
 
-                      $sql=mysqli_query($con,"SELECT * FROM trxn WHERE create_date = '$create_date'");
+                      $sql=mysqli_query($con,"SELECT * FROM trxn WHERE create_date= '$cur_date'");
 
                       $numRows = mysqli_num_rows($sql); 
                  
@@ -249,33 +254,6 @@ if (!isset($_SESSION['loged_user'])) {
   });
 
   //////////////////////////////////////////////////////////////////////////////////////
-
-
-  // $(function () {
-
-  //   $('#trxnAdd').on('submit', function (e) {
-
-  //     e.preventDefault();
-
-  //     $.ajax({
-  //       type: 'post',
-  //       url: 'index.php',
-  //       data: $('#trxnAdd').serialize(),
-  //       success: function () {
-  //         swal({
-  //           title: "Good job !",
-  //           text: "Successfully Submited",
-  //           icon: "success",
-  //           button: "Ok !",
-  //           });
-  //           setTimeout(function(){ location.reload(); }, 2500);
-  //          }
-  //     });
-
-  //   });
-
-  // });
-  ///////////////////////////////////////////////////////////////////////
 
   function editView(id){
 

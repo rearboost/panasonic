@@ -331,10 +331,22 @@
       var shop1 = $('#1_1').val();
       var shop2 = $('#2_1').val();
       var shop3 = $('#3_1').val();
-
       var shop4 = $('#4_1').val();
+
       var shop5 = $('#5_1').val();
       var shop6 = $('#6_1').val();
+      var shop7 = $('#7_1').val();
+      var shop8 = $('#8_1').val();
+
+      var shop9  = $('#9_1').val();
+      var shop10 = $('#10_1').val();
+      var shop11 = $('#11_1').val();
+      var shop12 = $('#12_1').val();
+
+      var shop13 = $('#13_1').val();
+      var shop14 = $('#14_1').val();
+      var shop15 = $('#15_1').val();
+      var shop16 = $('#16_1').val();
 
       if(shop1 !=''){
         shop1  = $('#1_1').val();
@@ -372,12 +384,83 @@
         shop6 = '0/0';
       }
 
+      if(shop7 !=''){
+        shop7  = $('#7_1').val();
+      }else{
+        shop7 = '0/0';
+      }
+
+      if(shop8 !=''){
+        shop8  = $('#8_1').val();
+      }else{
+        shop8 = '0/0';
+      }
+
+      if(shop9 !=''){
+        shop9  = $('#9_1').val();
+      }else{
+        shop9 = '0/0';
+      }
+
+      if(shop10 !=''){
+        shop10  = $('#10_1').val();
+      }else{
+        shop10 = '0/0';
+      }
+
+      if(shop11 !=''){
+        shop11  = $('#11_1').val();
+      }else{
+        shop11 = '0/0';
+      }
+
+      if(shop12 !=''){
+        shop12  = $('#12_1').val();
+      }else{
+        shop12 = '0/0';
+      }
+
+      if(shop13 !=''){
+        shop13  = $('#13_1').val();
+      }else{
+        shop13 = '0/0';
+      }
+
+      if(shop14 !=''){
+        shop14  = $('#14_1').val();
+      }else{
+        shop14 = '0/0';
+      }
+
+      if(shop15 !=''){
+        shop15  = $('#15_1').val();
+      }else{
+        shop15 = '0/0';
+      }
+
+      if(shop16 !=''){
+        shop16  = $('#16_1').val();
+      }else{
+        shop16 = '0/0';
+      }
+
       var operator1 = shop1.split('/');
       var operator2 = shop2.split('/');
       var operator3 = shop3.split('/');
       var operator4 = shop4.split('/');
       var operator5 = shop5.split('/');
       var operator6 = shop6.split('/');
+      var operator7 = shop7.split('/');
+      var operator8 = shop8.split('/');
+      var operator9 = shop9.split('/');
+
+      var operator10 = shop10.split('/');
+      var operator11 = shop11.split('/');
+      var operator12 = shop12.split('/');
+      var operator13 = shop13.split('/');
+      var operator14 = shop14.split('/');
+      var operator15 = shop15.split('/');
+      var operator16 = shop16.split('/');
 
       var up1 = operator1[0];
       var core1 = operator1[1];
@@ -397,8 +480,39 @@
       var up6 = operator6[0];
       var core6 = operator6[1];
 
-      $('#free1').val(Number(up1)+Number(up2)+Number(up3)+Number(up4)+Number(up5)+Number(up6));
-      $('#sale1').val(Number(core1)+Number(core2)+Number(core3)+Number(core4)+Number(core5)+Number(core6));
+      var up7 = operator7[0];
+      var core7 = operator7[1];
+
+      var up8 = operator8[0];
+      var core8 = operator8[1];
+
+      var up9 = operator9[0];
+      var core9 = operator9[1];
+
+      var up10 = operator10[0];
+      var core10 = operator10[1];
+
+      var up11 = operator11[0];
+      var core11 = operator11[1];
+
+      var up12 = operator12[0];
+      var core12 = operator12[1];
+
+      var up13 = operator13[0];
+      var core13 = operator13[1];
+
+      var up14 = operator14[0];
+      var core14 = operator14[1];
+
+      var up15 = operator15[0];
+      var core15 = operator15[1];
+
+      var up16 = operator16[0];
+      var core16 = operator16[1];
+
+      $('#free1').val(Number(up1)+Number(up2)+Number(up3)+Number(up4)+Number(up5)+Number(up6)+Number(up7)+Number(up8)+Number(up9)+Number(up10)+Number(up11)+Number(up12)+Number(up13)+Number(up14)+Number(up15)+Number(up16));
+
+      $('#sale1').val(Number(core1)+Number(core2)+Number(core3)+Number(core4)+Number(core5)+Number(core6)+Number(core7)+Number(core8)+Number(core9)+Number(core10)+Number(core11)+Number(core12)+Number(core13)+Number(core14)+Number(core15)+Number(core16));
 
       var sale  = $('#sale1').val();
       var free  = $('#free1').val();
