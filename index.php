@@ -90,7 +90,7 @@ if (!isset($_SESSION['loged_user'])) {
               <div class="row">
               <div class="col-md-4">
               <div class="card-header">
-                <h2 class="card-title"> Panasonic</h2>
+                <h2 class="card-title"> Panasonic </h2>
                 <!-- <input class="form-control myInput" id="myInput" type="text" placeholder="Search.."> -->                
               </div>
               </div>
