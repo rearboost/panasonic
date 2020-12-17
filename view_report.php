@@ -10,9 +10,10 @@
     <thead class="text-primary">
       <th>                    CATEGORY  </th>
       <th>                    ITEM      </th>
+      <th class="text-right"> TOTAL    </th>
       <th class="text-right"> SALE      </th>
       <th class="text-right"> FREE      </th>
-      <th class="text-right"> TOTAL     </th>
+      <th class="text-right"> AF BAL    </th>
     </thead>
     <tbody>
 
@@ -33,9 +34,10 @@
       <tr>
         <td>                    <?php echo $row['category'] ?>  </td>
         <td>                    <?php echo $row['item'] ?>      </td>
+        <td class="text-right"> <?php echo $row['total'] ?>      </td>
         <td class="text-right"> <?php echo $row['sale'] ?>      </td>
         <td class="text-right"> <?php echo $row['free'] ?>      </td>
-        <td class="text-right"> <?php echo $row['total'] ?>     </td>
+        <td class="text-right"> <?php echo $row['af_bal'] ?>     </td>
       </tr>
       <div id = "show_view">
         
