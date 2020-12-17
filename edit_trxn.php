@@ -323,7 +323,6 @@
   ///////////////////////////////////////////
 
   function stock(){
-
       // array for calculate all shops values
       
       //Show Like this 
