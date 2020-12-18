@@ -1,5 +1,5 @@
 <?php
-
+  error_reporting(0);
    include("db_config.php");
     $con = mysqli_connect(DB_HOSTNAME,DB_USERNAME,DB_PASSWORD,DB_NAME);
     if (!$con) {
@@ -69,7 +69,7 @@
                                           af_bal    ='$bal'
                                           WHERE trxn_id =$trxn_id");
 
-         $update_stock1 = mysqli_query($con,"UPDATE item SET lorry_stock = '$bal1' WHERE item_name='$item1'");
+         //$update_stock1 = mysqli_query($con,"UPDATE item SET lorry_stock = '$bal1' WHERE item_name='$item1'");
       
         if($edit)
         {
@@ -281,7 +281,7 @@
             <div class="row">
               <div class="update ml-auto mr-auto">
                 <input type="hidden" name ="update" value="update"/>
-                <button type="submit" name="update" class="btn btn-primary btn-round">Save</button>
+                <button type="submit"  class="btn btn-primary btn-round">Update</button>
                 <button type="reset" name="close" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
               </div>
             </div>

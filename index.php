@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 include("db_config.php");
 session_start();
 if (!isset($_SESSION['loged_user'])) {
@@ -103,7 +104,7 @@ if (!isset($_SESSION['loged_user'])) {
               <!--  -->
  
               <div class="card-body">
-                <form action="" method="post">
+                <form action="trxn_insert.php" method="post" id="trxn_add">
                   <div class="col-md-12">
                     <div class="row">
                       <div class="col-md-3 pl-1">
@@ -113,51 +114,8 @@ if (!isset($_SESSION['loged_user'])) {
                       </div>
 
                       <div class="col-md-2">
-                      <input type="hidden" name ="submit" value="Submit"/>
+                      <input type="hidden" name ="submit" value="create"/>
                       <button type="submit" class="btn btn-primary add-btn" name="submit" id="create" disabled>CREATE</button>
-                  
-                  <?php
-                      if(isset($_POST['submit'])){
-
-                        // need to insert this date into trxn table [column - create_date]
-                        $create_date      = $_POST['create_date'];
-                        
-                        $sqli = mysqli_query($con,"SELECT create_date FROM trxn WHERE create_date = '$create_date'");
-
-                        $numCheck = mysqli_num_rows($sqli); 
-
-                        if($numCheck==0){
-
-                          $q = mysqli_query($con,"SELECT * FROM item");
-
-                          while($row = mysqli_fetch_assoc($q)) {
-
-                            $category = $row['category'];
-                            $item_name = $row['item_name'];
-                            $size = $row['size'];
-                            $lorry_stock = $row['lorry_stock'];
-                            $insert = mysqli_query($con,"INSERT INTO trxn (category,item,size,bf_bal,create_date) VALUES ('$category','$item_name','$size','$lorry_stock','$create_date')");
-
-                          }
-
-                        }else{
-                          $del = mysqli_query($con,"DELETE FROM trxn WHERE create_date='$create_date'");
-
-                          $q = mysqli_query($con,"SELECT * FROM item");
-
-                          while($row = mysqli_fetch_assoc($q)) {
-
-                            $category = $row['category'];
-                            $item_name = $row['item_name'];
-                            $size = $row['size'];
-                            $lorry_stock = $row['lorry_stock'];
-                            $insert = mysqli_query($con,"INSERT INTO trxn (category,item,size,bf_bal,create_date) VALUES ('$category','$item_name','$size','$lorry_stock','$create_date')");
-
-                          }
-                          //$insert = mysqli_query($con,"INSERT INTO trxn (category,item,size,bf_bal) SELECT category,item_name,size,lorry_stock FROM item");
-                        }
-                      } 
-                  ?> 
                       </div>
                       <div class="7"></div> 
                     </div> 
@@ -303,6 +261,33 @@ if (!isset($_SESSION['loged_user'])) {
           } 
       });
   }
+
+   ///////////////////////////////////////////////////
+
+    $(function () {
+
+        $('#trxn_add').on('submit', function (e) {
+
+          e.preventDefault();
+
+          $.ajax({
+            type: 'post',
+            url: 'trxn_insert.php',
+            data: $('#trxn_add').serialize(),
+            success: function () {
+              swal({
+                title: "Good job !",
+                text: "Successfully Submited",
+                icon: "success",
+                button: "Ok !",
+                });
+                setTimeout(function(){ location.reload(); }, 2500);
+               }
+          });
+
+        });
+
+      });
     ///////////////////////////////////////////////////////////////////////
 
   </script>
