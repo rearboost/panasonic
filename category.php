@@ -34,52 +34,9 @@ mysqli_select_db($con,DB_NAME);
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
-        <a href="#" class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="assets/img/logo-small.png">
-          </div>
-        </a>
-        <a href="#" class="simple-text logo-normal">
-          PANASONIC
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li>
-            <a href="index">
-              <i class="nc-icon nc-book-bookmark"></i>
-              <p>STOCK SHEET</p>
-            </a>
-          </li>
-          <li class="active">
-            <a href="category">
-              <i class="nc-icon nc-bullet-list-67"></i>
-              <p>ITEM CATEGORIES</p>
-            </a>
-          </li>
-          <li>
-            <a href="item">
-              <i class="nc-icon nc-cart-simple"></i>
-              <p>ITEMS</p>
-            </a>
-          </li>
-          <li>
-            <a href="report">
-              <i class="nc-icon nc-single-copy-04"></i>
-              <p>REPORTS</p>
-            </a>
-          </li>
-          <li>
-            <a href="user">
-              <i class="nc-icon nc-single-02"></i>
-              <p>USER PROFILE</p>
-            </a>
-          </li>         
-        </ul>
-      </div>
-    </div>
+    
+    <?php include('include/sidebar.php');  ?>
+    
     <div class="main-panel">
       <!-- Navbar -->
       <?php include('include/nav.php');  ?>

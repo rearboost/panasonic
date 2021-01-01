@@ -34,52 +34,9 @@ mysqli_select_db($con,DB_NAME);
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
-        <a href="#" class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="assets/img/logo-small.png">
-          </div>
-        </a>
-        <a href="#" class="simple-text logo-normal">
-          PANASONIC
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li>
-            <a href="index">
-              <i class="nc-icon nc-book-bookmark"></i>
-              <p>STOCK SHEET</p>
-            </a>
-          </li>
-          <li>
-            <a href="category">
-              <i class="nc-icon nc-bullet-list-67"></i>
-              <p>ITEM CATEGORIES</p>
-            </a>
-          </li>
-          <li class="active">
-            <a href="item">
-              <i class="nc-icon nc-cart-simple"></i>
-              <p>ITEMS</p>
-            </a>
-          </li>
-          <li>
-            <a href="report">
-              <i class="nc-icon nc-single-copy-04"></i>
-              <p>REPORTS</p>
-            </a>
-          </li>
-          <li>
-            <a href="user">
-              <i class="nc-icon nc-single-02"></i>
-              <p>USER PROFILE</p>
-            </a>
-          </li>         
-        </ul>
-      </div>
-    </div>
+    
+    <?php include('include/sidebar.php');  ?>
+
     <div class="main-panel">
       <!-- Navbar -->
       <?php include('include/nav.php');  ?>
@@ -175,16 +132,22 @@ mysqli_select_db($con,DB_NAME);
                         <div class="row">
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
-                              <label>WAREHOUSE STOCK</label>
-                              <input type="text" class="form-control" placeholder="Quantity" name = "warehouse_stock" required>
+                              <label>STOCK IN</label>
+                              <input type="text" class="form-control" placeholder="Quantity" name = "stock_in" id="stock_in" required>
                             </div>
                           </div>
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
-                              <label>LORRY STOCK</label>
-                              <input type="text" class="form-control" placeholder="Quantity" name = "lorry_stock" required>
+                              <label>WAREHOUSE STOCK</label>
+                              <input type="text" class="form-control" placeholder="Quantity" name = "warehouse_stock" id="warehouse_stock" required>
                             </div>
                           </div>
+                          <!-- <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                              <label>LORRY STOCK</label>
+                              <input type="text" class="form-control" placeholder="Quantity" name = "lorry_stock">
+                            </div>
+                          </div> -->
                         </div>
 
                         <div class="row">
@@ -202,9 +165,9 @@ mysqli_select_db($con,DB_NAME);
                                   $purchase         = $_POST['purchase'];
                                   $sale             = $_POST['sale'];
                                   $warehouse_stock  = $_POST['warehouse_stock'];
-                                  $lorry_stock      = $_POST['lorry_stock'];
+                                  // $lorry_stock      = $_POST['lorry_stock'];
 
-                                $insert1 = "INSERT INTO item (category,item_name,batch_no,size,purchase_cost,sales_cost,warehouse_stock,lorry_stock) VALUES ('$category','$item','$batch_no','$size',$purchase,$sale,$warehouse_stock,$lorry_stock)";
+                                $insert1 = "INSERT INTO item (category,item_name,batch_no,size,purchase_cost,sales_cost,warehouse_stock) VALUES ('$category','$item','$batch_no','$size',$purchase,$sale,$warehouse_stock)";
                                 mysqli_query($con,$insert1);
                                 }
                             ?>
@@ -320,14 +283,14 @@ mysqli_select_db($con,DB_NAME);
     function editView(id){
 
       $.ajax({
-              url:"edit_item.php",
-              method:"POST",
-              data:{"id":id},
-              success:function(data){
-                $('#show_view').html(data);
-                $('#Form3').modal('toggle');
-              }
-        });
+        url:"edit_item.php",
+        method:"POST",
+        data:{"id":id},
+        success:function(data){
+          $('#show_view').html(data);
+          $('#Form3').modal('toggle');
+        }
+      });
     }
     ////////////////////  
     
@@ -343,20 +306,20 @@ mysqli_select_db($con,DB_NAME);
     function delete_item(id){
 
       $.ajax({
-              url:"delete_item",
-              method:"POST",
-              data:{"id":id},
-              success:function(data){
-                  swal({
-                  title: "Good job !",
-                  text: data,
-                  icon: "success",
-                  button: "Ok !",
-                  });
-                  setTimeout(function(){ location.reload(); }, 2500);
-      
-              }
-        });
+        url:"delete_item",
+        method:"POST",
+        data:{"id":id},
+        success:function(data){
+            swal({
+            title: "Good job !",
+            text: data,
+            icon: "success",
+            button: "Ok !",
+            });
+            setTimeout(function(){ location.reload(); }, 2500);
+
+        }
+      });
     }
 
     // delete confirmation javascript
@@ -374,9 +337,14 @@ mysqli_select_db($con,DB_NAME);
             } 
         });
     }
-    ////////////////////  
+    
+    ///////////////////////////////////////// 
+    $(' #stock_in').on('keyup', function() {
 
-
+      var stock     = $('#stock_in').val();
+      $('#warehouse_stock').val(Number(stock));
+        
+    }); 
     ///////////////////////////////////////////////////
 
     $(function () {

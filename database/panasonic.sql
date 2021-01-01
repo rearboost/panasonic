@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2020 at 06:11 PM
+-- Generation Time: Dec 21, 2020 at 11:11 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -66,8 +66,9 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`item_id`, `category`, `item_name`, `batch_no`, `size`, `purchase_cost`, `sales_cost`, `warehouse_stock`, `lorry_stock`) VALUES
-(1, 'MANGANESE', 'R6NT/1B12', '1', 'AA', 100.00, 110.00, 150, 5),
-(2, 'CHARGERS', 'R6NT/1B123S', '3', 'AAAA', 160.00, 180.00, 180, 50);
+(1, 'MANGANESE', 'R6NT/1B12', '1', 'AA', 100.00, 110.00, 150, 400),
+(2, 'CHARGERS', 'R6NT/1B123S', '3', 'AAAA', 160.00, 180.00, 180, 150),
+(3, 'ALKALINE', 'LR6T/4B', '2', 'AAA', 100.00, 125.00, 200, 100);
 
 -- --------------------------------------------------------
 
@@ -110,12 +111,9 @@ CREATE TABLE `trxn` (
 --
 
 INSERT INTO `trxn` (`trxn_id`, `category`, `item`, `size`, `load_bal`, `bf_bal`, `total`, `S1`, `S2`, `S3`, `S4`, `S5`, `S6`, `S7`, `S8`, `S9`, `S10`, `S11`, `S12`, `S13`, `S14`, `S15`, `S16`, `sale`, `free`, `af_bal`, `create_date`) VALUES
-(34, 'MANGANESE', 'R6NT/1B12', 'AA', 15, 32, 47, '6/24', '', '', '', '', '', '0/6', '', '', '', '', '', '0/2', '1/3', '', '', 35, 7, 5, '2020-12-11'),
-(35, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 0, 50, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, '0000-00-00'),
-(36, 'MANGANESE', 'R6NT/1B12', 'AA', 0, 17, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, '2020-12-13'),
-(37, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 0, 50, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, '2020-12-13'),
-(38, 'MANGANESE', 'R6NT/1B12', 'AA', 0, 5, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, '2020-12-14'),
-(39, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 0, 50, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, '2020-12-14');
+(1, 'MANGANESE', 'R6NT/1B12', 'AA', 0, 400, 400, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 400, '2020-12-18'),
+(2, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 0, 150, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, '2020-12-18'),
+(3, 'ALKALINE', 'LR6T/4B', 'AAA', 0, 100, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, '2020-12-18');
 
 -- --------------------------------------------------------
 
@@ -177,12 +175,12 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `trxn`
 --
 ALTER TABLE `trxn`
-  MODIFY `trxn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `trxn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user`
 --

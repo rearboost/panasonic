@@ -8,38 +8,20 @@
 
     $id = $_POST['id']; // get id through query string
 
-    $qry = mysqli_query($con,"SELECT * FROM trxn WHERE trxn_id='$id' "); // select query
+    $qry = mysqli_query($con,"SELECT * FROM trxn T INNER JOIN item I ON I.item_name=T.item  WHERE T.trxn_id='$id' "); // select query
 
     $data = mysqli_fetch_array($qry); // fetch data
 
     if(isset($_POST['update'])) // when click on Update button
     {
-        $trxn_id   = $_POST['trxn_id1'];
-        $category  = $_POST['category1'];
-        $item      = $_POST['item1'];
-        $size      = $_POST['size1'];
-        $load      = $_POST['load1'];
-        $bf_bal    = $_POST['bf_bal1'];
-        $tot       = $_POST['tot1'];
-        $shop1    = $_POST['1_1'];
-        $shop2    = $_POST['2_1'];
-        $shop3    = $_POST['3_1'];
-        $shop4    = $_POST['4_1'];
-        $shop5    = $_POST['5_1'];
-        $shop6    = $_POST['6_1'];
-        $shop7    = $_POST['7_1'];
-        $shop8    = $_POST['8_1'];
-        $shop9    = $_POST['9_1'];
-        $shop10   = $_POST['10_1'];
-        $shop11   = $_POST['11_1'];
-        $shop12   = $_POST['12_1'];
-        $shop13   = $_POST['13_1'];
-        $shop14   = $_POST['14_1'];
-        $shop15   = $_POST['15_1'];
-        $shop16   = $_POST['16_1'];
-        $sale      = $_POST['sale1'];
-        $free      = $_POST['free1'];
-        $bal       = $_POST['bal1'];
+        $trxn_id        = $_POST['trxn_id1'];
+        $category       = $_POST['category1'];
+        $item           = $_POST['item1'];
+        $size           = $_POST['size1'];
+        $load           = $_POST['load1'];
+        $warehouse_now  = $_POST['warehouse_now'];
+        $bf_bal         = $_POST['bf_bal1'];
+        $tot            = $_POST['tot1'];
       
         $edit = mysqli_query($con,"UPDATE trxn 
                                       SET category  ='$category',
@@ -47,29 +29,10 @@
                                           size      ='$size',
                                           load_bal  ='$load',
                                           bf_bal    ='$bf_bal',
-                                          total     ='$tot',
-                                          S1        ='$shop1',
-                                          S2        ='$shop2',
-                                          S3        ='$shop3',
-                                          S4        ='$shop4',
-                                          S5        ='$shop5',
-                                          S6        ='$shop6',
-                                          S7        ='$shop7',
-                                          S8        ='$shop8',
-                                          S9        ='$shop9',
-                                          S10       ='$shop10',
-                                          S11       ='$shop11',
-                                          S12       ='$shop12',
-                                          S13       ='$shop13',
-                                          S14       ='$shop14',
-                                          S15       ='$shop15',
-                                          S16       ='$shop16',
-                                          sale      ='$sale',
-                                          free      ='$free',
-                                          af_bal    ='$bal'
+                                          total     ='$tot'
                                           WHERE trxn_id =$trxn_id");
 
-         //$update_stock1 = mysqli_query($con,"UPDATE item SET lorry_stock = '$bal1' WHERE item_name='$item1'");
+         $update_stock1 = mysqli_query($con,"UPDATE item SET lorry_stock = '$tot',warehouse_stock='$warehouse_now' WHERE item_name='$item'");
       
         if($edit)
         {
@@ -89,7 +52,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">UPDATE SHEET</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">UPDATE LOAD</h5>
         </div> 
 
         <form  id="trxnEdit">
@@ -109,6 +72,7 @@
                     <input class="form-control" id="category1" name="category1" value="<?php echo $data['category']?>" readonly>
                 </div>
               </div>
+
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>ITEM</label>
@@ -135,6 +99,21 @@
             <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
+                  <label>OLD WAREHOUSE STOCK</label>
+                  <input type="hidden" class="form-control stock_out" id="warehouse1" name = "warehouse1" value="<?php  echo $data['warehouse_stock']?>" >
+                </div>
+              </div>
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>NEW WAREHOUSE STOCK</label>
+                  <input type="hidden" class="form-control stock_out" id="warehouse_now" name = "warehouse_now" >
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
                   <label>BF BAL</label>
                   <input type="text" class="form-control stock_out" id="bf_bal1" name = "bf_bal1" value="<?php echo $data['bf_bal']?>" >
                 </div>
@@ -142,138 +121,7 @@
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>TOT</label>
-                  <input type="text" class="form-control stock_out total1" id="tot1" name = "tot1" value="<?php echo $data['total']?>" >
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>1</label>
-                  <input type="text" class="form-control stock_out" id="1_1" name = "1_1" value="<?php echo $data['S1']?>">
-                </div>
-              </div>
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>2</label>
-                  <input type="text" class="form-control stock_out" id="2_1" name = "2_1" value="<?php echo $data['S2']?>">
-                </div>
-              </div>
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>3</label>
-                  <input type="text" class="form-control stock_out" id="3_1" name = "3_1" value="<?php echo $data['S3']?>">
-                </div>
-              </div>
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>4</label>
-                  <input type="text" class="form-control stock_out" id="4_1" name = "4_1" value="<?php echo $data['S4']?>">
-                </div>
-              </div>
-              
-            </div>
-
-            <div class="row">
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>5</label>
-                  <input type="text" class="form-control stock_out" id="5_1" name = "5_1" value="<?php echo $data['S5']?>">
-                </div>
-              </div>
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>6</label>
-                  <input type="text" class="form-control stock_out" id="6_1" name = "6_1" value="<?php echo $data['S6']?>">
-                </div>
-              </div>
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>7</label>
-                  <input type="text" class="form-control stock_out" id="7_1" name = "7_1" value="<?php echo $data['S7']?>">
-                </div>
-              </div>
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>8</label>
-                  <input type="text" class="form-control stock_out" id="8_1" name = "8_1" value="<?php echo $data['S8']?>">
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>9</label>
-                  <input type="text" class="form-control stock_out" id="9_1" name = "9_1" value="<?php echo $data['S9']?>">
-                </div>
-              </div>
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>10</label>
-                  <input type="text" class="form-control stock_out" id="10_1" name = "10_1" value="<?php echo $data['S10']?>">
-                </div>
-              </div>
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>11</label>
-                  <input type="text" class="form-control stock_out" id="11_1" name = "11_1" value="<?php echo $data['S11']?>">
-                </div>
-              </div>
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>12</label>
-                  <input type="text" class="form-control stock_out" id="12_1" name = "12_1" value="<?php echo $data['S12']?>">
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>13</label>
-                  <input type="text" class="form-control stock_out" id="13_1" name = "13_1" value="<?php echo $data['S13']?>">
-                </div>
-              </div>
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>14</label>
-                  <input type="text" class="form-control stock_out" id="14_1" name = "14_1" value="<?php echo $data['S14']?>">
-                </div>
-              </div>
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>15</label>
-                  <input type="text" class="form-control stock_out" id="15_1" name = "15_1" value="<?php echo $data['S15']?>">
-                </div>
-              </div>
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>16</label>
-                  <input type="text" class="form-control stock_out" id="16_1" name = "16_1" value="<?php echo $data['S16']?>">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 pr-1">
-                <div class="form-group">
-                  <label>SALE</label>
-                  <input type="text" class="form-control" id="sale1" name = "sale1" value="<?php echo $data['sale']?>" >
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 pr-1">
-                <div class="form-group">
-                  <label>FREE</label>
-                  <input type="text" class="form-control" id="free1" name = "free1" value="<?php echo $data['free']?>" >
-                </div>
-              </div>
-              <div class="col-md-6 pr-1">
-                <div class="form-group">
-                  <label>BAL</label>
-                  <input type="text" class="form-control" id="bal1" name = "bal1" value="<?php echo $data['af_bal']?>" >
+                  <input type="text" class="form-control stock_out" id="tot1" name = "tot1" value="<?php echo $data['total']?>" >
                 </div>
               </div>
             </div>
@@ -305,221 +153,26 @@
   ///////////////////////////////////////////
 
   function stock(){
-      // array for calculate all shops values
-      
-      //Show Like this 
 
     var load_amt1 = $('#load1').val();
     var bal_amt1  = $('#bf_bal1').val();
+    var ware1     = $('#warehouse1').val();
 
-    $('#load1').val(load_amt1);
-    $('#bf_bal1').val(bal_amt1);
+    ////$('#load1').val(load_amt1);
+    ////$('#bf_bal1').val(bal_amt1);
 
     if(load_amt1 == ''){
       $('#tot1').val(Number(bal_amt1));
+      $('#warehouse_now').val(Number(ware1));
     }else{
-    $('#tot1').val(Number(bal_amt1)+Number(load_amt1));
+      $('#tot1').val(Number(bal_amt1)+Number(load_amt1));
+      $('#warehouse_now').val(Number(ware1)-Number(load_amt1));
     } 
 
-      var shop1 = $('#1_1').val();
-      var shop2 = $('#2_1').val();
-      var shop3 = $('#3_1').val();
-      var shop4 = $('#4_1').val();
-
-      var shop5 = $('#5_1').val();
-      var shop6 = $('#6_1').val();
-      var shop7 = $('#7_1').val();
-      var shop8 = $('#8_1').val();
-
-      var shop9  = $('#9_1').val();
-      var shop10 = $('#10_1').val();
-      var shop11 = $('#11_1').val();
-      var shop12 = $('#12_1').val();
-
-      var shop13 = $('#13_1').val();
-      var shop14 = $('#14_1').val();
-      var shop15 = $('#15_1').val();
-      var shop16 = $('#16_1').val();
-
-      if(shop1 !=''){
-        shop1  = $('#1_1').val();
-      }else{
-        shop1 = '0/0';
-      }
-
-      if(shop2 !=''){
-        shop2  = $('#2_1').val();
-      }else{
-        shop2 = '0/0';
-      }
-
-      if(shop3 !=''){
-        shop3  = $('#3_1').val();
-      }else{
-        shop3 = '0/0';
-      }
-
-      if(shop4 !=''){
-        shop4  = $('#4_1').val();
-      }else{
-        shop4 = '0/0';
-      }
-
-      if(shop5 !=''){
-        shop5  = $('#5_1').val();
-      }else{
-        shop5 = '0/0';
-      }
-
-      if(shop6 !=''){
-        shop6  = $('#6_1').val();
-      }else{
-        shop6 = '0/0';
-      }
-
-      if(shop7 !=''){
-        shop7  = $('#7_1').val();
-      }else{
-        shop7 = '0/0';
-      }
-
-      if(shop8 !=''){
-        shop8  = $('#8_1').val();
-      }else{
-        shop8 = '0/0';
-      }
-
-      if(shop9 !=''){
-        shop9  = $('#9_1').val();
-      }else{
-        shop9 = '0/0';
-      }
-
-      if(shop10 !=''){
-        shop10  = $('#10_1').val();
-      }else{
-        shop10 = '0/0';
-      }
-
-      if(shop11 !=''){
-        shop11  = $('#11_1').val();
-      }else{
-        shop11 = '0/0';
-      }
-
-      if(shop12 !=''){
-        shop12  = $('#12_1').val();
-      }else{
-        shop12 = '0/0';
-      }
-
-      if(shop13 !=''){
-        shop13  = $('#13_1').val();
-      }else{
-        shop13 = '0/0';
-      }
-
-      if(shop14 !=''){
-        shop14  = $('#14_1').val();
-      }else{
-        shop14 = '0/0';
-      }
-
-      if(shop15 !=''){
-        shop15  = $('#15_1').val();
-      }else{
-        shop15 = '0/0';
-      }
-
-      if(shop16 !=''){
-        shop16  = $('#16_1').val();
-      }else{
-        shop16 = '0/0';
-      }
-
-      var operator1 = shop1.split('/');
-      var operator2 = shop2.split('/');
-      var operator3 = shop3.split('/');
-      var operator4 = shop4.split('/');
-      var operator5 = shop5.split('/');
-      var operator6 = shop6.split('/');
-      var operator7 = shop7.split('/');
-      var operator8 = shop8.split('/');
-      var operator9 = shop9.split('/');
-
-      var operator10 = shop10.split('/');
-      var operator11 = shop11.split('/');
-      var operator12 = shop12.split('/');
-      var operator13 = shop13.split('/');
-      var operator14 = shop14.split('/');
-      var operator15 = shop15.split('/');
-      var operator16 = shop16.split('/');
-
-      var up1 = operator1[0];
-      var core1 = operator1[1];
-
-      var up2 = operator2[0];
-      var core2 = operator2[1];
-
-      var up3 = operator3[0];
-      var core3 = operator3[1];
-
-      var up4 = operator4[0];
-      var core4 = operator4[1];
-
-      var up5 = operator5[0];
-      var core5 = operator5[1];
-
-      var up6 = operator6[0];
-      var core6 = operator6[1];
-
-      var up7 = operator7[0];
-      var core7 = operator7[1];
-
-      var up8 = operator8[0];
-      var core8 = operator8[1];
-
-      var up9 = operator9[0];
-      var core9 = operator9[1];
-
-      var up10 = operator10[0];
-      var core10 = operator10[1];
-
-      var up11 = operator11[0];
-      var core11 = operator11[1];
-
-      var up12 = operator12[0];
-      var core12 = operator12[1];
-
-      var up13 = operator13[0];
-      var core13 = operator13[1];
-
-      var up14 = operator14[0];
-      var core14 = operator14[1];
-
-      var up15 = operator15[0];
-      var core15 = operator15[1];
-
-      var up16 = operator16[0];
-      var core16 = operator16[1];
-
-      $('#free1').val(Number(up1)+Number(up2)+Number(up3)+Number(up4)+Number(up5)+Number(up6)+Number(up7)+Number(up8)+Number(up9)+Number(up10)+Number(up11)+Number(up12)+Number(up13)+Number(up14)+Number(up15)+Number(up16));
-
-      $('#sale1').val(Number(core1)+Number(core2)+Number(core3)+Number(core4)+Number(core5)+Number(core6)+Number(core7)+Number(core8)+Number(core9)+Number(core10)+Number(core11)+Number(core12)+Number(core13)+Number(core14)+Number(core15)+Number(core16));
-
-      var sale  = $('#sale1').val();
-      var free  = $('#free1').val();
-      var total = $('#tot1').val();
-
-      var bal = Number(total) - (Number(sale) + Number(free));
-
-      $('#bal1').val(bal);
 
     // array end
   } 
   ///////////////////////////////////////////////////////////////////////////////////////
-
- ///////////////////////////////////////////////////
 
   $(function () {
 

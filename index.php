@@ -34,52 +34,9 @@ if (!isset($_SESSION['loged_user'])) {
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
-        <a href="#" class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="assets/img/logo-small.png">
-          </div>
-        </a>
-        <a href="#" class="simple-text logo-normal">
-          PANASONIC
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="active">
-            <a href="index">
-              <i class="nc-icon nc-book-bookmark"></i>
-              <p>STOCK SHEET</p>
-            </a>
-          </li>
-          <li>
-            <a href="category">
-              <i class="nc-icon nc-bullet-list-67"></i>
-              <p>ITEM CATEGORIES</p>
-            </a>
-          </li>
-          <li>
-            <a href="item">
-              <i class="nc-icon nc-cart-simple"></i>
-              <p>ITEMS</p>
-            </a>
-          </li>
-          <li>
-            <a href="report">
-              <i class="nc-icon nc-single-copy-04"></i>
-              <p>REPORTS</p>
-            </a>
-          </li>
-          <li>
-            <a href="user">
-              <i class="nc-icon nc-single-02"></i>
-              <p>USER PROFILE</p>
-            </a>
-          </li>         
-        </ul>
-      </div>
-    </div>
+    
+    <?php include('include/sidebar.php');  ?>
+
     <div class="main-panel">
       <!-- Navbar -->
       <?php include('include/nav.php');  ?>
@@ -97,7 +54,7 @@ if (!isset($_SESSION['loged_user'])) {
               </div>
               <div class="col-md-8">
                 <div class="card-header">
-                  <h4 class="card-title"> Loading & Daily Sales Report</h4>
+                  <h4 class="card-title"> Loading Items</h4>
                 </div>
               </div>
               </div>
@@ -129,6 +86,8 @@ if (!isset($_SESSION['loged_user'])) {
                       <th>                     ITEM        </th>
                       <th>                     SIZE        </th>
                       <th>                     BF BAL      </th>
+                      <th>                     LOAD      </th>
+                      <th>                     TOTAL      </th>
                       <th>                     CREATE DATE </th>
                       <th class="text-center"> EDIT        </th>
                       <th class="text-center"> DELETE      </th>
@@ -155,6 +114,8 @@ if (!isset($_SESSION['loged_user'])) {
                             <td> <?php echo $row['item'] ?>         </td>
                             <td> <?php echo $row['size'] ?>         </td>
                             <td> <?php echo $row['bf_bal'] ?>       </td>
+                            <td> <?php echo $row['load_bal'] ?>       </td>
+                            <td> <?php echo $row['total'] ?>       </td>
                             <td> <?php echo $row['create_date'] ?>  </td>
 
                             <td class="text-center">  
@@ -206,7 +167,7 @@ if (!isset($_SESSION['loged_user'])) {
   
   <script>
 
-  ////////////////////Fetch Items according to the category////////////////////////////
+  ////////////////////Create button enabled////////////////////////////
   $('#create_date').on('change', function() {
         $('#create').prop('disabled', false);
   });

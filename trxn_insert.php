@@ -22,10 +22,11 @@ if(isset($_POST['create_date'])){
 
     while($row = mysqli_fetch_assoc($q)) {
 
-      $category = $row['category'];
-      $item_name = $row['item_name'];
-      $size = $row['size'];
-      $lorry_stock = $row['lorry_stock'];
+      $category     = $row['category'];
+      $item_name    = $row['item_name'];
+      $size         = $row['size'];
+      $lorry_stock  = $row['lorry_stock'];
+
       $insert = mysqli_query($con,"INSERT INTO trxn (category,item,size,bf_bal,create_date) VALUES ('$category','$item_name','$size','$lorry_stock','$create_date')");
 
     }
@@ -37,10 +38,11 @@ if(isset($_POST['create_date'])){
 
     while($row = mysqli_fetch_assoc($q)) {
 
-      $category = $row['category'];
-      $item_name = $row['item_name'];
-      $size = $row['size'];
-      $lorry_stock = $row['lorry_stock'];
+      $category     = $row['category'];
+      $item_name    = $row['item_name'];
+      $size         = $row['size'];
+      $lorry_stock  = $row['lorry_stock'];
+      
       $insert = mysqli_query($con,"INSERT INTO trxn (category,item,size,bf_bal,create_date) VALUES ('$category','$item_name','$size','$lorry_stock','$create_date')");
 
     }

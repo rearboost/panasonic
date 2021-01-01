@@ -124,14 +124,23 @@
             <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <label>WAREHOUSE STOCK</label>
-                  <input type="text" class="form-control" placeholder="Quantity" name = "warehouse_stock1" value="<?php echo $data['warehouse_stock'] ?>" required>
+                  <label>STOCK IN</label>
+                  <input type="text" class="form-control" placeholder="Quantity" name = "stock_in1" id="stock_in1" required>
                 </div>
               </div>
               <div class="col-md-6 pr-1">
                 <div class="form-group">
+                  <label>WAREHOUSE STOCK</label>
+                  <input type="text" class="form-control" value="<?php echo $data['warehouse_stock'] ?>" name = "warehouse_stock1" id="warehouse_stock1" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
                   <label>LORRY STOCK</label>
-                  <input type="text" class="form-control" placeholder="Quantity" name = "lorry_stock1" value="<?php echo $data['lorry_stock'] ?>" required>
+                  <input type="text" class="form-control" placeholder="Quantity" name = "lorry_stock1" value="<?php echo $data['lorry_stock'] ?>" readonly required>
                 </div>
               </div>
             </div>
@@ -152,6 +161,19 @@
 
 
 <script>
+
+  ////////////////////////////////////////////////// 
+  $(' #stock_in1').on('keyup', function() {
+
+    var stock     = $('#stock_in1').val();
+    var warehouse = $('#warehouse_stock1').val();
+
+    warehouse = Number(warehouse) + Number(stock);
+
+    $('#warehouse_stock1').val(warehouse);
+      
+  }); 
+  ///////////////////////////////////////////////////
 
    ///////////////////////////////////////////////////
 
