@@ -61,7 +61,7 @@
             <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <input type="hidden" class="form-control" placeholder="" name = "item_id1" value="<?php echo $data['item_id'] ?>" required>
+                  <input type="hidden" class="form-control" placeholder="" id="id" name = "item_id1" value="<?php echo $data['item_id'] ?>" required>
 
                   <label>ITEM CATEGORY</label>
                     <select class="form-control form-selectBox" name = "category1" required>
@@ -161,47 +161,57 @@
 
 
 <script>
+////////////////////New Warehouse stock////////////////////////////// 
 
-  ////////////////////////////////////////////////// 
-  $(' #stock_in1').on('keyup', function() {
+$('#stock_in1').on('keyup',function(){
 
-    var stock     = $('#stock_in1').val();
-    var warehouse = $('#warehouse_stock1').val();
+  var stock     = $('#stock_in1').val();
 
-    warehouse = Number(warehouse) + Number(stock);
+  $.ajax({
+    url: 'get_qty.php',
+    method:"POST",
+    data:{id:item_id1},
+    success: function (response) {
 
-    $('#warehouse_stock1').val(warehouse);
-      
-  }); 
-  ///////////////////////////////////////////////////
+      var obj = JSON.parse(response);
 
-   ///////////////////////////////////////////////////
+      var warehouse_stock      =  obj.warehouse_stock
+      // new warehouse stock = previous warehouse stock + stock in
+      var warehouse_stock  = Number(warehouse_stock ) + Number(stock);
+        
+       $('#warehouse_stock1').val(Number(warehouse_stock));
 
-    $(function () {
+    }
+  });
 
-        $('#itemEdit').on('submit', function (e) {
+})
+///////////////////////////////////////////////////
 
-          e.preventDefault();
+$(function () {
 
-          $.ajax({
-            type: 'post',
-            url: 'edit_item.php',
-            data: $('#itemEdit').serialize(),
-            success: function () {
-              swal({
-                title: "Good job !",
-                text: "Successfully Submited",
-                icon: "success",
-                button: "Ok !",
-                });
-                setTimeout(function(){ location.reload(); }, 2500);
-               }
-          });
+    $('#itemEdit').on('submit', function (e) {
 
-        });
+      e.preventDefault();
 
+      $.ajax({
+        type: 'post',
+        url: 'edit_item.php',
+        data: $('#itemEdit').serialize(),
+        success: function () {
+          swal({
+            title: "Good job !",
+            text: "Successfully Submited",
+            icon: "success",
+            button: "Ok !",
+            });
+            setTimeout(function(){ location.reload(); }, 2500);
+           }
       });
-    ///////////////////////////////////////////////////
+
+    });
+
+  });
+///////////////////////////////////////////////////
 
 
 </script>

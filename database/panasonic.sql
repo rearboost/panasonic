@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2020 at 11:11 PM
+-- Generation Time: Jan 01, 2021 at 06:35 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -19,6 +19,22 @@ SET time_zone = "+00:00";
 --
 -- Database: `panasonic`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bill`
+--
+
+CREATE TABLE `bill` (
+  `B_id` int(11) NOT NULL,
+  `bill_no` int(11) NOT NULL,
+  `shop` varchar(100) NOT NULL,
+  `b_date` varchar(100) NOT NULL,
+  `cash` double(10,2) NOT NULL DEFAULT '0.00',
+  `credit` double(10,2) NOT NULL DEFAULT '0.00',
+  `cheque` double(10,2) NOT NULL DEFAULT '0.00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -66,9 +82,39 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`item_id`, `category`, `item_name`, `batch_no`, `size`, `purchase_cost`, `sales_cost`, `warehouse_stock`, `lorry_stock`) VALUES
-(1, 'MANGANESE', 'R6NT/1B12', '1', 'AA', 100.00, 110.00, 150, 400),
-(2, 'CHARGERS', 'R6NT/1B123S', '3', 'AAAA', 160.00, 180.00, 180, 150),
-(3, 'ALKALINE', 'LR6T/4B', '2', 'AAA', 100.00, 125.00, 200, 100);
+(1, 'MANGANESE', 'R6NT/1B12', '1', 'AA', 100.00, 110.00, 0, 0),
+(2, 'CHARGERS', 'R6NT/1B123S', '3', 'AAAA', 160.00, 180.00, 0, 0),
+(3, 'ALKALINE', 'LR6T/4B', '2', 'AAA', 100.00, 125.00, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `profit`
+--
+
+CREATE TABLE `profit` (
+  `P_id` int(11) NOT NULL,
+  `cdate` varchar(100) NOT NULL,
+  `sales` double(10,2) NOT NULL DEFAULT '0.00',
+  `expenses` double(10,2) NOT NULL DEFAULT '0.00',
+  `daily_profit` double(10,2) NOT NULL DEFAULT '0.00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sale_items`
+--
+
+CREATE TABLE `sale_items` (
+  `sale_id` int(11) NOT NULL,
+  `bill_no` int(11) NOT NULL,
+  `item` varchar(150) NOT NULL,
+  `total` int(11) NOT NULL DEFAULT '0',
+  `sale` int(11) NOT NULL DEFAULT '0',
+  `free` int(11) NOT NULL DEFAULT '0',
+  `af_bal` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -84,36 +130,8 @@ CREATE TABLE `trxn` (
   `load_bal` int(11) NOT NULL,
   `bf_bal` int(11) NOT NULL,
   `total` int(11) NOT NULL,
-  `S1` text NOT NULL,
-  `S2` text NOT NULL,
-  `S3` text NOT NULL,
-  `S4` text NOT NULL,
-  `S5` text NOT NULL,
-  `S6` text NOT NULL,
-  `S7` text NOT NULL,
-  `S8` text NOT NULL,
-  `S9` text NOT NULL,
-  `S10` text NOT NULL,
-  `S11` text NOT NULL,
-  `S12` text NOT NULL,
-  `S13` text NOT NULL,
-  `S14` text NOT NULL,
-  `S15` text NOT NULL,
-  `S16` text NOT NULL,
-  `sale` int(11) NOT NULL,
-  `free` int(11) NOT NULL,
-  `af_bal` int(11) NOT NULL,
   `create_date` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `trxn`
---
-
-INSERT INTO `trxn` (`trxn_id`, `category`, `item`, `size`, `load_bal`, `bf_bal`, `total`, `S1`, `S2`, `S3`, `S4`, `S5`, `S6`, `S7`, `S8`, `S9`, `S10`, `S11`, `S12`, `S13`, `S14`, `S15`, `S16`, `sale`, `free`, `af_bal`, `create_date`) VALUES
-(1, 'MANGANESE', 'R6NT/1B12', 'AA', 0, 400, 400, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 400, '2020-12-18'),
-(2, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 0, 150, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, '2020-12-18'),
-(3, 'ALKALINE', 'LR6T/4B', 'AAA', 0, 100, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, '2020-12-18');
 
 -- --------------------------------------------------------
 
@@ -139,6 +157,12 @@ INSERT INTO `user` (`user_id`, `username`, `password`) VALUES
 --
 
 --
+-- Indexes for table `bill`
+--
+ALTER TABLE `bill`
+  ADD PRIMARY KEY (`B_id`);
+
+--
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
@@ -149,6 +173,18 @@ ALTER TABLE `category`
 --
 ALTER TABLE `item`
   ADD PRIMARY KEY (`item_id`);
+
+--
+-- Indexes for table `profit`
+--
+ALTER TABLE `profit`
+  ADD PRIMARY KEY (`P_id`);
+
+--
+-- Indexes for table `sale_items`
+--
+ALTER TABLE `sale_items`
+  ADD PRIMARY KEY (`sale_id`);
 
 --
 -- Indexes for table `trxn`
@@ -167,6 +203,11 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `bill`
+--
+ALTER TABLE `bill`
+  MODIFY `B_id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
@@ -177,10 +218,20 @@ ALTER TABLE `category`
 ALTER TABLE `item`
   MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
+-- AUTO_INCREMENT for table `profit`
+--
+ALTER TABLE `profit`
+  MODIFY `P_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sale_items`
+--
+ALTER TABLE `sale_items`
+  MODIFY `sale_id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `trxn`
 --
 ALTER TABLE `trxn`
-  MODIFY `trxn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `trxn_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `user`
 --

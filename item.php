@@ -269,108 +269,109 @@ mysqli_select_db($con,DB_NAME);
 
   <script>
 
-    /////////////////////////////////////// Table Search 
-    $(document).ready(function(){
-      $("#myInput").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#myTable tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
+/////////////////////////////////////// Table Search 
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+}); 
+
+///////////////////////////////////////////////////
+
+$('#stock_in').on('keyup',function(){
+
+  var stock     = $('#stock_in').val();    
+  $('#warehouse_stock').val(Number(stock));
+  
+})
+///////////////////////////////////////////////////
+
+// Form edit 
+function editView(id){
+
+$.ajax({
+  url:"edit_item.php",
+  method:"POST",
+  data:{"id":id},
+  success:function(data){
+    $('#show_view').html(data);
+    $('#Form3').modal('toggle');
+  }
+});
+}
+////////////////////  
+
+
+///////// Form values reset /////////
+function form_reset(){
+document.getElementById("itemAdd").reset();
+}
+
+////////////////////  
+
+// Form delete 
+function delete_item(id){
+
+$.ajax({
+  url:"delete_item",
+  method:"POST",
+  data:{"id":id},
+  success:function(data){
+      swal({
+      title: "Good job !",
+      text: data,
+      icon: "success",
+      button: "Ok !",
       });
-    }); 
+      setTimeout(function(){ location.reload(); }, 2500);
 
-    // Form edit 
-    function editView(id){
+  }
+});
+}
 
-      $.ajax({
-        url:"edit_item.php",
-        method:"POST",
-        data:{"id":id},
-        success:function(data){
-          $('#show_view').html(data);
-          $('#Form3').modal('toggle');
-        }
-      });
-    }
-    ////////////////////  
-    
+// delete confirmation javascript
+function confirmation(e,id) {
+  swal({
+  title: "Are you sure?",
+  text: "Want to Delete this recode !",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+  })
+  .then((willDelete) => {
+      if (willDelete) {
+         delete_item(id)
+      } 
+  });
+}
 
-    ///////// Form values reset /////////
-    function form_reset(){
-      document.getElementById("itemAdd").reset();
-    }
+$(function () {
 
-    ////////////////////  
+  $('#itemAdd').on('submit', function (e) {
 
-    // Form delete 
-    function delete_item(id){
+    e.preventDefault();
 
-      $.ajax({
-        url:"delete_item",
-        method:"POST",
-        data:{"id":id},
-        success:function(data){
-            swal({
-            title: "Good job !",
-            text: data,
-            icon: "success",
-            button: "Ok !",
-            });
-            setTimeout(function(){ location.reload(); }, 2500);
-
-        }
-      });
-    }
-
-    // delete confirmation javascript
-    function confirmation(e,id) {
+    $.ajax({
+      type: 'post',
+      url: 'item.php',
+      data: $('#itemAdd').serialize(),
+      success: function () {
         swal({
-        title: "Are you sure?",
-        text: "Want to Delete this recode !",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-               delete_item(id)
-            } 
-        });
-    }
-    
-    ///////////////////////////////////////// 
-    $(' #stock_in').on('keyup', function() {
-
-      var stock     = $('#stock_in').val();
-      $('#warehouse_stock').val(Number(stock));
-        
-    }); 
-    ///////////////////////////////////////////////////
-
-    $(function () {
-
-        $('#itemAdd').on('submit', function (e) {
-
-          e.preventDefault();
-
-          $.ajax({
-            type: 'post',
-            url: 'item.php',
-            data: $('#itemAdd').serialize(),
-            success: function () {
-              swal({
-                title: "Good job !",
-                text: "Successfully Submited",
-                icon: "success",
-                button: "Ok !",
-                });
-                setTimeout(function(){ location.reload(); }, 2500);
-               }
+          title: "Good job !",
+          text: "Successfully Submited",
+          icon: "success",
+          button: "Ok !",
           });
+          setTimeout(function(){ location.reload(); }, 2500);
+         }
+    });
 
-        });
+  });
 
-      });
+});
    
    
   </script>

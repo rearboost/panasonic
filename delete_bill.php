@@ -9,7 +9,7 @@ include("db_config.php");
 
 		$id=$_POST['id'];
 
-		$del = mysqli_query($con,"DELETE FROM bill, sale_items WHERE bill.bill_no = sale_items.bill_no AND bill_no =  '$id' ") ;
+		$del = mysqli_query($con,"DELETE FROM bill, sale_items WHERE bill.bill_no = sale_items.bill_no AND bill_no = '$id' ") ;
 
 		if ($del){
 			

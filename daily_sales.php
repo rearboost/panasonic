@@ -118,6 +118,7 @@ if (!isset($_SESSION['loged_user'])) {
                           </div>
                         </div>
 
+                         <!-- this area depends on the no of select items --> 
                         <div class="row">
                           <div class="col-md-4 pr-1">
                             <div class="form-group">
@@ -166,6 +167,7 @@ if (!isset($_SESSION['loged_user'])) {
                             </div>
                           </div>
                         </div>
+                        <!-- end -->
 
                         <div class="row">
                           <div class="col-md-4 pr-1">
