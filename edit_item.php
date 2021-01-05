@@ -179,7 +179,7 @@ $('#stock_in1').on('keyup',function(){
       // new warehouse stock = previous warehouse stock + stock in
       var warehouse_stock  = Number(warehouse_stock ) + Number(stock);
         
-       $('#warehouse_stock1').val(Number(warehouse_stock));
+       $('#warehouse_stock1').val(warehouse_stock);
 
     }
   });
