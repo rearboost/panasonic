@@ -49,6 +49,18 @@
 ?>
 
 <div class="card-body">
+ <style>
+ input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+ 
+ </style>
   <div class="modal fade" id="Form3" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -61,7 +73,7 @@
             <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <input type="hidden" class="form-control" placeholder="" id="id" name = "item_id1" value="<?php echo $data['item_id'] ?>" required>
+                  <input type="hidden" id="getId"  value="<?php echo $data['item_id'] ?>" required>
 
                   <label>ITEM CATEGORY</label>
                     <select class="form-control form-selectBox" name = "category1" required>
@@ -125,7 +137,7 @@
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>STOCK IN</label>
-                  <input type="text" class="form-control" placeholder="Quantity" name = "stock_in1" id="stock_in1" required>
+                  <input type="Number" class="form-control" placeholder="Quantity (Number)" name = "stock_in1" id="stock_in1" required>
                 </div>
               </div>
               <div class="col-md-6 pr-1">
@@ -166,6 +178,8 @@
 $('#stock_in1').on('keyup',function(){
 
   var stock     = $('#stock_in1').val();
+
+  var item_id1 = document.getElementById('getId').value;
 
   $.ajax({
     url: 'get_qty.php',
