@@ -178,7 +178,7 @@ input[type="number"] {
 $('#stock_in1').on('keyup',function(){
 
   var stock     = $('#stock_in1').val();
-
+  //////////
   var item_id1 = document.getElementById('getId').value;
 
   $.ajax({
@@ -193,8 +193,7 @@ $('#stock_in1').on('keyup',function(){
       // new warehouse stock = previous warehouse stock + stock in
       warehouse_stock  = Number(warehouse_stock ) + Number(stock);
         
-       $('#warehouse_stock1').val(warehouse_stock);
-
+      $('#warehouse_stock1').val(warehouse_stock);
     }
   });
 
