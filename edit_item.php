@@ -177,7 +177,7 @@ $('#stock_in1').on('keyup',function(){
 
       var warehouse_stock      =  obj.warehouse_stock
       // new warehouse stock = previous warehouse stock + stock in
-      var warehouse_stock  = Number(warehouse_stock ) + Number(stock);
+      warehouse_stock  = Number(warehouse_stock ) + Number(stock);
         
        $('#warehouse_stock1').val(warehouse_stock);
 
