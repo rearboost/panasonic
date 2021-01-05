@@ -145,7 +145,7 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-2 pr-1">
                             <div class="form-group">
                               <label>TOTAL</label>
-                              <input type="text" class="form-control qty" id="total" name="total" required>
+                              <input type="text" class="form-control" id="total" name="total" required>
                             </div>
                           </div>
                           <div class="col-md-2 pr-1">
@@ -157,7 +157,7 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-2 pr-1">
                             <div class="form-group">
                               <label>FREE</label>
-                              <input type="text" class="form-control qty" id="free" name="free" required>
+                              <input type="text" class="form-control" id="free" name="free" required>
                             </div>
                           </div>
                           <div class="col-md-2 pr-1">
