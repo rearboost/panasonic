@@ -193,7 +193,7 @@ if (!isset($_SESSION['loged_user'])) {
                         <div class="row">
                           <div class="update ml-auto mr-auto">
                             <input type="hidden" name ="submit" value="Submit"/>
-                            <button type="submit" class="btn btn-primary btn-round">Submit</button>
+                            <button type="submit" name="submit" class="btn btn-primary btn-round">Submit</button>
                             <Input type="button" onclick="form_reset()" class="btn btn-danger btn-round" data-dismiss="modal" value="Close">
                           </div>
                         </div>
@@ -214,7 +214,7 @@ if (!isset($_SESSION['loged_user'])) {
                       <th class="text-right">  CASH       </th>
                       <th class="text-right">  CREDIT     </th>
                       <th class="text-right">  CHEQUE     </th>
-                      <th class="text-center"> EDIT       </th>
+                      <!-- <th class="text-center"> EDIT       </th> -->
                       <th class="text-center"> DELETE     </th>
                     </thead>
                     <tbody>
