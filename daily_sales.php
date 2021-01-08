@@ -159,7 +159,7 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-2 pr-1">
                             <div class="form-group">
                               <label>SALE</label>
-                              <input type="text" class="form-control qty" id="sale" name="sale" required>
+                              <input type="text" class="form-control" id="sale" name="sale" required>
                             </div>
                           </div>
                           <div class="col-md-2 pr-1">
@@ -171,7 +171,7 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-2 pr-1">
                             <div class="form-group">
                               <label>AF BAL</label>
-                              <input type="text" class="form-control qty" id="af_bal" name="af_bal" required readonly>
+                              <input type="text" class="form-control" id="af_bal" name="af_bal" required readonly>
                             </div>
                           </div>
                            <div class="col-md-2 pr-1">
@@ -220,7 +220,7 @@ if (!isset($_SESSION['loged_user'])) {
                         <div class="row">
                           <div class="update ml-auto mr-auto">
                             <input type="hidden" name ="submit" value="Submit"/>
-                            <button type="submit" class="btn btn-primary btn-round">Submit</button>
+                            <button type="submit" name="submit" class="btn btn-primary btn-round">Submit</button>
                             <Input type="button" onclick="form_reset()" class="btn btn-danger btn-round" data-dismiss="modal" value="Close">
                           </div>
                         </div>
@@ -241,7 +241,7 @@ if (!isset($_SESSION['loged_user'])) {
                       <th class="text-right">  CASH       </th>
                       <th class="text-right">  CREDIT     </th>
                       <th class="text-right">  CHEQUE     </th>
-                      <th class="text-center"> EDIT       </th>
+                      <!-- <th class="text-center"> EDIT       </th> -->
                       <th class="text-center"> DELETE     </th>
                     </thead>
                     <tbody>
@@ -311,7 +311,7 @@ if (!isset($_SESSION['loged_user'])) {
   
   <script>
 
-////////GET NEW BILL NO //////////////
+//////////////////////////////GET NEW BILL NO //////////////////////////////////
 $('#shop').on('change', function() {
 
   const zeroPad = (num, places) => String(num).padStart(places, '0');
@@ -327,26 +327,19 @@ $('#shop').on('change', function() {
     });
 }); 
 
-////////////////////Fetch Items according to the category////////////////////////////
+////////////////////Fetch Items according to the category//////////////////////
 $('#b_date').on('change', function() {
       $('#item_num').prop('disabled', false);
 });
 
-//////////////////////////////////////////////////////////////////////////////////////
-
-////////////////////Fetch total when item changed////////////////////////////
+////////////////////Fetch total when item changed/////////////////////////////
 $('#item').on('change', function() {
       
 });
 
-//////////////////////////////////////////////////////////////////////////////////////
+////////Calculate free items & af bal according to sale amount///////////////
+$('#sale').on('keyup', function() {
 
-////////////////////Calculate free items according to sale amount////////////////////////////
-$('.qty').on('keyup', function() {
-  qty();
-});
-
-function qty(){
   var total_qty = $('#total').val();
   var sale_qty = $('#sale').val();
   var free = $('#free').val();
@@ -359,14 +352,25 @@ function qty(){
   $('#free').val(free_qty);
   $('#af_bal').val(after_qty);
 
-}
+});
 
-///////////////////// Form values reset ///////////////////
+////////Calculate free items & af bal according to sale amount////////////
+$('#free').on('keyup', function() {
+
+  var total_qty = $('#total').val();
+  var sale_qty = $('#sale').val();
+  var free = $('#free').val();
+
+  var after_qty = Number(total_qty) - (Number(sale_qty)+Number(free));
+
+  $('#af_bal').val(after_qty);
+
+});
+
+///////////////////// Form values reset //////////////////////////
 function form_reset(){
   document.getElementById("BillAdd").reset();
 }
-
-///////////////////////////////////////////////////////////
 
 // function editView(id){
 
@@ -379,8 +383,9 @@ function form_reset(){
 //         $('#Form2').modal('show');
 //       }
 //     });
-// }
-///////////////////////////////////////////////////////////////////////
+// 
+
+///////////////////////Delete bill///////////////////////////////
 
 function delete_bill(id){
 
@@ -401,7 +406,7 @@ function delete_bill(id){
     });
 }
 
-/////////////////////////////
+////////////////////////////Delete bill///////////////////////////////
 function confirmation(e,id) {
     swal({
     title: "Are you sure?",
@@ -417,7 +422,7 @@ function confirmation(e,id) {
     });
 }
 
-///////////////////////////////////////////////////
+///////////////////////////Insert bill///////////////////////////////////////
 
 $(function () {
 
