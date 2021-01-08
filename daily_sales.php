@@ -30,6 +30,13 @@ if (!isset($_SESSION['loged_user'])) {
   <link href="assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+  
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+
 </head>
 
 <body class="">
@@ -62,12 +69,13 @@ if (!isset($_SESSION['loged_user'])) {
 
               <div class="card-body">
                 <div class="modal fade" id="Form1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog">
+                  <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">Add New Bill</h5>
                       </div> 
                       <form id="BillAdd">
+                        <input type="hidden" id="myitemjson" name="myitemjson"/>
                         <div class="col-md-12">
                         <div class="row">
                           <div class="col-md-6 pr-1">
@@ -166,7 +174,26 @@ if (!isset($_SESSION['loged_user'])) {
                               <input type="text" class="form-control qty" id="af_bal" name="af_bal" required readonly>
                             </div>
                           </div>
+                           <div class="col-md-2 pr-1">
+                            <div class="form-group">
+                               <button type="button" id="addbtn" name="addbtn" class="btn btn-secondary btn-round">Add</button>
+                            </div>
+                          </div>
                         </div>
+                        <div class="table-responsive">
+                          <table id="example" class="table table-bordered table-striped" style="width:100%">
+                              <thead>
+                                <tr>
+                                  <th>ITEM</th>
+                                  <th>TOTAL</th>
+                                  <th>SALE</th>
+                                  <th>FREE</th>
+                                  <th>AF BAL</th>  
+                                  <th>DELETE</th>  
+                                </tr>
+                              </thead>
+                          </table>
+                        </div>           
                         <!-- end -->
 
                         <div class="row">
@@ -270,7 +297,7 @@ if (!isset($_SESSION['loged_user'])) {
   </div>
   
   <!--   Core JS Files   -->
-  <script src="assets/js/core/jquery.min.js"></script>
+  <!-- <script src="assets/js/core/jquery.min.js"></script> -->
   <script src="assets/js/core/popper.min.js"></script>
   <script src="assets/js/core/bootstrap.min.js"></script>
   <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
@@ -417,6 +444,69 @@ $(function () {
 
   });
 ///////////////////////////////////////////////////////////////////////
+
+  ///////////////  Add Row
+  $(document).ready(function() {
+      $('#example').dataTable();
+      $('#addbtn').click(addrow);
+  });
+
+ ///////////////  Add Row
+  function addrow() {
+
+    // var amountAMT = 0;
+
+      $('#example').dataTable().fnAddData( [
+          $('#item option:selected').text(),
+          $('#total').val(),
+          $('#sale').val(),
+          $('#free').val(),
+          $('#af_bal').val(),"<button class='btn-edit' id='DeleteButton'>Delete</button>" ] );
+
+      $('#item').val("")
+      $('#total').val("")
+      $('#sale').val("")
+      $('#free').val("")
+      $('#af_bal').val("")
+      
+      reCalulate();
+     
+    }
+
+   /////////// Calulate Row Count
+   function reCalulate(){
+
+      var array=[];
+
+      var table = $("#example");
+
+      table.find('tr:gt(0)').each(function (i) {
+
+      var $tds = $(this).find('td'),
+      item = $tds.eq(0).text();
+      total = $tds.eq(1).text();
+      sale = $tds.eq(2).text();
+      free = $tds.eq(3).text();
+      af_bal = $tds.eq(4).text();
+
+
+      //alert(item_code);
+      var z={"item":item,"total":total,"sale":sale,"free":free,"af_bal":af_bal};
+
+      array.push({item:item,total:total,sale:sale,free:free,af_bal:af_bal});
+
+      });
+      console.log(JSON.stringify(array, null, 1));
+      $('#myitemjson').val(JSON.stringify(array));
+
+    }
+ 
+    /////////// Remove the Row 
+    $("#example").on("click", "#DeleteButton", function() {
+      $(this).closest("tr").remove();
+      reCalulate();
+   });
+
 
   </script>
 
