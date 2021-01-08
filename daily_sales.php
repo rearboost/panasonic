@@ -118,12 +118,12 @@ if (!isset($_SESSION['loged_user'])) {
                             </div>
                           </div>
 
-                          <div class="col-md-6 pr-1">
+                          <!-- <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>NO. OF ITEMS</label>
                               <input type="text" class="form-control" placeholder="XXX" name="item_num" id="item_num" required disabled>
                             </div>
-                          </div>
+                          </div> -->
                         </div>
 
                          <!-- this area depends on the no of select items --> 
@@ -131,7 +131,7 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-4 pr-1">
                             <div class="form-group">
                               <label>ITEM</label>
-                              <select class="form-control form-selectBox" id="item" name="item" required>
+                              <select class="form-control form-selectBox" id="item" name="item">
                                   <option value="default">--Select Item--</option>
                                   <?php
                                 
@@ -153,25 +153,25 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-2 pr-1">
                             <div class="form-group">
                               <label>TOTAL</label>
-                              <input type="text" class="form-control" id="total" name="total" required>
+                              <input type="text" class="form-control" id="total" name="total">
                             </div>
                           </div>
                           <div class="col-md-2 pr-1">
                             <div class="form-group">
                               <label>SALE</label>
-                              <input type="text" class="form-control" id="sale" name="sale" required>
+                              <input type="text" class="form-control" id="sale" name="sale">
                             </div>
                           </div>
                           <div class="col-md-2 pr-1">
                             <div class="form-group">
                               <label>FREE</label>
-                              <input type="text" class="form-control" id="free" name="free" required>
+                              <input type="text" class="form-control" id="free" name="free">
                             </div>
                           </div>
                           <div class="col-md-2 pr-1">
                             <div class="form-group">
                               <label>AF BAL</label>
-                              <input type="text" class="form-control" id="af_bal" name="af_bal" required readonly>
+                              <input type="text" class="form-control" id="af_bal" name="af_bal" readonly>
                             </div>
                           </div>
                            <div class="col-md-2 pr-1">
