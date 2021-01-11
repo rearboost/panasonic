@@ -73,7 +73,7 @@ input[type="number"] {
             <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <input type="hidden" id="getId"  value="<?php echo $data['item_id'] ?>" required>
+                  <input type="hidden" id="getId"  value="<?php echo $data['item_id'] ?>" name="item_id1" required>
 
                   <label>ITEM CATEGORY</label>
                     <select class="form-control form-selectBox" name = "category1" required>
@@ -107,13 +107,13 @@ input[type="number"] {
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>BATCH NO</label>
-                  <input type="text" class="form-control" placeholder="Batch No" name = "batch_no1" value="<?php echo $data['batch_no'] ?>" required>
+                  <input type="text" class="form-control" placeholder="Batch No" name="batch_no1" value="<?php echo $data['batch_no'] ?>" required>
                 </div>
               </div>
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>SIZE</label>
-                  <input type="text" class="form-control" placeholder="Size" name = "size1" value="<?php echo $data['size'] ?>" required>
+                  <input type="text" class="form-control" placeholder="Size" name="size1" value="<?php echo $data['size'] ?>" required>
                 </div>
               </div>
             </div>
@@ -122,13 +122,13 @@ input[type="number"] {
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>PURCHASE COST</label>
-                  <input type="text" class="form-control" placeholder="LKR" name = "purchase1" value="<?php echo $data['purchase_cost'] ?>" required>
+                  <input type="text" class="form-control" placeholder="LKR" name="purchase1" value="<?php echo $data['purchase_cost'] ?>" required>
                 </div>
               </div>
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>SALE COST</label>
-                  <input type="text" class="form-control" placeholder="LKR" name = "sale1" value="<?php echo $data['sales_cost'] ?>" required>
+                  <input type="text" class="form-control" placeholder="LKR" name="sale1" value="<?php echo $data['sales_cost'] ?>" required>
                 </div>
               </div>
             </div>
@@ -137,13 +137,13 @@ input[type="number"] {
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>STOCK IN</label>
-                  <input type="Number" class="form-control" placeholder="Quantity (Number)" name = "stock_in1" id="stock_in1" required>
+                  <input type="Number" class="form-control" placeholder="Quantity (Number)" name="stock_in1" id="stock_in1" required>
                 </div>
               </div>
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>WAREHOUSE STOCK</label>
-                  <input type="text" class="form-control" value="<?php echo $data['warehouse_stock'] ?>" name = "warehouse_stock1" id="warehouse_stock1" required>
+                  <input type="text" class="form-control" value="<?php echo $data['warehouse_stock'] ?>" name="warehouse_stock1" id="warehouse_stock1" required>
                 </div>
               </div>
             </div>
@@ -186,7 +186,7 @@ $('#stock_in1').on('keyup',function(){
     method:"POST",
     data:{id:item_id1},
     success: function (response) {
-
+      alert(warehouse_stock)
       var obj = JSON.parse(response);
 
       var warehouse_stock      =  obj.warehouse_stock

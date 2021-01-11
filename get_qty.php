@@ -5,7 +5,7 @@
 
 	$item_id = $_POST['id'];
 
-	$get_stock = mysqli_query($con,"SELECT warehouse_stock FROM Item WHERE item_id = '$item_id'");
+	$get_stock = mysqli_query($con,"SELECT warehouse_stock FROM item WHERE item_id = $item_id");
 
 	$data = mysqli_fetch_array($get_stock); 
 

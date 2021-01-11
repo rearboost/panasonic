@@ -117,13 +117,6 @@ if (!isset($_SESSION['loged_user'])) {
                               <input type="date" class="form-control" id="b_date" name="b_date" required>
                             </div>
                           </div>
-
-                          <!-- <div class="col-md-6 pr-1">
-                            <div class="form-group">
-                              <label>NO. OF ITEMS</label>
-                              <input type="text" class="form-control" placeholder="XXX" name="item_num" id="item_num" required disabled>
-                            </div>
-                          </div> -->
                         </div>
 
                          <!-- this area depends on the no of select items --> 
@@ -153,7 +146,7 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-2 pr-1">
                             <div class="form-group">
                               <label>TOTAL</label>
-                              <input type="text" class="form-control" id="total" name="total">
+                              <input type="text" class="form-control" id="total" name="total" disabled>
                             </div>
                           </div>
                           <div class="col-md-2 pr-1">
@@ -334,7 +327,22 @@ $('#b_date').on('change', function() {
 
 ////////////////////Fetch total when item changed/////////////////////////////
 $('#item').on('change', function() {
-      
+
+  var item  = $('#item').val();
+
+  $.ajax({
+    url: 'get_total.php',
+    method:"POST",
+    data:{item:item},
+    success: function (response) {
+
+      var obj = JSON.parse(response);
+
+      var total_items     =  obj.total_items
+
+       $('#total').val(total_items);
+    }
+  });
 });
 
 ////////Calculate free items & af bal according to sale amount///////////////
@@ -514,12 +522,8 @@ $(function () {
 
 
   </script>
-
 </body>
-
 </html>
-
-
 <?php
 mysqli_close($con);
 }

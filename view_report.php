@@ -8,7 +8,6 @@
 ?>
   <table class="table" id="get_data1">
     <thead class="text-primary">
-      <th>                    CATEGORY  </th>
       <th>                    ITEM      </th>
       <th class="text-right"> TOTAL    </th>
       <th class="text-right"> SALE      </th>
@@ -23,7 +22,7 @@
 
     $cdate = $_POST['cdate'];
 
-    $query = mysqli_query($con,"SELECT  * FROM trxn WHERE create_date = '$cdate' ");
+    $query = mysqli_query($con,"SELECT  * FROM bill INNER JOIN sale_items ON bill.bill_no = sale_items.bill_no WHERE bill.b_date = '$cdate'");
        
     $numRows = mysqli_num_rows($query);
 
@@ -32,7 +31,6 @@
 ?>
      
       <tr>
-        <td>                    <?php echo $row['category'] ?>  </td>
         <td>                    <?php echo $row['item'] ?>      </td>
         <td class="text-right"> <?php echo $row['total'] ?>      </td>
         <td class="text-right"> <?php echo $row['sale'] ?>      </td>

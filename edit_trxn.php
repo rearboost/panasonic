@@ -99,13 +99,11 @@
             <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <label>OLD WAREHOUSE STOCK</label>
                   <input type="hidden" class="form-control stock_out" id="warehouse1" name = "warehouse1" value="<?php  echo $data['warehouse_stock']?>" >
                 </div>
               </div>
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <label>NEW WAREHOUSE STOCK</label>
                   <input type="hidden" class="form-control stock_out" id="warehouse_now" name = "warehouse_now" >
                 </div>
               </div>

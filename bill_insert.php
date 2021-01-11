@@ -35,6 +35,8 @@ if(isset($_POST['submit'])){
       $af_bal=$x[$i]['af_bal'];
 
       $insert_item = mysqli_query($con,"INSERT INTO sale_items (bill_no,item,total,sale,free,af_bal) VALUES ('$bill_no','$item',$total,$sale,$free,$af_bal)");
+
+      $update_lorrystock = mysqli_query($con,"UPDATE item SET lorry_stock = '$af_bal' WHERE item_name='$item'");
   }
 } 
 

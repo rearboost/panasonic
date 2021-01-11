@@ -81,7 +81,7 @@ mysqli_select_db($con,DB_NAME);
                           <div class="col-md-8 pr-1">
                             <div class="form-group">
                               <label>SALES</label>
-                              <input type="text" class="form-control cal_profit" placeholder="LKR" name="sales" id="sales" required>
+                              <input type="text" class="form-control" placeholder="LKR" name="sales" id="sale" required readonly>
                             </div>
                           </div>
                         </div>
@@ -227,18 +227,19 @@ mysqli_select_db($con,DB_NAME);
 
   $('#cdate').on('change', function() {
     
-    //var cdate = $('#cdate').val();
-    alert(this.value)
+    var cdate = $('#cdate').val();
 
     $.ajax({
       url: 'get_sale.php',
       method:"POST",
-      data:{cdate:this.value},
+      data:{cdate:cdate},
       success: function (response) {
+        
         var obj = JSON.parse(response);
         var sale_amt1  =  obj.sale_amt
-
-        $('#sales').val(sale_amt1.toFixed(2));
+        //alert(sale_amt1)
+ 
+        $('#sale').val(sale_amt1);
       }
     });  
   });
@@ -296,7 +297,7 @@ mysqli_select_db($con,DB_NAME);
   }); 
 
   function cal_profit(){
-    var income = $('#sales').val();
+    var income = $('#sale').val();
     var expenses = $('#expense').val();
     var pro = Number(income)-Number(expenses);
 
