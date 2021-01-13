@@ -186,7 +186,7 @@ $('#stock_in1').on('keyup',function(){
     method:"POST",
     data:{id:item_id1},
     success: function (response) {
-      alert(warehouse_stock)
+   
       var obj = JSON.parse(response);
 
       var warehouse_stock      =  obj.warehouse_stock
