@@ -8,11 +8,12 @@
 ?>
   <table class="table" id="get_data1">
     <thead class="text-primary">
-      <th>                    ITEM      </th>
+      <th>                    BILL #   </th>
+      <th>                    ITEM     </th>
       <th class="text-right"> TOTAL    </th>
-      <th class="text-right"> SALE      </th>
-      <th class="text-right"> FREE      </th>
-      <th class="text-right"> AF BAL    </th>
+      <th class="text-right"> SALE     </th>
+      <th class="text-right"> FREE     </th>
+      <th class="text-right"> AF BAL   </th>
     </thead>
     <tbody>
 
@@ -31,6 +32,7 @@
 ?>
      
       <tr>
+        <td>                    <?php echo $row['bill_no'] ?>      </td>
         <td>                    <?php echo $row['item'] ?>      </td>
         <td class="text-right"> <?php echo $row['total'] ?>      </td>
         <td class="text-right"> <?php echo $row['sale'] ?>      </td>
