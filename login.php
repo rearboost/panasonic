@@ -46,7 +46,7 @@ include("db_config.php");
 
 <html lang = "en">
 <head>
-      <title>Poli App - Login</title>
+      <title>Shanaka Ligth House - Login</title>
       <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
       <!-- <link rel="stylesheet" href="css/login.css"> -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>            
