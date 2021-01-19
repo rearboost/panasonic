@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2021 at 07:20 PM
+-- Generation Time: Jan 19, 2021 at 07:36 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -42,7 +42,9 @@ CREATE TABLE `bill` (
 
 INSERT INTO `bill` (`B_id`, `bill_no`, `shop`, `b_date`, `cash`, `credit`, `cheque`) VALUES
 (1, '0001', 'shop1', '2021-01-02', 2000.00, 0.00, 500.00),
-(2, '0002', 'shop2', '2021-01-02', 2500.00, 0.00, 0.00);
+(2, '0002', 'shop2', '2021-01-02', 2500.00, 0.00, 0.00),
+(3, '0003', 'shop1', '2021-01-12', 650.00, 1000.00, 0.00),
+(4, '0004', 'shop3', '2021-01-12', 350.00, 0.00, 0.00);
 
 -- --------------------------------------------------------
 
@@ -90,10 +92,11 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`item_id`, `category`, `item_name`, `batch_no`, `size`, `purchase_cost`, `sales_cost`, `warehouse_stock`, `lorry_stock`) VALUES
-(1, 'MANGANESE', 'R6NT/1B12', '1', 'AA', 100.00, 110.00, 120, 80),
-(2, 'CHARGERS', 'R6NT/1B123S', '3', 'AAAA', 160.00, 180.00, 70, 63),
-(3, 'ALKALINE', 'LR6T/4B', '2', 'AAA', 100.00, 125.00, 50, 35),
-(4, 'ALKALINE', 'LR6T2B', '2', 'AAA', 100.00, 175.00, 750, 250);
+(1, 'MANGANESE', 'R6NT/1B12', '1', 'AA', 100.00, 110.00, 20, 135),
+(2, 'CHARGERS', 'R6NT/1B123S', '3', 'AAAA', 160.00, 180.00, 70, 83),
+(3, 'ALKALINE', 'LR6T/4B', '2', 'AAA', 100.00, 125.00, 45, 50),
+(4, 'ALKALINE', 'LR6T2B', '2', 'AAA', 100.00, 175.00, 750, 250),
+(5, 'EVOLTA', 'MD/W12', '3', 'AA', 45.00, 75.00, 1000, 0);
 
 -- --------------------------------------------------------
 
@@ -140,7 +143,9 @@ INSERT INTO `sale_items` (`sale_id`, `bill_no`, `item`, `total`, `sale`, `free`,
 (1, '0001', 'R6NT/1B12', 125, 12, 3, 110),
 (2, '0001', 'R6NT/1B123S', 70, 6, 1, 63),
 (3, '0002', 'LR6T/4B', 50, 12, 3, 35),
-(4, '0002', 'R6NT/1B12', 110, 24, 6, 80);
+(4, '0002', 'R6NT/1B12', 110, 24, 6, 80),
+(5, '0003', 'R6NT/1B12', 180, 24, 6, 150),
+(6, '0004', 'R6NT/1B12', 150, 12, 3, 135);
 
 -- --------------------------------------------------------
 
@@ -167,7 +172,12 @@ INSERT INTO `trxn` (`trxn_id`, `category`, `item`, `size`, `load_bal`, `bf_bal`,
 (1, 'MANGANESE', 'R6NT/1B12', 'AA', 25, 100, 125, '2021-01-02'),
 (2, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 70, 0, 70, '2021-01-02'),
 (3, 'ALKALINE', 'LR6T/4B', 'AAA', 50, 0, 50, '2021-01-02'),
-(4, 'ALKALINE', 'LR6T2B', 'AAA', 100, 150, 250, '2021-01-02');
+(4, 'ALKALINE', 'LR6T2B', 'AAA', 100, 150, 250, '2021-01-02'),
+(5, 'MANGANESE', 'R6NT/1B12', 'AA', 100, 80, 180, '2021-01-12'),
+(6, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 20, 63, 83, '2021-01-12'),
+(7, 'ALKALINE', 'LR6T/4B', 'AAA', 15, 35, 50, '2021-01-12'),
+(8, 'ALKALINE', 'LR6T2B', 'AAA', 0, 250, 0, '2021-01-12'),
+(9, 'EVOLTA', 'MD/W12', 'AA', 0, 0, 0, '2021-01-12');
 
 -- --------------------------------------------------------
 
@@ -242,7 +252,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `B_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `B_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `category`
 --
@@ -252,7 +262,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `profit`
 --
@@ -262,12 +272,12 @@ ALTER TABLE `profit`
 -- AUTO_INCREMENT for table `sale_items`
 --
 ALTER TABLE `sale_items`
-  MODIFY `sale_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `sale_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `trxn`
 --
 ALTER TABLE `trxn`
-  MODIFY `trxn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `trxn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `user`
 --

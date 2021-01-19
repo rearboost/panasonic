@@ -11,10 +11,10 @@
 
 	$warehouse_stock 	= $data['warehouse_stock'];
 
-	$myObj->warehouse_stock  = $warehouse_stock;
+	// $myObj->warehouse_stock  = $warehouse_stock;
 
-	$myJSON = json_encode($myObj);
+	// $myJSON = json_encode($myObj);
 
-	echo $myJSON;
+	echo $warehouse_stock;
 
 ?>

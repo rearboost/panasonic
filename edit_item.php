@@ -176,27 +176,23 @@ input[type="number"] {
 ////////////////////New Warehouse stock////////////////////////////// 
 
 $('#stock_in1').on('keyup',function(){
-
-  var stock     = $('#stock_in1').val();
+  
   //////////
   var item_id1 = document.getElementById('getId').value;
-
+ 
   $.ajax({
     url: 'get_qty.php',
     method:"POST",
     data:{id:item_id1},
     success: function (response) {
    
-      var obj = JSON.parse(response);
-
-      var warehouse_stock      =  obj.warehouse_stock
+      var stock     = $('#stock_in1').val();
       // new warehouse stock = previous warehouse stock + stock in
-      warehouse_stock  = Number(warehouse_stock ) + Number(stock);
+      warehouse_stock  = Number(response) + Number(stock);
         
       $('#warehouse_stock1').val(warehouse_stock);
     }
   });
-
 })
 
 ///////////////////////////////////////////////////
