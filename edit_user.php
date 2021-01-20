@@ -17,9 +17,9 @@
 
     }else{
         $row_1 = mysqli_fetch_assoc($get_user);
-        $id = $row_1['id'];
+        $id = $row_1['user_id'];
 
-        $user = "UPDATE user SET username = '$new_user' WHERE id = $id ";
+        $user = "UPDATE user SET username = '$new_user' WHERE user_id = $id ";
         mysqli_query($con,$user);
         echo 1;
         }
@@ -42,9 +42,9 @@
 
         }else{
             $row = mysqli_fetch_assoc($get_pw);
-            $id = $row['id'];
+            $id = $row['user_id'];
         
-            $pw = "UPDATE user SET password = '$new_pw' WHERE id = $id ";
+            $pw = "UPDATE user SET password = '$new_pw' WHERE user_id = $id ";
             mysqli_query($con,$pw);
 
             echo 1; 
