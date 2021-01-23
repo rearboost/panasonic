@@ -22,18 +22,19 @@
         $purchase1         = $_POST['purchase1'];
         $sale1             = $_POST['sale1'];
         $warehouse_stock1  = $_POST['warehouse_stock1'];
-        $lorry_stock1      = $_POST['lorry_stock1'];
+        $free_stock1       = $_POST['free_stock1'];
+        //$lorry_stock1      = $_POST['lorry_stock1'];
       
         $edit = mysqli_query($con,"UPDATE item 
-                                          SET category        ='$category1',
-                                              item_name       ='$item1',
-                                              batch_no        ='$batch_no1',
-                                              size            ='$size1',
-                                              purchase_cost   ='$purchase1',
-                                              sales_cost      ='$sale1',
-                                              warehouse_stock ='$warehouse_stock1',
-                                              lorry_stock     ='$lorry_stock1'
-                                          WHERE item_id=$item_id1");
+                                    SET category        ='$category1',
+                                        item_name       ='$item1',
+                                        batch_no        ='$batch_no1',
+                                        size            ='$size1',
+                                        purchase_cost   ='$purchase1',
+                                        sales_cost      ='$sale1',
+                                        warehouse_stock ='$warehouse_stock1',
+                                        free_stock      ='$free_stock1'
+                                    WHERE item_id=$item_id1");
       
         if($edit)
         {
@@ -121,13 +122,13 @@ input[type="number"] {
             <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <label>PURCHASE COST</label>
+                  <label>PURCHASE PRICE</label>
                   <input type="text" class="form-control" placeholder="LKR" name="purchase1" value="<?php echo $data['purchase_cost'] ?>" required>
                 </div>
               </div>
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <label>SALE COST</label>
+                  <label>SALE PRICE</label>
                   <input type="text" class="form-control" placeholder="LKR" name="sale1" value="<?php echo $data['sales_cost'] ?>" required>
                 </div>
               </div>
@@ -136,13 +137,13 @@ input[type="number"] {
             <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <label>STOCK IN</label>
-                  <input type="Number" class="form-control" placeholder="Quantity (Number)" name="stock_in1" id="stock_in1" required>
+                  <label>STOCK IN [SALE]</label>
+                  <input type="Number" class="form-control new_stock" placeholder="Quantity (Number)" name="stock_in1" id="stock_in1" required>
                 </div>
               </div>
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <label>WAREHOUSE STOCK</label>
+                  <label>WAREHOUSE SALE STOCK</label>
                   <input type="text" class="form-control" value="<?php echo $data['warehouse_stock'] ?>" name="warehouse_stock1" id="warehouse_stock1" required>
                 </div>
               </div>
@@ -151,11 +152,26 @@ input[type="number"] {
             <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <label>LORRY STOCK</label>
-                  <input type="text" class="form-control" placeholder="Quantity" name = "lorry_stock1" value="<?php echo $data['lorry_stock'] ?>" readonly required>
+                  <label>STOCK IN [FREE]</label>
+                  <input type="text" class="form-control new_stock" placeholder="Quantity (Number)" name="stock_free1" id="stock_free1" required>
+                </div>
+              </div>
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>WAREHOUSE FREE STOCK</label>
+                  <input type="text" class="form-control" value="<?php echo $data['free_stock'] ?>" name = "free_stock1" id="free_stock1" required>
                 </div>
               </div>
             </div>
+
+            <!-- <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>LORRY STOCK</label>
+                  <input type="text" class="form-control" placeholder="Quantity" name = "lorry_stock1" value="<?php //echo $data['lorry_stock'] ?>" readonly required>
+                </div>
+              </div>
+            </div> -->
 
             <div class="row">
               <div class="update ml-auto mr-auto">
@@ -173,11 +189,10 @@ input[type="number"] {
 
 
 <script>
-////////////////////New Warehouse stock////////////////////////////// 
+////////////////////New Warehouse sale stock////////////////////////////// 
 
 $('#stock_in1').on('keyup',function(){
   
-  //////////
   var item_id1 = document.getElementById('getId').value;
  
   $.ajax({
@@ -188,9 +203,29 @@ $('#stock_in1').on('keyup',function(){
    
       var stock     = $('#stock_in1').val();
       // new warehouse stock = previous warehouse stock + stock in
-      warehouse_stock  = Number(response) + Number(stock);
+      var warehouse_stock  = Number(response) + Number(stock);
         
       $('#warehouse_stock1').val(warehouse_stock);
+    }
+  });
+})
+////////////////////New Warehouse free stock////////////////////////////// 
+
+$('#stock_free1').on('keyup',function(){
+  
+  var item_id1 = document.getElementById('getId').value;
+ 
+  $.ajax({
+    url: 'get_free.php',
+    method:"POST",
+    data:{id:item_id1},
+    success: function (response) {
+   
+      var stock1     = $('#stock_free1').val();
+      // new warehouse stock = previous warehouse stock + stock in
+      var warehouse_free  = Number(response) + Number(stock1);
+        
+      $('#free_stock1').val(warehouse_free);
     }
   });
 })

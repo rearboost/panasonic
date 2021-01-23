@@ -117,13 +117,13 @@ mysqli_select_db($con,DB_NAME);
                         <div class="row">
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
-                              <label>PURCHASE COST</label>
+                              <label>PURCHASE PRICE</label>
                               <input type="text" class="form-control" placeholder="LKR" name = "purchase" required>
                             </div>
                           </div>
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
-                              <label>SALE COST</label>
+                              <label>SALE PRICE</label>
                               <input type="text" class="form-control" placeholder="LKR" name = "sale" required>
                             </div>
                           </div>
@@ -132,22 +132,31 @@ mysqli_select_db($con,DB_NAME);
                         <div class="row">
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
-                              <label>STOCK IN</label>
+                              <label>STOCK IN [SALE]</label>
                               <input type="text" class="form-control" placeholder="Quantity" name = "stock_in" id="stock_in" required>
                             </div>
                           </div>
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
-                              <label>WAREHOUSE STOCK</label>
+                              <label>WAREHOUSE SALE STOCK</label>
                               <input type="text" class="form-control" placeholder="Quantity" name = "warehouse_stock" id="warehouse_stock" required>
                             </div>
                           </div>
-                          <!-- <div class="col-md-6 pr-1">
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 pr-1">
                             <div class="form-group">
-                              <label>LORRY STOCK</label>
-                              <input type="text" class="form-control" placeholder="Quantity" name = "lorry_stock">
+                              <label>STOCK IN [FREE]</label>
+                              <input type="text" class="form-control" placeholder="Quantity" name = "stock_free" id="stock_free" required>
                             </div>
-                          </div> -->
+                          </div>
+                          <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                              <label>WAREHOUSE FREE STOCK</label>
+                              <input type="text" class="form-control" placeholder="Quantity" name = "free_stock" id="free_stock" required>
+                            </div>
+                          </div>
                         </div>
 
                         <div class="row">
@@ -165,9 +174,9 @@ mysqli_select_db($con,DB_NAME);
                                   $purchase         = $_POST['purchase'];
                                   $sale             = $_POST['sale'];
                                   $warehouse_stock  = $_POST['warehouse_stock'];
-                                  // $lorry_stock      = $_POST['lorry_stock'];
+                                  $free_stock       = $_POST['free_stock'];
 
-                                $insert1 = "INSERT INTO item (category,item_name,batch_no,size,purchase_cost,sales_cost,warehouse_stock) VALUES ('$category','$item','$batch_no','$size',$purchase,$sale,$warehouse_stock)";
+                                $insert1 = "INSERT INTO item (category,item_name,batch_no,size,purchase_cost,sales_cost,warehouse_stock,free_stock) VALUES ('$category','$item','$batch_no','$size',$purchase,$sale,$warehouse_stock,$free_stock )";
                                 mysqli_query($con,$insert1);
                                 }
                             ?>
@@ -189,8 +198,10 @@ mysqli_select_db($con,DB_NAME);
                       <th>                     SIZE            </th>
                       <th class="text-right">  PURCHASE PRICE  </th>
                       <th class="text-right">  SALE PRICE      </th>
-                      <th class="text-right">  WAREHOUSE QTY   </th>
-                      <th class="text-right">  LORRY QTY       </th>
+                      <th class="text-right">  WAREHOUSE SALE STOCK  </th>
+                      <th class="text-right">  WAREHOUSE FREE STOCK  </th>
+                      <th class="text-right">  LORRY SALE  </th>
+                      <th class="text-right">  LORRY FREE  </th>
                       <th class="text-center"> EDIT 				   </th>
                       <th class="text-center"> DELETE 			   </th>
                     </thead>
@@ -211,7 +222,9 @@ mysqli_select_db($con,DB_NAME);
                             <td class="text-right"> <?php echo $row['purchase_cost'] ?>   </td>
                             <td class="text-right"> <?php echo $row['sales_cost'] ?>      </td>
                             <td class="text-right"> <?php echo $row['warehouse_stock'] ?> </td>
+                            <td class="text-right"> <?php echo $row['free_stock'] ?>      </td>
                             <td class="text-right"> <?php echo $row['lorry_stock'] ?>     </td>
+                            <td class="text-right"> <?php echo $row['lorry_free_stock'] ?></td>
 
                             <td class="text-center">  
                              <a href="#" onclick="editView('<?php echo $row['item_id']; ?>')" name="edit">
@@ -285,6 +298,14 @@ $('#stock_in').on('keyup',function(){
 
   var stock     = $('#stock_in').val();    
   $('#warehouse_stock').val(Number(stock));
+  
+})
+
+stock_free
+$('#stock_free').on('keyup',function(){
+
+  var stock2     = $('#stock_free').val();    
+  $('#free_stock').val(Number(stock2));
   
 })
 ///////////////////////////////////////////////////

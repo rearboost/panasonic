@@ -84,10 +84,12 @@ if (!isset($_SESSION['loged_user'])) {
                     <thead class="text-primary">
                       <th>                     CATEGORY    </th>
                       <th>                     ITEM        </th>
-                      <th>                     SIZE        </th>
-                      <th>                     BF BAL      </th>
-                      <th>                     LOAD      </th>
-                      <th>                     TOTAL      </th>
+                      <th>                     BF SALE BAL </th>
+                      <th>                     SALE LOAD   </th>
+                      <th>                     TOTAL SALE  </th>
+                      <th>                     BF FREE BAL </th>
+                      <th>                     FREE LOAD   </th>
+                      <th>                     TOTAL FREE  </th>
                       <th>                     CREATE DATE </th>
                       <th class="text-center"> EDIT        </th>
                       <th class="text-center"> DELETE      </th>
@@ -112,10 +114,12 @@ if (!isset($_SESSION['loged_user'])) {
                           <tr>
                             <td> <?php echo $row['category'] ?>     </td>
                             <td> <?php echo $row['item'] ?>         </td>
-                            <td> <?php echo $row['size'] ?>         </td>
                             <td> <?php echo $row['bf_bal'] ?>       </td>
-                            <td> <?php echo $row['load_bal'] ?>       </td>
-                            <td> <?php echo $row['total'] ?>       </td>
+                            <td> <?php echo $row['load_bal'] ?>     </td>
+                            <td> <?php echo $row['total'] ?>        </td>
+                            <td> <?php echo $row['bf_free'] ?>      </td>
+                            <td> <?php echo $row['free_load'] ?>    </td>
+                            <td> <?php echo $row['tot_free'] ?>     </td>
                             <td> <?php echo $row['create_date'] ?>  </td>
 
                             <td class="text-center">  

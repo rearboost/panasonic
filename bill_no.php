@@ -7,7 +7,7 @@ mysqli_select_db($con, DB_NAME);
 
 
 	$getno = mysqli_query($con,"SELECT bill.bill_no  FROM bill ORDER BY bill.bill_no DESC LIMIT 1");		
-	$bill_no = "0000";
+	$bill_no = "00000000";
 	while ($row = mysqli_fetch_assoc($getno)) {
 		
 		$bill_no = substr($row['bill_no'], 1); 

@@ -81,31 +81,7 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>SHOP</label>
-                                <select class="form-control form-selectBox" name="shop" id="shop" required>
-                                  <option value="default">--Select Shop--</option>
-                                    <option value = "shop1">Shop 1</option>
-                                    <option value = "shop2">Shop 2</option>
-                                    <option value = "shop3">Shop 3</option>
-                                    <option value = "shop4">Shop 4</option>
-                                    <option value = "shop5">Shop 5</option>
-                                    <option value = "shop6">Shop 6</option>
-                                    <option value = "shop7">Shop 7</option>
-                                    <option value = "shop8">Shop 8</option>
-                                    <option value = "shop9">Shop 9</option>
-                                    <option value = "shop10">Shop 10</option>
-                                    <option value = "shop11">Shop 11</option>
-                                    <option value = "shop12">Shop 12</option>
-                                    <option value = "shop13">Shop 13</option>
-                                    <option value = "shop14">Shop 14</option>
-                                    <option value = "shop15">Shop 15</option>
-                                    <option value = "shop16">Shop 16</option>
-                                </select>
-                            </div>
-                          </div>
-                          <div class="col-md-6 pr-1">
-                            <div class="form-group">
-                              <label>BILL #</label>
-                              <input type="text" class="form-control" placeholder="" name="bill_no" id="bill_no" required readonly>
+                              <input type="text" class="form-control" id="shop" name="shop">
                             </div>
                           </div>
                         </div>
@@ -117,9 +93,14 @@ if (!isset($_SESSION['loged_user'])) {
                               <input type="date" class="form-control" id="b_date" name="b_date" required>
                             </div>
                           </div>
+                          <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                              <label>BILL #</label>
+                              <input type="text" class="form-control" placeholder="" name="bill_no" id="bill_no" required readonly>
+                            </div>
+                          </div>
                         </div>
 
-                         <!-- this area depends on the no of select items --> 
                         <div class="row">
                           <div class="col-md-4 pr-1">
                             <div class="form-group">
@@ -167,6 +148,58 @@ if (!isset($_SESSION['loged_user'])) {
                               <input type="text" class="form-control" id="af_bal" name="af_bal" readonly>
                             </div>
                           </div>
+
+                            <div class="col-md-1 pr-1">
+                              <div class="form-group">
+                                <label>tot sale</label>
+                                <input type="text" class="form-control" id="tot_sale" name="tot_sale" readonly>
+                              </div>
+                            </div>
+                            <div class="col-md-1 pr-1">
+                              <div class="form-group">
+                                <label>tot free</label>
+                                <input type="text" class="form-control" id="tot_free" name="tot_free" readonly>
+                              </div>
+                            </div>
+                            <div class="col-md-1 pr-1">
+                              <div class="form-group">
+                                <label>purchase</label>
+                                <input type="text" class="form-control" id="purchase" name="purchase" readonly>
+                              </div>
+                            </div>
+                            <div class="col-md-1 pr-1">
+                              <div class="form-group">
+                                <label>sales</label>
+                                <input type="text" class="form-control" id="sales" name="sales" readonly>
+                              </div>
+                            </div>
+                            <div class="col-md-1 pr-1">
+                              <div class="form-group">
+                                <label>af sale</label>
+                                <input type="text" class="form-control" id="af_sale" name="af_sale" readonly>
+                              </div>
+                            </div>
+                            <div class="col-md-1 pr-1">
+                              <div class="form-group">
+                                <label>af free</label>
+                                <input type="text" class="form-control" id="af_free" name="af_free" readonly>
+                              </div>
+                            </div>
+                            <div class="col-md-2 pr-1">
+                              <div class="form-group">
+                                <label>PURCHASE</label>
+                                <input type="text" class="form-control" id="tot_pur" name="tot_pur" readonly>
+                              </div>
+                            </div>
+                            <div class="col-md-2 pr-1">
+                              <div class="form-group">
+                                <label>SALE</label>
+                                <input type="text" class="form-control" id="tot_sales" name="tot_sales" readonly>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
                            <div class="col-md-2 pr-1">
                             <div class="form-group">
                                <button type="button" id="addbtn" name="addbtn" class="btn btn-secondary btn-round">Add</button>
@@ -192,23 +225,68 @@ if (!isset($_SESSION['loged_user'])) {
                         <div class="row">
                           <div class="col-md-4 pr-1">
                             <div class="form-group">
+                              <label>Bill Amount</label>
+                              <input type="text" class="form-control" placeholder="LKR" name="bill_amt" id="bill_amt" required>
+                            </div>
+                          </div>
+                          <div class="col-md-4 pr-1">
+                            <div class="form-group">
+                              <label>Discount</label>
+                              <input type="text" class="form-control" placeholder="LKR" name="discount" id="discount" required>
+                            </div>
+                          </div>
+                          <div class="col-md-4 pr-1">
+                            <div class="form-group">
+                              <label>Discounted Amount</label>
+                              <input type="text" class="form-control" placeholder="LKR" name="dis_amt" id="dis_amt" required readonly>
+                            </div>
+                          </div>
+                        </div>
+
+                         <div class="row">
+                          <div class="col-md-4 pr-1">
+                            <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Purchase Cost" name="pur_cost" id="pur_cost" required>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4 pr-1">
+                            <div class="form-group">
                               <label>CASH</label>
-                              <input type="text" class="form-control" placeholder="LKR" name = "cash" required>
+                              <input type="text" class="form-control" placeholder="LKR" name="cash" required>
                             </div>
                           </div>
                           <div class="col-md-4 pr-1">
                             <div class="form-group">
                               <label>CREDIT</label>
-                              <input type="text" class="form-control" placeholder="LKR" name = "credit" required>
+                              <input type="text" class="form-control" placeholder="LKR" name="credit" required>
                             </div>
                           </div>
                           <div class="col-md-4 pr-1">
                             <div class="form-group">
                               <label>CHEQUE</label>
-                              <input type="text" class="form-control" placeholder="LKR" name = "cheque" required>
+                              <input type="text" class="form-control" placeholder="LKR" name="cheque" id="cheque" required>
                             </div>
                           </div>
                         </div>
+
+                        <div class="row">
+                          <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                              <label>CHEQUE NO:</label>
+                              <input type="text" class="form-control" placeholder="LKR" name="cheque_no" id="cheque_no" disabled>
+                            </div>
+                          </div>
+                          <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                              <label>CHEQUE VALID DATE</label>
+                              <input type="date" class="form-control" name="cheque_date" id="cheque_date" disabled>
+                            </div>
+                          </div>
+                        </div>
+                        
 
                         <div class="row">
                           <div class="update ml-auto mr-auto">
@@ -305,9 +383,16 @@ if (!isset($_SESSION['loged_user'])) {
   <script>
 
 //////////////////////////////GET NEW BILL NO //////////////////////////////////
-$('#shop').on('change', function() {
+$('#cheque').on('keyup', function() {
 
-  const zeroPad = (num, places) => String(num).padStart(places, '0');
+  $('#cheque_no').prop('disabled', false);
+  $('#cheque_date').prop('disabled', false);
+
+}); 
+
+////////////////////Generate bill no//////////////////////
+$('#b_date').on('change', function() {
+    const zeroPad = (num, places) => String(num).padStart(places, '0');
 
     $.ajax({
       url: 'bill_no.php',
@@ -315,14 +400,9 @@ $('#shop').on('change', function() {
       data:{shop:this.value},
       success:function(response) {//response is value returned from php (for your example it's "bye bye"
         var lastNumber = Number(response.substr(1))+1;
-        $('#bill_no').val(zeroPad(lastNumber, 4));
+        $('#bill_no').val(zeroPad(lastNumber, 8));
       }
-    });
-}); 
-
-////////////////////Fetch Items according to the category//////////////////////
-$('#b_date').on('change', function() {
-      $('#item_num').prop('disabled', false);
+    });   
 });
 
 ////////////////////Fetch total when item changed/////////////////////////////
@@ -338,9 +418,17 @@ $('#item').on('change', function() {
 
       var obj = JSON.parse(response);
 
-      var total_items     =  obj.total_items
+      var total_sale     =  obj.sale_items
+      var total_free     =  obj.free_items
+      var purch_price    =  obj.purch_price
+      var sale_price     =  obj.sale_price
 
-       $('#total').val(total_items);
+       $('#tot_sale').val(total_sale);
+       $('#tot_free').val(total_free);
+       $('#purchase').val(purch_price);
+       $('#sales').val(sale_price);
+
+       $('#total').val(Number(total_sale)+Number(total_free));
     }
   });
 });
@@ -348,9 +436,13 @@ $('#item').on('change', function() {
 ////////Calculate free items & af bal according to sale amount///////////////
 $('#sale').on('keyup', function() {
 
-  var total_qty = $('#total').val();
-  var sale_qty = $('#sale').val();
-  var free = $('#free').val();
+  var total_qty  = $('#total').val();
+  var total_sale = $('#tot_sale').val();
+  var total_free = $('#tot_free').val();
+  var sale_qty   = $('#sale').val();
+  var free       = $('#free').val();
+  var purchase   = $('#purchase').val();
+  var sale       = $('#sales').val();
   var free_qty;
 
   free_qty = (Number(sale_qty)/12)*3;
@@ -358,7 +450,11 @@ $('#sale').on('keyup', function() {
   var after_qty = Number(total_qty) - (Number(sale_qty)+Number(free_qty));
 
   $('#free').val(free_qty);
+  $('#af_sale').val(Number(total_sale)-Number(sale_qty));
+  $('#af_free').val(Number(total_free)-Number(free_qty));
   $('#af_bal').val(after_qty);
+  $('#tot_pur').val(Number(sale_qty)*Number(purchase));
+  $('#tot_sales').val(Number(sale_qty)*Number(sale));
 
 });
 
@@ -367,31 +463,34 @@ $('#free').on('keyup', function() {
 
   var total_qty = $('#total').val();
   var sale_qty = $('#sale').val();
+  var total_free = $('#tot_free').val();
   var free = $('#free').val();
 
   var after_qty = Number(total_qty) - (Number(sale_qty)+Number(free));
 
+  $('#af_free').val(Number(total_free)-Number(free));
   $('#af_bal').val(after_qty);
+
+});
+
+////////Calculate free discounted amoount when discount value enter////////////
+$('#discount').on('keyup', function() {
+
+  var bill_amt1 = $('#bill_amt').val();
+  var discount1 = $('#discount').val();
+
+  var discounted = Number(bill_amt1)-Number(discount1);
+
+  $('#dis_amt').val(discounted);
 
 });
 
 ///////////////////// Form values reset //////////////////////////
 function form_reset(){
   document.getElementById("BillAdd").reset();
+  $('#cheque_no').prop('disabled', true);
+  $('#cheque_date').prop('disabled', true);
 }
-
-// function editView(id){
-
-//   $.ajax({
-//       url:"edit_bill.php",
-//       method:"POST",
-//       data:{"id":id},
-//       success:function(data){
-//         $('#show_view').html(data);
-//         $('#Form2').modal('show');
-//       }
-//     });
-// 
 
 ///////////////////////Delete bill///////////////////////////////
 
@@ -489,6 +588,9 @@ $(function () {
    /////////// Calulate Row Count
    function reCalulate(){
 
+      //need to add above af_sale, af_free, tot_pur, tot_sales text box values as hidden fields to the list view 
+      //need to get sum of the tot_sales to bill_amt text box and sum of the tot_pur to pur_cost text box
+      
       var array=[];
 
       var table = $("#example");

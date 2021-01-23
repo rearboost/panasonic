@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2021 at 07:36 PM
+-- Generation Time: Jan 23, 2021 at 02:32 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -31,20 +31,24 @@ CREATE TABLE `bill` (
   `bill_no` varchar(20) NOT NULL,
   `shop` varchar(100) NOT NULL,
   `b_date` varchar(100) NOT NULL,
+  `bill_amount` double(10,2) NOT NULL DEFAULT '0.00',
+  `discount` double(10,2) NOT NULL DEFAULT '0.00',
+  `discounted_amt` double(10,2) NOT NULL DEFAULT '0.00',
+  `cost` double(10,2) NOT NULL,
   `cash` double(10,2) NOT NULL DEFAULT '0.00',
   `credit` double(10,2) NOT NULL DEFAULT '0.00',
-  `cheque` double(10,2) NOT NULL DEFAULT '0.00'
+  `cheque` double(10,2) NOT NULL DEFAULT '0.00',
+  `cheque_no` varchar(25) NOT NULL,
+  `cheque_date` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bill`
 --
 
-INSERT INTO `bill` (`B_id`, `bill_no`, `shop`, `b_date`, `cash`, `credit`, `cheque`) VALUES
-(1, '0001', 'shop1', '2021-01-02', 2000.00, 0.00, 500.00),
-(2, '0002', 'shop2', '2021-01-02', 2500.00, 0.00, 0.00),
-(3, '0003', 'shop1', '2021-01-12', 650.00, 1000.00, 0.00),
-(4, '0004', 'shop3', '2021-01-12', 350.00, 0.00, 0.00);
+INSERT INTO `bill` (`B_id`, `bill_no`, `shop`, `b_date`, `bill_amount`, `discount`, `discounted_amt`, `cost`, `cash`, `credit`, `cheque`, `cheque_no`, `cheque_date`) VALUES
+(4, '0004', 'shop3', '2021-01-12', 350.00, 0.00, 350.00, 250.00, 350.00, 0.00, 0.00, '', ''),
+(5, '00000005', '', '2021-01-12', 1500.00, 150.00, 1350.00, 500.00, 1350.00, 0.00, 0.00, '', '');
 
 -- --------------------------------------------------------
 
@@ -84,19 +88,21 @@ CREATE TABLE `item` (
   `purchase_cost` double(10,2) NOT NULL,
   `sales_cost` double(10,2) NOT NULL,
   `warehouse_stock` int(11) NOT NULL,
-  `lorry_stock` int(11) NOT NULL
+  `free_stock` int(11) NOT NULL,
+  `lorry_stock` int(11) NOT NULL,
+  `lorry_free_stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `item`
 --
 
-INSERT INTO `item` (`item_id`, `category`, `item_name`, `batch_no`, `size`, `purchase_cost`, `sales_cost`, `warehouse_stock`, `lorry_stock`) VALUES
-(1, 'MANGANESE', 'R6NT/1B12', '1', 'AA', 100.00, 110.00, 20, 135),
-(2, 'CHARGERS', 'R6NT/1B123S', '3', 'AAAA', 160.00, 180.00, 70, 83),
-(3, 'ALKALINE', 'LR6T/4B', '2', 'AAA', 100.00, 125.00, 45, 50),
-(4, 'ALKALINE', 'LR6T2B', '2', 'AAA', 100.00, 175.00, 750, 250),
-(5, 'EVOLTA', 'MD/W12', '3', 'AA', 45.00, 75.00, 1000, 0);
+INSERT INTO `item` (`item_id`, `category`, `item_name`, `batch_no`, `size`, `purchase_cost`, `sales_cost`, `warehouse_stock`, `free_stock`, `lorry_stock`, `lorry_free_stock`) VALUES
+(1, 'MANGANESE', 'R6NT/1B12', '1', 'AA', 100.00, 110.00, 985, 75, 150, 15),
+(2, 'CHARGERS', 'R6NT/1B123S', '3', 'AAAA', 160.00, 180.00, 770, 50, 68, 0),
+(3, 'ALKALINE', 'LR6T/4B', '2', 'AAA', 100.00, 125.00, 45, 9, 50, 0),
+(4, 'ALKALINE', 'LR6T2B', '2', 'AAA', 100.00, 175.00, 750, 45, 250, 0),
+(5, 'EVOLTA', 'MD/W12', '3', 'AA', 45.00, 75.00, 1250, 60, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -108,6 +114,7 @@ CREATE TABLE `profit` (
   `P_id` int(11) NOT NULL,
   `cdate` varchar(100) NOT NULL,
   `sales` double(10,2) NOT NULL DEFAULT '0.00',
+  `purchase_cost` double(10,2) NOT NULL,
   `expenses` double(10,2) NOT NULL DEFAULT '0.00',
   `daily_profit` double(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -116,8 +123,8 @@ CREATE TABLE `profit` (
 -- Dumping data for table `profit`
 --
 
-INSERT INTO `profit` (`P_id`, `cdate`, `sales`, `expenses`, `daily_profit`) VALUES
-(1, '2021-01-02', 5000.00, 1000.00, 4000.00);
+INSERT INTO `profit` (`P_id`, `cdate`, `sales`, `purchase_cost`, `expenses`, `daily_profit`) VALUES
+(1, '2021-01-12', 1700.00, 750.00, 350.00, 600.00);
 
 -- --------------------------------------------------------
 
@@ -132,20 +139,18 @@ CREATE TABLE `sale_items` (
   `total` int(11) NOT NULL DEFAULT '0',
   `sale` int(11) NOT NULL DEFAULT '0',
   `free` int(11) NOT NULL DEFAULT '0',
-  `af_bal` int(11) NOT NULL DEFAULT '0'
+  `af_bal` int(11) NOT NULL DEFAULT '0',
+  `total_free` int(11) NOT NULL,
+  `af_free` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sale_items`
 --
 
-INSERT INTO `sale_items` (`sale_id`, `bill_no`, `item`, `total`, `sale`, `free`, `af_bal`) VALUES
-(1, '0001', 'R6NT/1B12', 125, 12, 3, 110),
-(2, '0001', 'R6NT/1B123S', 70, 6, 1, 63),
-(3, '0002', 'LR6T/4B', 50, 12, 3, 35),
-(4, '0002', 'R6NT/1B12', 110, 24, 6, 80),
-(5, '0003', 'R6NT/1B12', 180, 24, 6, 150),
-(6, '0004', 'R6NT/1B12', 150, 12, 3, 135);
+INSERT INTO `sale_items` (`sale_id`, `bill_no`, `item`, `total`, `sale`, `free`, `af_bal`, `total_free`, `af_free`) VALUES
+(6, '0004', 'R6NT/1B12', 150, 12, 3, 135, 0, 0),
+(7, '00000005', 'R6NT/1B123S', 83, 12, 3, 68, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -159,8 +164,11 @@ CREATE TABLE `trxn` (
   `item` text NOT NULL,
   `size` text NOT NULL,
   `load_bal` int(11) NOT NULL,
+  `free_load` int(11) NOT NULL,
   `bf_bal` int(11) NOT NULL,
+  `bf_free` int(11) NOT NULL,
   `total` int(11) NOT NULL,
+  `tot_free` int(11) NOT NULL,
   `create_date` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -168,16 +176,26 @@ CREATE TABLE `trxn` (
 -- Dumping data for table `trxn`
 --
 
-INSERT INTO `trxn` (`trxn_id`, `category`, `item`, `size`, `load_bal`, `bf_bal`, `total`, `create_date`) VALUES
-(1, 'MANGANESE', 'R6NT/1B12', 'AA', 25, 100, 125, '2021-01-02'),
-(2, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 70, 0, 70, '2021-01-02'),
-(3, 'ALKALINE', 'LR6T/4B', 'AAA', 50, 0, 50, '2021-01-02'),
-(4, 'ALKALINE', 'LR6T2B', 'AAA', 100, 150, 250, '2021-01-02'),
-(5, 'MANGANESE', 'R6NT/1B12', 'AA', 100, 80, 180, '2021-01-12'),
-(6, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 20, 63, 83, '2021-01-12'),
-(7, 'ALKALINE', 'LR6T/4B', 'AAA', 15, 35, 50, '2021-01-12'),
-(8, 'ALKALINE', 'LR6T2B', 'AAA', 0, 250, 0, '2021-01-12'),
-(9, 'EVOLTA', 'MD/W12', 'AA', 0, 0, 0, '2021-01-12');
+INSERT INTO `trxn` (`trxn_id`, `category`, `item`, `size`, `load_bal`, `free_load`, `bf_bal`, `bf_free`, `total`, `tot_free`, `create_date`) VALUES
+(1, 'MANGANESE', 'R6NT/1B12', 'AA', 25, 0, 100, 0, 125, 0, '2021-01-02'),
+(2, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 70, 0, 0, 0, 70, 0, '2021-01-02'),
+(3, 'ALKALINE', 'LR6T/4B', 'AAA', 50, 0, 0, 0, 50, 0, '2021-01-02'),
+(4, 'ALKALINE', 'LR6T2B', 'AAA', 100, 0, 150, 0, 250, 0, '2021-01-02'),
+(5, 'MANGANESE', 'R6NT/1B12', 'AA', 100, 0, 80, 0, 180, 0, '2021-01-12'),
+(6, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 20, 0, 63, 0, 83, 0, '2021-01-12'),
+(7, 'ALKALINE', 'LR6T/4B', 'AAA', 15, 0, 35, 0, 50, 0, '2021-01-12'),
+(8, 'ALKALINE', 'LR6T2B', 'AAA', 0, 0, 250, 0, 0, 0, '2021-01-12'),
+(9, 'EVOLTA', 'MD/W12', 'AA', 0, 0, 0, 0, 0, 0, '2021-01-12'),
+(10, 'MANGANESE', 'R6NT/1B12', 'AA', 0, 0, 135, 0, 0, 0, '2021-01-13'),
+(11, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 0, 0, 68, 0, 0, 0, '2021-01-13'),
+(12, 'ALKALINE', 'LR6T/4B', 'AAA', 0, 0, 50, 0, 0, 0, '2021-01-13'),
+(13, 'ALKALINE', 'LR6T2B', 'AAA', 0, 0, 250, 0, 0, 0, '2021-01-13'),
+(14, 'EVOLTA', 'MD/W12', 'AA', 0, 0, 0, 0, 0, 0, '2021-01-13'),
+(15, 'MANGANESE', 'R6NT/1B12', 'AA', 15, 15, 135, 0, 150, 15, '2021-01-14'),
+(16, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 0, 0, 68, 0, 0, 0, '2021-01-14'),
+(17, 'ALKALINE', 'LR6T/4B', 'AAA', 0, 0, 50, 0, 0, 0, '2021-01-14'),
+(18, 'ALKALINE', 'LR6T2B', 'AAA', 0, 0, 250, 0, 0, 0, '2021-01-14'),
+(19, 'EVOLTA', 'MD/W12', 'AA', 0, 0, 0, 0, 0, 0, '2021-01-14');
 
 -- --------------------------------------------------------
 
@@ -252,7 +270,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `B_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `B_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `category`
 --
@@ -272,12 +290,12 @@ ALTER TABLE `profit`
 -- AUTO_INCREMENT for table `sale_items`
 --
 ALTER TABLE `sale_items`
-  MODIFY `sale_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `sale_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `trxn`
 --
 ALTER TABLE `trxn`
-  MODIFY `trxn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `trxn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `user`
 --

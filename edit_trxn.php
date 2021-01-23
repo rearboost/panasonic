@@ -18,21 +18,28 @@
         $category       = $_POST['category1'];
         $item           = $_POST['item1'];
         $size           = $_POST['size1'];
-        $load           = $_POST['load1'];
-        $warehouse_now  = $_POST['warehouse_now'];
         $bf_bal         = $_POST['bf_bal1'];
+        $bf_free        = $_POST['bf_free1'];
+        $load           = $_POST['load1'];
+        $load2          = $_POST['load2'];
         $tot            = $_POST['tot1'];
+        $tot2           = $_POST['tot2'];
+        $warehouse_now  = $_POST['warehouse_now'];
+        $free_now       = $_POST['free_now'];
       
         $edit = mysqli_query($con,"UPDATE trxn 
-                                      SET category  ='$category',
-                                          item      ='$item',
-                                          size      ='$size',
-                                          load_bal  ='$load',
-                                          bf_bal    ='$bf_bal',
-                                          total     ='$tot'
+                                      SET load_bal      ='$load',
+                                          free_load     ='$load2',
+                                          total         ='$tot',
+                                          tot_free      ='$tot2'
                                           WHERE trxn_id =$trxn_id");
 
-         $update_stock1 = mysqli_query($con,"UPDATE item SET lorry_stock = '$tot',warehouse_stock='$warehouse_now' WHERE item_name='$item'");
+         $update_stock1 = mysqli_query($con,"UPDATE item 
+                                              SET lorry_stock      = '$tot',
+                                                  lorry_free_stock = '$tot2',
+                                                  warehouse_stock  ='$warehouse_now',
+                                                  free_stock       ='$free_now' 
+                                                  WHERE item_name='$item'");
       
         if($edit)
         {
@@ -66,7 +73,7 @@
             </div>
 
             <div class="row">
-              <div class="col-md-6 pr-1">
+              <div class="col-md-4 pr-1">
                 <div class="form-group">
                   <label>ITEM CATEGORY</label>
                     <input class="form-control" id="category1" name="category1" value="<?php echo $data['category']?>" readonly>
@@ -79,19 +86,11 @@
                   <input class="form-control" id="item1" name = "item1" value="<?php echo $data['item']?>" readonly>
                 </div>
               </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 pr-1">
+            
+              <div class="col-md-2 pr-1">
                 <div class="form-group">
                   <label>SIZE</label>
-                  <input type="text" class="form-control" id="size1" name = "size1" value="<?php echo $data['size']?>" readonly>
-                </div>
-              </div>
-              <div class="col-md-6 pr-1">
-                <div class="form-group">
-                  <label>LOAD</label>
-                  <input type="text" class="form-control stock_out" id="load1" name = "load1" value="<?php echo $data['load_bal']?>" >
+                  <input type="text" class="form-control" id="size1" name="size1" value="<?php echo $data['size']?>" readonly>
                 </div>
               </div>
             </div>
@@ -99,12 +98,29 @@
             <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <input type="hidden" class="form-control stock_out" id="warehouse1" name = "warehouse1" value="<?php  echo $data['warehouse_stock']?>" >
+                  <label>BF SALE BAL</label>
+                  <input type="text" class="form-control stock_out" id="bf_bal1" name="bf_bal1" value="<?php echo $data['bf_bal']?>" readonly>
+                </div>
+              </div>
+             <div class="col-md-6 pr-1">
+              <div class="form-group">
+                <label>BF FREE BAL</label>
+                <input type="text" class="form-control stock_out" id="bf_free1" name="bf_free1" value="<?php echo $data['bf_free']?>" readonly>
+              </div>
+            </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>SALE LOAD</label>
+                  <input type="text" class="form-control stock_out" id="load1" name="load1" value="<?php echo $data['load_bal']?>" >
                 </div>
               </div>
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <input type="hidden" class="form-control stock_out" id="warehouse_now" name = "warehouse_now" >
+                  <label>FREE LOAD</label>
+                  <input type="text" class="form-control stock_out" id="load2" name="load2" value="<?php echo $data['free_load']?>" >
                 </div>
               </div>
             </div>
@@ -112,14 +128,37 @@
             <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <label>BF BAL</label>
-                  <input type="text" class="form-control stock_out" id="bf_bal1" name = "bf_bal1" value="<?php echo $data['bf_bal']?>" >
+                  <label>TOTAL SALE</label>
+                  <input type="text" class="form-control stock_out" id="tot1" name="tot1" value="<?php echo $data['total']?>" >
                 </div>
               </div>
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <label>TOT</label>
-                  <input type="text" class="form-control stock_out" id="tot1" name = "tot1" value="<?php echo $data['total']?>" >
+                  <label>TOTAL FREE</label>
+                  <input type="text" class="form-control stock_out" id="tot2" name="tot2" value="<?php echo $data['tot_free']?>" >
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <input type="text" class="form-control stock_out" id="warehouse1" name="warehouse1" value="<?php  echo $data['warehouse_stock']?>" >
+                </div>
+              </div>
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <input type="text" class="form-control stock_out" id="warehouse_now" name="warehouse_now" >
+                </div>
+              </div>
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <input type="text" class="form-control stock_out" id="warehouse_free1" name="warehouse_free1" value="<?php  echo $data['free_stock']?>" >
+                </div>
+              </div>
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <input type="text" class="form-control stock_out" id="free_now" name="free_now" >
                 </div>
               </div>
             </div>
@@ -140,8 +179,6 @@
 
 <script>
 
-
-
   ///////////////////////////////////////////////////////////////////////////////////////
 
   $('.stock_out').on('keyup',function(){
@@ -156,6 +193,9 @@
     var bal_amt1  = $('#bf_bal1').val();
     var ware1     = $('#warehouse1').val();
 
+    var load_amt2 = $('#load2').val();
+    var bal_amt2  = $('#bf_free1').val();
+    var ware2     = $('#warehouse_free1').val();
     ////$('#load1').val(load_amt1);
     ////$('#bf_bal1').val(bal_amt1);
 
@@ -167,6 +207,13 @@
       $('#warehouse_now').val(Number(ware1)-Number(load_amt1));
     } 
 
+    if(load_amt2 == ''){
+      $('#tot2').val(Number(bal_amt2));
+      $('#free_now').val(Number(ware2));
+    }else{
+      $('#tot2').val(Number(bal_amt2)+Number(load_amt2));
+      $('#free_now').val(Number(ware2)-Number(load_amt2));
+    } 
 
     // array end
   } 

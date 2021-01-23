@@ -8,12 +8,14 @@
 ?>
   <table class="table" id="get_data1">
     <thead class="text-primary">
-      <th>                    BILL #   </th>
-      <th>                    ITEM     </th>
-      <th class="text-right"> TOTAL    </th>
-      <th class="text-right"> SALE     </th>
-      <th class="text-right"> FREE     </th>
-      <th class="text-right"> AF BAL   </th>
+      <th>                    BILL #       </th>
+      <th>                    ITEM         </th>
+      <th class="text-right"> TOTAL [SALE] </th>
+      <th class="text-right"> SALE QTY     </th>
+      <th class="text-right"> AF BAL [SALE]</th>
+      <th class="text-right"> TOTAL [FREE] </th>
+      <th class="text-right"> FREE QTY     </th>
+      <th class="text-right"> AF BAL[FREE] </th>
     </thead>
     <tbody>
 
@@ -32,12 +34,14 @@
 ?>
      
       <tr>
-        <td>                    <?php echo $row['bill_no'] ?>      </td>
-        <td>                    <?php echo $row['item'] ?>      </td>
+        <td>                    <?php echo $row['bill_no'] ?>    </td>
+        <td>                    <?php echo $row['item'] ?>       </td>
         <td class="text-right"> <?php echo $row['total'] ?>      </td>
-        <td class="text-right"> <?php echo $row['sale'] ?>      </td>
-        <td class="text-right"> <?php echo $row['free'] ?>      </td>
+        <td class="text-right"> <?php echo $row['sale'] ?>       </td>
         <td class="text-right"> <?php echo $row['af_bal'] ?>     </td>
+        <td class="text-right"> <?php echo $row['total_free'] ?> </td>
+        <td class="text-right"> <?php echo $row['free'] ?>       </td>
+        <td class="text-right"> <?php echo $row['af_free'] ?>    </td>
       </tr>
       <div id = "show_view">
         

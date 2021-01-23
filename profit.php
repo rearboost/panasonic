@@ -89,6 +89,15 @@ mysqli_select_db($con,DB_NAME);
                         <div class="row">
                           <div class="col-md-8 pr-1">
                             <div class="form-group">
+                              <label>PURCHASE COST</label>
+                              <input type="text" class="form-control" placeholder="LKR" name="cost" id="cost" required readonly>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-8 pr-1">
+                            <div class="form-group">
                               <label>EXPENSES</label>
                               <input type="text" class="form-control cal_profit" placeholder="LKR" name = "expense" id="expense" required>
                             </div>
@@ -123,6 +132,7 @@ mysqli_select_db($con,DB_NAME);
                     <thead class="text-primary">
                       <th>                    DATE    </th>
                       <th class="text-right"> SALES   </th>
+                      <th class="text-right"> PURCHASE COST</th>
                       <th class="text-right"> EXPENSES</th>
                       <th class="text-right"> PROFIT  </th>
                       <th class="text-center">EDIT 		</th>
@@ -140,6 +150,7 @@ mysqli_select_db($con,DB_NAME);
                           <tr>
                             <td>                    <?php echo $row['cdate'] ?>        </td>
                             <td class="text-right"> <?php echo $row['sales'] ?>        </td>
+                            <td class="text-right"> <?php echo $row['purchase_cost'] ?></td>
                             <td class="text-right"> <?php echo $row['expenses'] ?>     </td>
                             <td class="text-right"> <?php echo $row['daily_profit'] ?> </td>
 
@@ -237,9 +248,11 @@ mysqli_select_db($con,DB_NAME);
         
         var obj = JSON.parse(response);
         var sale_amt1  =  obj.sale_amt
+        var purch_amt1  =  obj.purch_amt
         //alert(sale_amt1)
  
         $('#sale').val(sale_amt1);
+        $('#cost').val(purch_amt1);
       }
     });  
   });
@@ -298,8 +311,9 @@ mysqli_select_db($con,DB_NAME);
 
   function cal_profit(){
     var income = $('#sale').val();
+    var cost = $('#cost').val();
     var expenses = $('#expense').val();
-    var pro = Number(income)-Number(expenses);
+    var pro = Number(income)-(Number(cost)+Number(expenses));
 
     $('#profit').val(pro.toFixed(2));
 

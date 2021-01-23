@@ -9,14 +9,20 @@ include("db_config.php");
 
 if(isset($_POST['submit'])){
 
-  $shop     = $_POST['shop'];
   $bill_no  = $_POST['bill_no'];
+  $shop     = $_POST['shop'];
   $b_date   = $_POST['b_date'];
+  $bill_amt = $_POST['bill_amt'];
+  $discount = $_POST['discount'];
+  $dis_amt  = $_POST['dis_amt'];
+  $pur_cost = $_POST['pur_cost'];
   $cash     = $_POST['cash'];
   $credit   = $_POST['credit'];
   $cheque   = $_POST['cheque'];
+  $cheque_no   = $_POST['cheque_no'];
+  $cheque_date   = $_POST['cheque_date'];
 
-  $insert_bill = mysqli_query($con,"INSERT INTO bill (bill_no,shop,b_date,cash,credit,cheque) VALUES ('$bill_no','$shop','$b_date',$cash,$credit, $cheque)");
+  $insert_bill = mysqli_query($con,"INSERT INTO bill (bill_no,shop,b_date,bill_amount,discount,discounted_amt,cost,cash,credit,cheque,cheque_no,cheque_date) VALUES ('$bill_no','$shop','$b_date',$bill_amt,$discount,$dis_amt,$pur_cost,$cash,$credit, $cheque,'$cheque_no','$cheque_date')");
 
   // $item     = $_POST['item'];
   // $total    = $_POST['total'];
@@ -33,10 +39,12 @@ if(isset($_POST['submit'])){
       $sale=$x[$i]['sale'];
       $free=$x[$i]['free'];
       $af_bal=$x[$i]['af_bal'];
+      $total_free=$x[$i][''];
+      $af_free=$x[$i][''];
 
-      $insert_item = mysqli_query($con,"INSERT INTO sale_items (bill_no,item,total,sale,free,af_bal) VALUES ('$bill_no','$item',$total,$sale,$free,$af_bal)");
+      $insert_item = mysqli_query($con,"INSERT INTO sale_items (bill_no,item,total,sale,free,af_bal,total_free,af_free) VALUES ('$bill_no','$item',$total,$sale,$free,$af_bal,$total_free,$af_free)");
 
-      $update_lorrystock = mysqli_query($con,"UPDATE item SET lorry_stock = '$af_bal' WHERE item_name='$item'");
+      $update_lorrystock = mysqli_query($con,"UPDATE item SET lorry_stock = '$af_bal', lorry_free_stock='$af_free' WHERE item_name='$item'");
   }
 } 
 
