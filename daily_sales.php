@@ -155,12 +155,13 @@ if (!isset($_SESSION['loged_user'])) {
                                 <input type="text" class="form-control" id="tot_sale" name="tot_sale" readonly>
                               </div>
                             </div>
-                            <div class="col-md-1 pr-1">
+                            <!-- <div class="col-md-1 pr-1">
                               <div class="form-group">
                                 <label>tot free</label>
-                                <input type="text" class="form-control" id="tot_free" name="tot_free" readonly>
+                                
                               </div>
-                            </div>
+                            </div> -->
+                            <input type="hidden" class="form-control" id="tot_free" name="tot_free" readonly>
                             <div class="col-md-1 pr-1">
                               <div class="form-group">
                                 <label>purchase</label>
@@ -573,13 +574,23 @@ $(function () {
           $('#total').val(),
           $('#sale').val(),
           $('#free').val(),
-          $('#af_bal').val(),"<button class='btn-edit' id='DeleteButton'>Delete</button>" ] );
+          $('#af_bal').val(),
+          $('#af_sale').val(),
+          $('#af_free').val(),
+          $('#tot_pur').val(),
+          $('#tot_sales').val(),
+          $('#tot_free').val(),"<button class='btn-edit' id='DeleteButton'>Delete</button>" ] );
 
       $('#item').val("")
       $('#total').val("")
       $('#sale').val("")
       $('#free').val("")
       $('#af_bal').val("")
+      $('#af_sale').val("")
+      $('#af_free').val("")
+      $('#tot_pur').val("")
+      $('#tot_sales').val("")
+      $('#tot_free').val("")
       
       reCalulate();
      
@@ -603,12 +614,16 @@ $(function () {
       sale = $tds.eq(2).text();
       free = $tds.eq(3).text();
       af_bal = $tds.eq(4).text();
-
+      af_sale = $tds.eq(5).text();
+      af_free = $tds.eq(6).text();
+      tot_pur = $tds.eq(7).text();
+      tot_sales = $tds.eq(8).text();
+      tot_free = $tds.eq(9).text();
 
       //alert(item_code);
-      var z={"item":item,"total":total,"sale":sale,"free":free,"af_bal":af_bal};
+      var z={"item":item,"total":total,"sale":sale,"free":free,"af_bal":af_bal,"af_sale":af_sale,"af_free":af_free,"tot_pur":tot_pur,"tot_sales":tot_sales,"tot_free":tot_free};
 
-      array.push({item:item,total:total,sale:sale,free:free,af_bal:af_bal});
+      array.push({item:item,total:total,sale:sale,free:free,af_bal:af_bal,af_sale:af_sale,af_free:af_free,tot_pur:tot_pur,tot_sales:tot_sales,tot_free:tot_free});
 
       });
       console.log(JSON.stringify(array, null, 1));

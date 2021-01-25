@@ -39,8 +39,8 @@ if(isset($_POST['submit'])){
       $sale=$x[$i]['sale'];
       $free=$x[$i]['free'];
       $af_bal=$x[$i]['af_bal'];
-      $total_free=$x[$i][''];
-      $af_free=$x[$i][''];
+      $total_free=$x[$i]['tot_free'];
+      $af_free=$x[$i]['af_free'];
 
       $insert_item = mysqli_query($con,"INSERT INTO sale_items (bill_no,item,total,sale,free,af_bal,total_free,af_free) VALUES ('$bill_no','$item',$total,$sale,$free,$af_bal,$total_free,$af_free)");
 
