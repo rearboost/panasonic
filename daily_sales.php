@@ -155,13 +155,13 @@ if (!isset($_SESSION['loged_user'])) {
                                 <input type="text" class="form-control" id="tot_sale" name="tot_sale" readonly>
                               </div>
                             </div>
-                            <!-- <div class="col-md-1 pr-1">
+                            <div class="col-md-1 pr-1">
                               <div class="form-group">
                                 <label>tot free</label>
-                                
+                                <input type="text" class="form-control" id="tot_free" name="tot_free" readonly>
                               </div>
-                            </div> -->
-                            <input type="hidden" class="form-control" id="tot_free" name="tot_free" readonly>
+                            </div>
+                            
                             <div class="col-md-1 pr-1">
                               <div class="form-group">
                                 <label>purchase</label>
@@ -216,6 +216,12 @@ if (!isset($_SESSION['loged_user'])) {
                                   <th>SALE</th>
                                   <th>FREE</th>
                                   <th>AF BAL</th>  
+                                  <th>AF SALE</th>  
+                                  <th>AF FREE</th>  
+                                  <th>TOT PUR</th> 
+                                  <th>TOT SALE</th>
+                                  <th>TOT FREE</th>      
+                                 
                                   <th>DELETE</th>  
                                 </tr>
                               </thead>
@@ -579,7 +585,8 @@ $(function () {
           $('#af_free').val(),
           $('#tot_pur').val(),
           $('#tot_sales').val(),
-          $('#tot_free').val(),"<button class='btn-edit' id='DeleteButton'>Delete</button>" ] );
+          $('#tot_free').val(),
+          "<button class='btn-edit' id='DeleteButton'>Delete</button>" ] );
 
       $('#item').val("")
       $('#total').val("")
@@ -603,7 +610,7 @@ $(function () {
       //need to get sum of the tot_sales to bill_amt text box and sum of the tot_pur to pur_cost text box
       
       var array=[];
-
+       var TotalAmt = 0  , PurchaseCost = 0;
       var table = $("#example");
 
       table.find('tr:gt(0)').each(function (i) {
@@ -621,11 +628,30 @@ $(function () {
       tot_free = $tds.eq(9).text();
 
       //alert(item_code);
+
+      TotalAmt = Number(TotalAmt) + Number(tot_sales);
+      PurchaseCost = Number(PurchaseCost) + Number(tot_pur);
+      $('#bill_amt').val(TotalAmt);
+      $('#pur_cost').val(PurchaseCost)
+
       var z={"item":item,"total":total,"sale":sale,"free":free,"af_bal":af_bal,"af_sale":af_sale,"af_free":af_free,"tot_pur":tot_pur,"tot_sales":tot_sales,"tot_free":tot_free};
 
       array.push({item:item,total:total,sale:sale,free:free,af_bal:af_bal,af_sale:af_sale,af_free:af_free,tot_pur:tot_pur,tot_sales:tot_sales,tot_free:tot_free});
 
       });
+
+    
+      //var table = $('#example').DataTable();
+ 
+      // Hide two columns
+      // table.columns( [5,6,7,8,9] ).visible( false );
+
+      // var z={"item":item,"total":total,"sale":sale,"free":free,"af_bal":af_bal,"af_sale":af_sale,"af_free":af_free,"tot_pur":tot_pur,"tot_sales":tot_sales,"tot_free":tot_free};
+
+      // array.push({item:item,total:total,sale:sale,free:free,af_bal:af_bal,af_sale:af_sale,af_free:af_free,tot_pur:tot_pur,tot_sales:tot_sales,tot_free:tot_free});
+
+      // });
+
       console.log(JSON.stringify(array, null, 1));
       $('#myitemjson').val(JSON.stringify(array));
 
