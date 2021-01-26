@@ -102,6 +102,21 @@
         </a>
       </li>
       <li
+        <?php if (basename($_SERVER['PHP_SELF'])=='debt.php')
+        {
+         echo 'class="active"';
+        } else 
+        {
+         echo 'class=""'; 
+        } 
+        ?>
+        >
+        <a href="debt">
+          <i class="nc-icon nc-single-copy-04"></i>
+          <p>DEBT COLLECTIONS</p>
+        </a>
+      </li>
+      <li
         <?php if (basename($_SERVER['PHP_SELF'])=='user.php')
         {
          echo 'class="active"';

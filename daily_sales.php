@@ -262,13 +262,13 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-4 pr-1">
                             <div class="form-group">
                               <label>CREDIT</label>
-                              <input type="text" class="form-control" placeholder="LKR" name="credit" required>
+                              <input type="text" class="form-control" placeholder="LKR" name="credit">
                             </div>
                           </div>
                           <div class="col-md-4 pr-1">
                             <div class="form-group">
                               <label>CHEQUE</label>
-                              <input type="text" class="form-control" placeholder="LKR" name="cheque" id="cheque" required>
+                              <input type="text" class="form-control" placeholder="LKR" name="cheque" id="cheque">
                             </div>
                           </div>
                         </div>
