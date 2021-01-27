@@ -113,7 +113,22 @@
         >
         <a href="debt">
           <i class="nc-icon nc-single-copy-04"></i>
-          <p>DEBT COLLECTIONS</p>
+          <p>DEBT COLLECTION</p>
+        </a>
+      </li>
+      <li
+        <?php if (basename($_SERVER['PHP_SELF'])=='credit.php')
+        {
+         echo 'class="active"';
+        } else 
+        {
+         echo 'class=""'; 
+        } 
+        ?>
+        >
+        <a href="credit">
+          <i class="nc-icon nc-single-copy-04"></i>
+          <p>CREDIT COLLECTION</p>
         </a>
       </li>
       <li

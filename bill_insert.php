@@ -22,29 +22,30 @@ if(isset($_POST['submit'])){
   $cheque_no   = $_POST['cheque_no'];
   $cheque_date   = $_POST['cheque_date'];
 
-  $insert_bill = mysqli_query($con,"INSERT INTO bill (bill_no,shop,b_date,bill_amount,discount,discounted_amt,cost,cash,credit,cheque,cheque_no,cheque_date) VALUES ('$bill_no','$shop','$b_date',$bill_amt,$discount,$dis_amt,$pur_cost,$cash,$credit, $cheque,'$cheque_no','$cheque_date')");
+  if($cheque>0 && $cheque_no!='' && $cheque_date!=''){
+    $status = 1;
+  }else{
+    $status = 0;
+  }
 
-  // $item     = $_POST['item'];
-  // $total    = $_POST['total'];
-  // $sale     = $_POST['sale'];
-  // $free     = $_POST['free'];
-  // $af_bal   = $_POST['af_bal'];
+  $insert_bill = mysqli_query($con,"INSERT INTO bill (bill_no,shop,b_date,bill_amount,discount,discounted_amt,cost,cash,credit,cheque,cheque_no,cheque_date,cheque_status) VALUES ('$bill_no','$shop','$b_date',$bill_amt,$discount,$dis_amt,$pur_cost,$cash,$credit, $cheque,'$cheque_no','$cheque_date',$status)");
+
   $myitemjson =$_POST['myitemjson'];
   $x = json_decode($myitemjson, true);
 
   for($i=0;$i<sizeof($x);$i++)
   {
       $item=$x[$i]['item'];
-      $total=$x[$i]['total'];
+      $tot_sale=$x[$i]['tot_sale'];
       $sale=$x[$i]['sale'];
-      $free=$x[$i]['free'];
-      $af_bal=$x[$i]['af_bal'];
+      $af_sale=$x[$i]['af_sale'];
       $total_free=$x[$i]['tot_free'];
+      $free=$x[$i]['free'];
       $af_free=$x[$i]['af_free'];
 
-      $insert_item = mysqli_query($con,"INSERT INTO sale_items (bill_no,item,total,sale,free,af_bal,total_free,af_free) VALUES ('$bill_no','$item',$total,$sale,$free,$af_bal,$total_free,$af_free)");
+      $insert_item = mysqli_query($con,"INSERT INTO sale_items (bill_no,item,total,sale,free,af_bal,total_free,af_free) VALUES ('$bill_no','$item',$tot_sale,$sale,$free,$af_sale,$total_free,$af_free)");
 
-      $update_lorrystock = mysqli_query($con,"UPDATE item SET lorry_stock = '$af_bal', lorry_free_stock='$af_free' WHERE item_name='$item'");
+      $update_lorrystock = mysqli_query($con,"UPDATE item SET lorry_stock = '$af_sale', lorry_free_stock='$af_free' WHERE item_name='$item'");
   }
 } 
 

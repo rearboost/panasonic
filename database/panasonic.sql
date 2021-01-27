@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2021 at 02:32 AM
+-- Generation Time: Jan 27, 2021 at 01:54 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -34,21 +34,28 @@ CREATE TABLE `bill` (
   `bill_amount` double(10,2) NOT NULL DEFAULT '0.00',
   `discount` double(10,2) NOT NULL DEFAULT '0.00',
   `discounted_amt` double(10,2) NOT NULL DEFAULT '0.00',
-  `cost` double(10,2) NOT NULL,
+  `cost` double(10,2) NOT NULL DEFAULT '0.00',
   `cash` double(10,2) NOT NULL DEFAULT '0.00',
   `credit` double(10,2) NOT NULL DEFAULT '0.00',
   `cheque` double(10,2) NOT NULL DEFAULT '0.00',
   `cheque_no` varchar(25) NOT NULL,
-  `cheque_date` varchar(100) NOT NULL
+  `cheque_date` varchar(100) NOT NULL,
+  `cheque_status` smallint(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bill`
 --
 
-INSERT INTO `bill` (`B_id`, `bill_no`, `shop`, `b_date`, `bill_amount`, `discount`, `discounted_amt`, `cost`, `cash`, `credit`, `cheque`, `cheque_no`, `cheque_date`) VALUES
-(4, '0004', 'shop3', '2021-01-12', 350.00, 0.00, 350.00, 250.00, 350.00, 0.00, 0.00, '', ''),
-(5, '00000005', '', '2021-01-12', 1500.00, 150.00, 1350.00, 500.00, 1350.00, 0.00, 0.00, '', '');
+INSERT INTO `bill` (`B_id`, `bill_no`, `shop`, `b_date`, `bill_amount`, `discount`, `discounted_amt`, `cost`, `cash`, `credit`, `cheque`, `cheque_no`, `cheque_date`, `cheque_status`) VALUES
+(4, '00000004', 'shop3', '2021-01-12', 350.00, 0.00, 350.00, 250.00, 150.00, 250.00, 0.00, '', '', 0),
+(5, '00000003', 'shop4', '2021-01-12', 1500.00, 150.00, 1350.00, 500.00, 1350.00, 0.00, 0.00, '', '', 0),
+(6, '00000005', 'Shop3', '2021-01-13', 6480.00, 0.00, 6480.00, 5520.00, 0.00, 1480.00, 5000.00, '125478459', '2021-02-06', 1),
+(7, '00000006', 'shop5', '2021-01-13', 1320.00, 0.00, 1320.00, 1200.00, 1320.00, 0.00, 0.00, '-', '', 0),
+(8, '00000007', 'shop1', '2021-01-14', 3000.00, 0.00, 3000.00, 2400.00, 0.00, 3000.00, 0.00, '', '', 0),
+(9, '00000008', 'Shop2', '2021-01-14', 1320.00, 0.00, 1320.00, 1200.00, 1320.00, 0.00, 0.00, '', '', 0),
+(10, '00000009', '', '2021-01-14', 2160.00, 0.00, 2160.00, 1920.00, 2160.00, 0.00, 0.00, '', '', 0),
+(11, '00000010', 'shop5', '2021-01-15', 3000.00, 0.00, 3000.00, 2400.00, 0.00, 0.00, 3000.00, '14789455', '2021-03-01', 1);
 
 -- --------------------------------------------------------
 
@@ -76,6 +83,44 @@ INSERT INTO `category` (`category_id`, `category_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `credit`
+--
+
+CREATE TABLE `credit` (
+  `c_id` int(11) NOT NULL,
+  `invoice_no` varchar(25) NOT NULL,
+  `cdate` varchar(100) NOT NULL,
+  `amount` double(10,2) NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `remain` double(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `debt`
+--
+
+CREATE TABLE `debt` (
+  `d_id` int(11) NOT NULL,
+  `shop` varchar(100) NOT NULL,
+  `ddate` varchar(100) NOT NULL,
+  `amt` double(10,2) NOT NULL DEFAULT '0.00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `debt`
+--
+
+INSERT INTO `debt` (`d_id`, `shop`, `ddate`, `amt`) VALUES
+(1, 'shop3', '2021-01-16', 230.00),
+(2, 'shop1', '2021-01-17', 500.00),
+(3, 'shop3', '2021-01-23', 250.00),
+(4, 'shop1', '2021-01-23', 250.00);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `item`
 --
 
@@ -98,11 +143,11 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`item_id`, `category`, `item_name`, `batch_no`, `size`, `purchase_cost`, `sales_cost`, `warehouse_stock`, `free_stock`, `lorry_stock`, `lorry_free_stock`) VALUES
-(1, 'MANGANESE', 'R6NT/1B12', '1', 'AA', 100.00, 110.00, 985, 75, 150, 15),
-(2, 'CHARGERS', 'R6NT/1B123S', '3', 'AAAA', 160.00, 180.00, 770, 50, 68, 0),
-(3, 'ALKALINE', 'LR6T/4B', '2', 'AAA', 100.00, 125.00, 45, 9, 50, 0),
-(4, 'ALKALINE', 'LR6T2B', '2', 'AAA', 100.00, 175.00, 750, 45, 250, 0),
-(5, 'EVOLTA', 'MD/W12', '3', 'AA', 45.00, 75.00, 1250, 60, 0, 0);
+(1, 'MANGANESE', 'R6NT/1B12', '1', 'AA', 100.00, 110.00, 745, 60, 294, 7),
+(2, 'CHARGERS', 'R6NT/1B123S', '3', 'AAAA', 160.00, 180.00, 670, 25, 144, 22),
+(3, 'ALKALINE', 'LR6T/4B', '2', 'AAA', 100.00, 125.00, 520, 40, 199, 1),
+(4, 'ALKALINE', 'LR6T2B', '2', 'AAA', 100.00, 175.00, 1750, 60, 250, 0),
+(5, 'EVOLTA', 'MD/W12', '3', 'AA', 45.00, 75.00, 1250, 84, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -124,7 +169,8 @@ CREATE TABLE `profit` (
 --
 
 INSERT INTO `profit` (`P_id`, `cdate`, `sales`, `purchase_cost`, `expenses`, `daily_profit`) VALUES
-(1, '2021-01-12', 1700.00, 750.00, 350.00, 600.00);
+(1, '2021-01-12', 1700.00, 750.00, 350.00, 600.00),
+(3, '2021-01-13', 7800.00, 6720.00, 220.00, 860.00);
 
 -- --------------------------------------------------------
 
@@ -149,8 +195,21 @@ CREATE TABLE `sale_items` (
 --
 
 INSERT INTO `sale_items` (`sale_id`, `bill_no`, `item`, `total`, `sale`, `free`, `af_bal`, `total_free`, `af_free`) VALUES
-(6, '0004', 'R6NT/1B12', 150, 12, 3, 135, 0, 0),
-(7, '00000005', 'R6NT/1B123S', 83, 12, 3, 68, 0, 0);
+(6, '00000004', 'R6NT/1B12', 150, 12, 3, 135, 0, 0),
+(7, '00000003', 'R6NT/1B123S', 83, 12, 3, 68, 0, 0),
+(8, '00000005', 'LR6T/4B', 50, 24, 0, 26, 0, 0),
+(9, '00000005', 'R6NT/1B12', 150, 12, 3, 138, 15, 12),
+(10, '00000005', 'R6NT/1B123S', 68, 12, 0, 56, 0, 0),
+(11, '00000006', 'LR6T/4B', 26, 12, 0, 14, 0, 0),
+(12, '00000006', 'R6NT/1B12', 138, 24, 5, 114, 12, 7),
+(13, '00000006', 'R6NT/1B12', 114, 12, 3, 102, 7, 4),
+(14, '00000007', 'LR6T/4B', 259, 12, 3, 247, 14, 11),
+(15, '00000007', 'R6NT/1B12', 342, 24, 6, 318, 19, 13),
+(16, '00000007', 'LR6T/4B', 247, 24, 6, 223, 11, 5),
+(17, '00000008', 'R6NT/1B12', 318, 12, 3, 306, 13, 10),
+(18, '00000008', 'R6NT/1B12', 306, 12, 3, 294, 10, 7),
+(19, '00000009', 'R6NT/1B123S', 156, 12, 3, 144, 25, 22),
+(20, '00000010', 'LR6T/4B', 223, 24, 4, 199, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -191,11 +250,11 @@ INSERT INTO `trxn` (`trxn_id`, `category`, `item`, `size`, `load_bal`, `free_loa
 (12, 'ALKALINE', 'LR6T/4B', 'AAA', 0, 0, 50, 0, 0, 0, '2021-01-13'),
 (13, 'ALKALINE', 'LR6T2B', 'AAA', 0, 0, 250, 0, 0, 0, '2021-01-13'),
 (14, 'EVOLTA', 'MD/W12', 'AA', 0, 0, 0, 0, 0, 0, '2021-01-13'),
-(15, 'MANGANESE', 'R6NT/1B12', 'AA', 15, 15, 135, 0, 150, 15, '2021-01-14'),
-(16, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 0, 0, 68, 0, 0, 0, '2021-01-14'),
-(17, 'ALKALINE', 'LR6T/4B', 'AAA', 0, 0, 50, 0, 0, 0, '2021-01-14'),
-(18, 'ALKALINE', 'LR6T2B', 'AAA', 0, 0, 250, 0, 0, 0, '2021-01-14'),
-(19, 'EVOLTA', 'MD/W12', 'AA', 0, 0, 0, 0, 0, 0, '2021-01-14');
+(20, 'MANGANESE', 'R6NT/1B12', 'AA', 240, 15, 102, 4, 342, 19, '2021-01-14'),
+(21, 'CHARGERS', 'R6NT/1B123S', 'AAAA', 100, 25, 56, 0, 156, 25, '2021-01-14'),
+(22, 'ALKALINE', 'LR6T/4B', 'AAA', 245, 14, 14, 0, 259, 14, '2021-01-14'),
+(23, 'ALKALINE', 'LR6T2B', 'AAA', 0, 0, 250, 0, 0, 0, '2021-01-14'),
+(24, 'EVOLTA', 'MD/W12', 'AA', 0, 0, 0, 0, 0, 0, '2021-01-14');
 
 -- --------------------------------------------------------
 
@@ -231,6 +290,18 @@ ALTER TABLE `bill`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `credit`
+--
+ALTER TABLE `credit`
+  ADD PRIMARY KEY (`c_id`);
+
+--
+-- Indexes for table `debt`
+--
+ALTER TABLE `debt`
+  ADD PRIMARY KEY (`d_id`);
 
 --
 -- Indexes for table `item`
@@ -270,12 +341,22 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `B_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `B_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `credit`
+--
+ALTER TABLE `credit`
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `debt`
+--
+ALTER TABLE `debt`
+  MODIFY `d_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `item`
 --
@@ -285,17 +366,17 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `profit`
 --
 ALTER TABLE `profit`
-  MODIFY `P_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `P_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `sale_items`
 --
 ALTER TABLE `sale_items`
-  MODIFY `sale_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `sale_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `trxn`
 --
 ALTER TABLE `trxn`
-  MODIFY `trxn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `trxn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `user`
 --

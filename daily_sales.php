@@ -212,16 +212,15 @@ if (!isset($_SESSION['loged_user'])) {
                               <thead>
                                 <tr>
                                   <th>ITEM</th>
-                                  <th>TOTAL</th>
-                                  <th>SALE</th>
-                                  <th>FREE</th>
-                                  <th>AF BAL</th>  
-                                  <th>AF SALE</th>  
-                                  <th>AF FREE</th>  
-                                  <th>TOT PUR</th> 
                                   <th>TOT SALE</th>
-                                  <th>TOT FREE</th>      
-                                 
+                                  <th>SALE</th>
+                                  <th>AF SALE</th> 
+                                  <th>TOT FREE</th> 
+                                  <th>FREE</th> 
+                                  <th>AF FREE</th>  
+                                  <th>PUR COST</th> 
+                                  <th>SALE AMT</th>
+
                                   <th>DELETE</th>  
                                 </tr>
                               </thead>
@@ -268,13 +267,13 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-4 pr-1">
                             <div class="form-group">
                               <label>CREDIT</label>
-                              <input type="text" class="form-control" placeholder="LKR" name="credit">
+                              <input type="text" class="form-control" placeholder="LKR" name="credit" required>
                             </div>
                           </div>
                           <div class="col-md-4 pr-1">
                             <div class="form-group">
                               <label>CHEQUE</label>
-                              <input type="text" class="form-control" placeholder="LKR" name="cheque" id="cheque">
+                              <input type="text" class="form-control" placeholder="LKR" name="cheque" id="cheque" required>
                             </div>
                           </div>
                         </div>
@@ -394,6 +393,16 @@ $('#cheque').on('keyup', function() {
 
   $('#cheque_no').prop('disabled', false);
   $('#cheque_date').prop('disabled', false);
+
+  var value  = $('#cheque').val();
+
+  if(value > 0){
+    $('#cheque_no').prop('required', true);
+    $('#cheque_date').prop('required', true);
+  }else if(value == 0){
+    $('#cheque_no').prop('required', false);
+    $('#cheque_date').prop('required', false);
+  }
 
 }); 
 
@@ -577,27 +586,25 @@ $(function () {
 
       $('#example').dataTable().fnAddData( [
           $('#item option:selected').text(),
-          $('#total').val(),
+          $('#tot_sale').val(),
           $('#sale').val(),
-          $('#free').val(),
-          $('#af_bal').val(),
           $('#af_sale').val(),
+          $('#tot_free').val(),
+          $('#free').val(),
           $('#af_free').val(),
           $('#tot_pur').val(),
           $('#tot_sales').val(),
-          $('#tot_free').val(),
           "<button class='btn-edit' id='DeleteButton'>Delete</button>" ] );
 
       $('#item').val("")
-      $('#total').val("")
+      $('#tot_sale').val("")
       $('#sale').val("")
-      $('#free').val("")
-      $('#af_bal').val("")
       $('#af_sale').val("")
+      $('#tot_free').val("")
+      $('#free').val("")
       $('#af_free').val("")
       $('#tot_pur').val("")
       $('#tot_sales').val("")
-      $('#tot_free').val("")
       
       reCalulate();
      
@@ -617,15 +624,14 @@ $(function () {
 
       var $tds = $(this).find('td'),
       item = $tds.eq(0).text();
-      total = $tds.eq(1).text();
+      tot_sale = $tds.eq(1).text();
       sale = $tds.eq(2).text();
-      free = $tds.eq(3).text();
-      af_bal = $tds.eq(4).text();
-      af_sale = $tds.eq(5).text();
+      af_sale = $tds.eq(3).text();
+      tot_free = $tds.eq(4).text();
+      free = $tds.eq(5).text();
       af_free = $tds.eq(6).text();
       tot_pur = $tds.eq(7).text();
       tot_sales = $tds.eq(8).text();
-      tot_free = $tds.eq(9).text();
 
       //alert(item_code);
 
@@ -634,9 +640,9 @@ $(function () {
       $('#bill_amt').val(TotalAmt);
       $('#pur_cost').val(PurchaseCost)
 
-      var z={"item":item,"total":total,"sale":sale,"free":free,"af_bal":af_bal,"af_sale":af_sale,"af_free":af_free,"tot_pur":tot_pur,"tot_sales":tot_sales,"tot_free":tot_free};
+      var z={"item":item,"tot_sale":tot_sale,"sale":sale,"af_sale":af_sale,"tot_free":tot_free,"free":free,"af_free":af_free,"tot_pur":tot_pur,"tot_sales":tot_sales};
 
-      array.push({item:item,total:total,sale:sale,free:free,af_bal:af_bal,af_sale:af_sale,af_free:af_free,tot_pur:tot_pur,tot_sales:tot_sales,tot_free:tot_free});
+      array.push({item:item,tot_sale:tot_sale,sale:sale,af_sale:af_sale,tot_free:tot_free,free:free,af_free:af_free,tot_pur:tot_pur,tot_sales:tot_sales});
 
       });
 

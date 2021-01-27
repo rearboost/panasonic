@@ -43,9 +43,6 @@
         <td class="text-right"> <?php echo $row['free'] ?>       </td>
         <td class="text-right"> <?php echo $row['af_free'] ?>    </td>
       </tr>
-      <div id = "show_view">
-        
-      </div>
 
     </tbody>
 
