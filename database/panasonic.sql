@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2021 at 01:54 AM
+-- Generation Time: Jan 29, 2021 at 06:24 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -94,6 +94,14 @@ CREATE TABLE `credit` (
   `type` varchar(10) NOT NULL,
   `remain` double(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `credit`
+--
+
+INSERT INTO `credit` (`c_id`, `invoice_no`, `cdate`, `amount`, `type`, `remain`) VALUES
+(1, 'PS1001', '2021-01-23', 12500.00, 'invoice', 12500.00),
+(2, '', '2021-01-25', 2000.00, 'payment', 10500.00);
 
 -- --------------------------------------------------------
 
@@ -351,7 +359,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `credit`
 --
 ALTER TABLE `credit`
-  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `debt`
 --

@@ -57,10 +57,8 @@ mysqli_select_db($con,DB_NAME);
                 </div>
               </div>
               <div class="card-body">
-                <form action="" method="POST">
                   <div class="col-md-12">
                     <div class="row">
-                      <form>
                         <div class="col-md-12">
                           <div class="row">
                           <button class="btn btn-primary add-btn" style="margin-left: 30px;" id="btn1" name="btn1"> Received</button> 
@@ -68,10 +66,8 @@ mysqli_select_db($con,DB_NAME);
                           <button class="btn btn-success add-btn" id="btn3" name="btn3"> Cheque to be Exchanged</button> 
                           </div>
                         </div>
-                      </form>
                   </div>
                 </div>
-              </form>
 
               <div class="card-body">
                 <div class="modal fade" id="Form1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -145,7 +141,7 @@ mysqli_select_db($con,DB_NAME);
               
               <div class="table-responsive">
                 <div id="show">
-
+                  
                 </div>
               </div>
             </div><!-- card body-->
@@ -174,6 +170,16 @@ mysqli_select_db($con,DB_NAME);
   <script src="assets/js/sweetalert.min.js"></script>
 
   <script>
+
+  $( document ).ready(function() {
+    $.ajax({
+      url:"received.php",
+      method:"POST",
+      success:function(data){
+        $('#show').html(data);
+      }
+    });
+  });
 
 // need to load php page to the #show when button click
   $('#btn1').on('click', function() {

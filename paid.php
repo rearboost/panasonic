@@ -7,7 +7,7 @@
 ?>
   <table class="table" id="get_data1">
     <thead class="text-primary">
-      <th>                    MONTH,YEAR    </th>
+      <th>                    MONTH / YEAR    </th>
       <th class="text-right"> AMOUNT        </th>
     </thead>
     <tbody>
@@ -19,21 +19,19 @@
     $year =  date("Y");
     $month = date("m");
 
-    // $query = mysqli_query($con,"SELECT SUM(bill.cash) AS tot_cash, SUM(debt.amt) AS tot_collect FROM bill LEFT JOIN debt ON bill.shop = debt.shop ");
-    $query = mysqli_query($con,"SELECT SUM(bill.cash) AS tot_cash, SUM(debt.amt) AS tot_collect FROM bill ");
+    $query = mysqli_query($con,"SELECT cdate, SUM(amount) AS tot_amt FROM credit WHERE type='payment' GROUP BY cdate");
        
     $numRows = mysqli_num_rows($query);
 
       if($numRows > 0) {
         while($row = mysqli_fetch_assoc($query)) {
-          $total1 = $row['tot_cash'];
-          $total2 = $row['tot_collect'];
-          $sum = $total1 + $total2;
+
+
 ?>
      
       <tr>
         <td>                    <?php echo $month . ',' . $year ?>    </td>
-        <td class="text-right"> <?php number_format($sum,2); ?>      </td>
+        <td class="text-right"> <?php $row['tot_amt'] ?>      </td>
       </tr>
 
     </tbody>

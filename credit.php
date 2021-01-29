@@ -84,13 +84,13 @@ mysqli_select_db($con,DB_NAME);
                         <div class="row" style="margin-top: 10px">
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
-                              <Input type="radio" name="type" id="invoice">
+                              <Input type="radio" name="type" id="invoice" value="invoice">
                               <label>INVOICE</label>
                             </div>
                           </div>
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
-                              <Input type="radio" name="type" id="payment">
+                              <Input type="radio" name="type" id="payment" value="payment">
                               <label>PAYMENT</label>
                             </div>
                           </div>
@@ -143,7 +143,7 @@ mysqli_select_db($con,DB_NAME);
                         </div>
                         <div class="row">
                         <div class="update ml-auto mr-auto">
-                          <input type="hidden" name ="submit" value="Submit"/>
+                          <input type="hidden" name ="submit" value="submit"/>
                           <button type="submit" class="btn btn-primary btn-round">Submit</button>
                           <Input type="button" onclick="form_reset()" class="btn btn-danger btn-round" data-dismiss="modal" value="Close">
                         </div>
@@ -192,7 +192,6 @@ mysqli_select_db($con,DB_NAME);
     $.ajax({
       url:"paid.php",
       method:"POST",
-      //data: $('#btn1').serialize(),
       success:function(data){
         $('#show').html(data);
       }
@@ -204,7 +203,6 @@ mysqli_select_db($con,DB_NAME);
     $.ajax({
       url:"tobe_paid.php",
       method:"POST",
-      data: $('#btn1').serialize(),
       success:function(data){
         $('#show').html(data);
       }
@@ -298,14 +296,14 @@ mysqli_select_db($con,DB_NAME);
 
   $(function () {
 
-      $('#debt_add').on('submit', function (e) {
+      $('#creditAdd').on('submit', function (e) {
 
         e.preventDefault();
 
         $.ajax({
           type: 'post',
-          url: 'debt_insert.php',
-          data: $('#debt_add').serialize(),
+          url: 'credit_insert.php',
+          data: $('#creditAdd').serialize(),
           success: function () {
             swal({
               title: "Good job !",

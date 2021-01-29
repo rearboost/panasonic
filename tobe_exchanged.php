@@ -18,7 +18,7 @@
 
 // if(isset($_POST['btn3'])){
 
-  $query = mysqli_query($con,"SELECT cheque, cheque_no, cheque_date FROM bill WHERE cheque_status=1 ");
+  $query = mysqli_query($con,"SELECT B_id, cheque, cheque_no, cheque_date FROM bill WHERE cheque_status=1 ");
      
   $numRows = mysqli_num_rows($query);
 
@@ -30,7 +30,7 @@
       <td>                    <?php echo $row['cheque_no'] ?>   </td>
       <td class="text-right"> <?php echo $row['cheque'] ?>      </td>
       <td class="text-center">  
-      <a href="#" onclick="View('<?php echo $row['B_id']; ?>')" name="done">
+      <a href="#" onclick="doneFUN('<?php echo $row['B_id']; ?>')" name="done">
       <button class="btn btn-success btn-round">Done</button></a>
       </td>
     </tr>
@@ -66,8 +66,8 @@ if(isset($_POST['done'])){
 
  ?>
 <script>
-function View(id){
-
+function doneFUN(id){
+alert(id)
   $.ajax({
     url:"tobe_exchanged.php",
     method:"POST",
