@@ -14,24 +14,18 @@
 
   <?php
 
-  //if(isset($_POST['btn1'])){
 
-    $year =  date("Y");
-    $month = date("m");
-
-    $query = mysqli_query($con,"SELECT cdate, SUM(amount) AS tot_amt FROM credit WHERE type='payment' GROUP BY cdate");
+    $query = mysqli_query($con,"SELECT month,year,SUM(amount) AS tot_amt FROM credit WHERE type='payment' GROUP BY month,year");
        
     $numRows = mysqli_num_rows($query);
 
       if($numRows > 0) {
         while($row = mysqli_fetch_assoc($query)) {
-
-
 ?>
      
       <tr>
-        <td>                    <?php echo $month . ',' . $year ?>    </td>
-        <td class="text-right"> <?php $row['tot_amt'] ?>      </td>
+        <td>                    <?php echo $row['month'] . ',' . $row['year'] ?></td>
+        <td class="text-right"> <?php echo $row['tot_amt'] ?>      </td>
       </tr>
 
     </tbody>
@@ -44,8 +38,6 @@
   </table>
   <?php
   mysqli_close($con);
-
-  //}
 
  ?>
 <script>

@@ -22,7 +22,7 @@
         ?>
         >
         <a href="index">
-          <i class="nc-icon nc-book-bookmark"></i>
+          <i class="nc-icon nc-ambulance"></i>
           <p>LOADING ITEMS</p>
         </a>
       </li>
@@ -86,21 +86,21 @@
           <p>DAILY PROFIT</p>
         </a>
       </li>
-      <li
-        <?php if (basename($_SERVER['PHP_SELF'])=='report.php')
+      <!-- <li
+        <?php // if (basename($_SERVER['PHP_SELF'])=='report.php')
         {
-         echo 'class="active"';
-        } else 
+        //  echo 'class="active"';
+        } //else 
         {
-         echo 'class=""'; 
+        //  echo 'class=""'; 
         } 
         ?>
         >
         <a href="report">
-          <i class="nc-icon nc-single-copy-04"></i>
+          <i class="nc-icon nc-money-coins"></i>
           <p>DAILY SALES REPORT</p>
         </a>
-      </li>
+      </li> -->
       <li
         <?php if (basename($_SERVER['PHP_SELF'])=='debt.php')
         {
@@ -112,7 +112,7 @@
         ?>
         >
         <a href="debt">
-          <i class="nc-icon nc-single-copy-04"></i>
+          <i class="nc-icon nc-money-coins"></i>
           <p>DEBT COLLECTION</p>
         </a>
       </li>
@@ -127,7 +127,7 @@
         ?>
         >
         <a href="credit">
-          <i class="nc-icon nc-single-copy-04"></i>
+          <i class="nc-icon nc-money-coins"></i>
           <p>CREDIT COLLECTION</p>
         </a>
       </li>

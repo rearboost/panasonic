@@ -13,7 +13,12 @@ if(isset($_POST['submit'])){
   $rdate        = $_POST['rdate'];
   $pay          = $_POST['pay'];
 
-  $insert = mysqli_query($con,"INSERT INTO debt (shop,ddate,amt) VALUES ('$shop','$rdate','$pay')");
+  $date = explode('-', $rdate);
+
+  $month = $date[1];
+  $year  = $date[0];
+
+  $insert = mysqli_query($con,"INSERT INTO debt (shop,ddate,month,year,amt) VALUES ('$shop','$rdate',$month,$year,'$pay')");
 
 }
 

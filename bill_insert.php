@@ -22,13 +22,18 @@ if(isset($_POST['submit'])){
   $cheque_no   = $_POST['cheque_no'];
   $cheque_date   = $_POST['cheque_date'];
 
+  $date = explode('-', $b_date);
+
+  $month = $date[1];
+  $year  = $date[0];
+
   if($cheque>0 && $cheque_no!='' && $cheque_date!=''){
     $status = 1;
   }else{
     $status = 0;
   }
 
-  $insert_bill = mysqli_query($con,"INSERT INTO bill (bill_no,shop,b_date,bill_amount,discount,discounted_amt,cost,cash,credit,cheque,cheque_no,cheque_date,cheque_status) VALUES ('$bill_no','$shop','$b_date',$bill_amt,$discount,$dis_amt,$pur_cost,$cash,$credit, $cheque,'$cheque_no','$cheque_date',$status)");
+  $insert_bill = mysqli_query($con,"INSERT INTO bill (bill_no,shop,b_date,month,year,bill_amount,discount,discounted_amt,cost,cash,credit,cheque,cheque_no,cheque_date,cheque_status) VALUES ('$bill_no','$shop','$b_date',$month,$year,$bill_amt,$discount,$dis_amt,$pur_cost,$cash,$credit, $cheque,'$cheque_no','$cheque_date',$status)");
 
   $myitemjson =$_POST['myitemjson'];
   $x = json_decode($myitemjson, true);

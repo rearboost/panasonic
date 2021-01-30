@@ -57,20 +57,16 @@ mysqli_select_db($con,DB_NAME);
                 </div>
               </div>
               <div class="card-body">
-                <form action="" method="POST">
                   <div class="col-md-12">
                     <div class="row">
-                      <form>
                         <div class="col-md-12">
                           <div class="row">
-                          <button class="btn btn-primary add-btn" style="margin-left: 30px;" id="dbtn1" name="dbtn1"> Paid</button> 
-                          <button class="btn btn-danger add-btn" id="dbtn2" name="dbtn2"> To be Paid</button> 
+                          <button class="btn btn-danger add-btn" style="margin-left: 30px;" id="dbtn2" name="dbtn2"> To be Paid</button>
+                          <button class="btn btn-primary add-btn" id="dbtn1" name="dbtn1"> Paid</button> 
                           </div>
                         </div>
-                      </form>
                   </div>
                 </div>
-              </form>
 
               <div class="card-body">
                 <div class="modal fade" id="Form1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -136,8 +132,8 @@ mysqli_select_db($con,DB_NAME);
                           </div>
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
-                              <input type="text" class="form-control" placeholder="LKR" name="remain" id="remain" readonly>
-                              <input type="text" class="form-control" placeholder="LKR" name="new_remain" id="new_remain" readonly>
+                              <input type="hidden" class="form-control" placeholder="LKR" name="remain" id="remain" readonly>
+                              <input type="hidden" class="form-control" placeholder="LKR" name="new_remain" id="new_remain" readonly>
                             </div>
                           </div>
                         </div>
@@ -186,6 +182,16 @@ mysqli_select_db($con,DB_NAME);
   <script src="assets/js/sweetalert.min.js"></script>
 
   <script>
+
+  $( document ).ready(function() {
+    $.ajax({
+      url:"tobe_paid.php",
+      method:"POST",
+      success:function(data){
+        $('#show').html(data);
+      }
+    });
+  });
 
   $('#dbtn1').on('click', function() {
 

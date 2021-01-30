@@ -17,10 +17,20 @@ if(isset($_POST['submit'])){
   $pamt    		= $_POST['pamt'];
   $new_remain   = $_POST['new_remain'];
 
+  $date1 = explode('-', $idate);
+
+  $month1 = $date1[1];
+  $year1  = $date1[0];
+
+  $date2 = explode('-', $pdate);
+
+  $month2 = $date2[1];
+  $year2  = $date2[0];
+
   if($type=="invoice"){
-	$insert = mysqli_query($con,"INSERT INTO credit (invoice_no,cdate,amount,type,remain) VALUES ('$ino','$idate','$iamt','$type','$new_remain')");
+	$insert = mysqli_query($con,"INSERT INTO credit (invoice_no,cdate,month,year,amount,type,remain) VALUES ('$ino','$idate',$month1,$year1,'$iamt','$type','$new_remain')");
   }else{
-  	$insert = mysqli_query($con,"INSERT INTO credit (cdate,amount,type,remain) VALUES ('$pdate','$pamt','$type','$new_remain')");
+  	$insert = mysqli_query($con,"INSERT INTO credit (cdate,month,year,amount,type,remain) VALUES ('$pdate',$month2,$year2,'$pamt','$type','$new_remain')");
   }
 
   

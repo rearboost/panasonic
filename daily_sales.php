@@ -151,51 +151,51 @@ if (!isset($_SESSION['loged_user'])) {
 
                             <div class="col-md-1 pr-1">
                               <div class="form-group">
-                                <label>tot sale</label>
-                                <input type="text" class="form-control" id="tot_sale" name="tot_sale" readonly>
+                                <!-- <label>tot sale</label> -->
+                                <input type="hidden" class="form-control" id="tot_sale" name="tot_sale" readonly>
                               </div>
                             </div>
                             <div class="col-md-1 pr-1">
                               <div class="form-group">
-                                <label>tot free</label>
-                                <input type="text" class="form-control" id="tot_free" name="tot_free" readonly>
+                                <!-- <label>tot free</label> -->
+                                <input type="hidden" class="form-control" id="tot_free" name="tot_free" readonly>
                               </div>
                             </div>
                             
                             <div class="col-md-1 pr-1">
                               <div class="form-group">
-                                <label>purchase</label>
-                                <input type="text" class="form-control" id="purchase" name="purchase" readonly>
+                                <!-- <label>purchase</label> -->
+                                <input type="hidden" class="form-control" id="purchase" name="purchase" readonly>
                               </div>
                             </div>
                             <div class="col-md-1 pr-1">
                               <div class="form-group">
-                                <label>sales</label>
-                                <input type="text" class="form-control" id="sales" name="sales" readonly>
+                                <!-- <label>sales</label> -->
+                                <input type="hidden" class="form-control" id="sales" name="sales" readonly>
                               </div>
                             </div>
                             <div class="col-md-1 pr-1">
                               <div class="form-group">
-                                <label>af sale</label>
-                                <input type="text" class="form-control" id="af_sale" name="af_sale" readonly>
+                                <!-- <label>af sale</label> -->
+                                <input type="hidden" class="form-control" id="af_sale" name="af_sale" readonly>
                               </div>
                             </div>
                             <div class="col-md-1 pr-1">
                               <div class="form-group">
-                                <label>af free</label>
-                                <input type="text" class="form-control" id="af_free" name="af_free" readonly>
+                                <!-- <label>af free</label> -->
+                                <input type="hidden" class="form-control" id="af_free" name="af_free" readonly>
                               </div>
                             </div>
                             <div class="col-md-2 pr-1">
                               <div class="form-group">
-                                <label>PURCHASE</label>
-                                <input type="text" class="form-control" id="tot_pur" name="tot_pur" readonly>
+                                <!-- <label>PURCHASE</label> -->
+                                <input type="hidden" class="form-control" id="tot_pur" name="tot_pur" readonly>
                               </div>
                             </div>
                             <div class="col-md-2 pr-1">
                               <div class="form-group">
-                                <label>SALE</label>
-                                <input type="text" class="form-control" id="tot_sales" name="tot_sales" readonly>
+                                <!-- <label>SALE</label> -->
+                                <input type="hidden" class="form-control" id="tot_sales" name="tot_sales" readonly>
                               </div>
                             </div>
                           </div>
@@ -252,7 +252,8 @@ if (!isset($_SESSION['loged_user'])) {
                          <div class="row">
                           <div class="col-md-4 pr-1">
                             <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Purchase Cost" name="pur_cost" id="pur_cost" required>
+                              <!-- <label>PURCHASE Amt</label> -->
+                              <input type="hidden" class="form-control" placeholder="Purchase Cost" name="pur_cost" id="pur_cost" required>
                             </div>
                           </div>
                         </div>

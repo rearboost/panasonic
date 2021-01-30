@@ -1,5 +1,4 @@
 <?php
-  //error_reporting(0);
   include("db_config.php");
   $con = mysqli_connect(DB_HOSTNAME,DB_USERNAME,DB_PASSWORD,DB_NAME);
     if (!$con) {
@@ -44,13 +43,19 @@
   if(isset($_POST['id'])){
 
       $id=$_POST['id']; 
-      $qry = mysqli_query($con,"SELECT cheque FROM bill WHERE B_id='$id' "); // select query
+      $qry = mysqli_query($con,"SELECT shop,cheque FROM bill WHERE B_id='$id' "); // select query
 
       $data = mysqli_fetch_array($qry); // fetch data
+      $shop = $data['shop'];
       $amt = $data['cheque'];
-      $ddate= date("Y-m-d");;
+      $ddate= date("Y-m-d");
 
-      $add = mysqli_query($con,"INSERT INTO debt (ddate,amt)VALUES('$ddate',$amt)");
+      $date = explode('-', $ddate);
+
+      $year  = $date[0];
+      $month = $date[1];
+
+      $add = mysqli_query($con,"INSERT INTO debt (shop,ddate,month,year,amt)VALUES('$shop','$ddate',$month,$year,$amt)");
       $state = mysqli_query($con,"UPDATE bill SET cheque_status=0 WHERE B_id =  '$id'");
   }
 
@@ -65,7 +70,7 @@
 
 function doneFUN(id){
 
-  alert(id)
+  // alert(id)
   $.ajax({
     url:"tobe_exchanged.php",
     method:"POST",

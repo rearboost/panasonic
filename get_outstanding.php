@@ -6,7 +6,7 @@
 
 	$shop = $_POST['shop'];
 
-	$get_credit = mysqli_query($con,"SELECT SUM(credit) as tot_credit FROM bill WHERE shop = '$shop' GROUP BY shop");
+	$get_credit = mysqli_query($con,"SELECT SUM(credit+cheque) as tot_credit FROM bill WHERE shop = '$shop' GROUP BY shop");
 	
 	$data = mysqli_fetch_array($get_credit); 
 
