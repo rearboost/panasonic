@@ -18,14 +18,9 @@
   <?php
 
   // need to get to be received (total credits+total cheques) from bill table - total received (total amount) from debt table according to each shop
-
-  // $sql1= "SELECT shop, SUM(credit+cheque) AS tot_credit FROM bill GROUP BY shop HAVING tot_credit>0";
-  // $sql2= "SELECT bill.shop,SUM(bill.credit+bill.cheque-debt.amt) AS total_credit FROM bill LEFT JOIN debt ON bill.shop = debt.shop GROUP BY bill.shop HAVING total_credit>0";
   
-    $query = mysqli_query($con,"SELECT bill.shop, SUM(bill.credit+bill.cheque)AS total_credit, SUM(debt.amt) AS total_amt FROM bill LEFT JOIN debt ON bill.shop = debt.shop GROUP BY bill.shop HAVING total_credit>0");
+    $query = mysqli_query($con,"SELECT bill.shop AS shop, SUM(bill.credit+bill.cheque)AS total_credit, A.total_amt FROM bill LEFT JOIN (SELECT SUM(debt.amt) AS total_amt, shop FROM debt GROUP BY debt.shop) A ON bill.shop=A.shop GROUP BY bill.shop HAVING total_credit>0");
 
-
-       
     $numRows = mysqli_num_rows($query);
 
       if($numRows > 0) {

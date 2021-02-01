@@ -94,7 +94,8 @@ mysqli_select_db($con,DB_NAME);
                  
                                   if($numRows1 > 0) {
                                     while($row1 = mysqli_fetch_assoc($result1)) {
-                                      echo "<option value = ".$row1['shop'].">" . $row1['shop'] . "</option>";
+
+                                    echo '<option value = "'.$row1["shop"].'"> '. $row1['shop'] .' </option>';
                                       
                                     }
                                   }
