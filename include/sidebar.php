@@ -71,21 +71,44 @@
           <p>ITEMS</p>
         </a>
       </li>
-      <li 
-        <?php if (basename($_SERVER['PHP_SELF'])=='profit.php')
-        {
-         echo 'class="active"';
-        } else 
-        {
-         echo 'class=""'; 
-        } 
-        ?>
-        >
-        <a href="profit">
-          <i class="nc-icon nc-book-bookmark"></i>
-          <p>DAILY PROFIT</p>
-        </a>
-      </li>
+      <?php if ($_SESSION["user_role"]==1): ?>
+
+        <li 
+          <?php if (basename($_SERVER['PHP_SELF'])=='profit.php')
+          {
+          echo 'class="active"';
+          } else 
+          {
+          echo 'class=""'; 
+          } 
+          ?>
+          >
+          <a href="profit">
+            <i class="nc-icon nc-book-bookmark"></i>
+            <p>DAILY PROFIT</p>
+          </a>
+        </li>
+
+      <?php else: ?>
+
+       <li 
+          <?php if (basename($_SERVER['PHP_SELF'])=='profit_user_view.php')
+          {
+          echo 'class="active"';
+          } else 
+          {
+          echo 'class=""'; 
+          } 
+          ?>
+          >
+          <a href="profit_user_view">
+            <i class="nc-icon nc-book-bookmark"></i>
+            <p>DAILY PROFIT</p>
+          </a>
+        </li>
+
+      <?php endif ?>
+     
       <!-- <li
         <?php // if (basename($_SERVER['PHP_SELF'])=='report.php')
         {

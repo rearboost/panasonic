@@ -27,6 +27,7 @@ include("db_config.php");
                 //session_start();
                   $_SESSION["loged_user"]= $username;
                   $row = mysqli_fetch_assoc($result);
+                  $_SESSION["user_role"] = $row['role'];
 
                   ?><div class='alert alert-danger'> 
                     <strong>Alert : </strong> one user found, directed to Panel page</div><?php 
@@ -46,7 +47,7 @@ include("db_config.php");
 
 <html lang = "en">
 <head>
-      <title>Shanaka Ligth House - Login</title>
+      <title>PANASONIC - Login</title>
       <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
       <!-- <link rel="stylesheet" href="css/login.css"> -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>            
