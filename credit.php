@@ -99,11 +99,25 @@ mysqli_select_db($con,DB_NAME);
                             <Input type="text" class="form-control" id="ino" name="ino" disabled>
                             </div>
                           </div>
-
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
-                            <label>DATE</label>
-                            <Input type="date" class="form-control" id="pdate" name="pdate" disabled>
+                            <label>INVOICE #</label>
+                            <select class="form-control form-selectbox" id="inum" name="inum" disabled>
+                              <option value="">Invoice #</option>
+                              <?php
+                                
+                                $get_ino = mysqli_query($con,"SELECT * FROM credit WHERE type='invoice' AND  credit_status=1");
+
+                                $numRows1 = mysqli_num_rows($get_ino); 
+                 
+                                  if($numRows1 > 0) {
+                                    while($row1 = mysqli_fetch_assoc($get_ino)) {
+                                      echo '<option value = "'.$row1["invoice_no"].'"> '. $row1['invoice_no'] .' </option>';
+                                      
+                                    }
+                                  }
+                              ?>
+                            </select>
                             </div>
                           </div>
                         </div>
@@ -117,8 +131,8 @@ mysqli_select_db($con,DB_NAME);
                           </div>
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
-                            <label>Amount</label>
-                            <input type="text" class="form-control" placeholder="LKR" name="pamt"  id="pamt" disabled>
+                            <label>DATE</label>
+                            <Input type="date" class="form-control" id="pdate" name="pdate" disabled>
                             </div>
                           </div>
                         </div>
@@ -131,6 +145,10 @@ mysqli_select_db($con,DB_NAME);
                             </div>
                           </div>
                           <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                            <label>Amount</label>
+                            <input type="text" class="form-control" placeholder="LKR" name="pamt"  id="pamt" disabled>
+                          </div>
                             <div class="form-group">
                               <input type="hidden" class="form-control" placeholder="LKR" name="remain" id="remain" readonly>
                               <input type="hidden" class="form-control" placeholder="LKR" name="new_remain" id="new_remain" readonly>
@@ -223,6 +241,7 @@ mysqli_select_db($con,DB_NAME);
     $('#idate').prop('disabled', false);
     $('#iamt').prop('disabled', false);
 
+    $('#inum').prop('disabled', true);
     $('#pdate').prop('disabled', true);
     $('#pamt').prop('disabled', true);
 
@@ -230,25 +249,27 @@ mysqli_select_db($con,DB_NAME);
     $('#idate').prop('required', true);
     $('#iamt').prop('required', true);
 
+    $('#inum').val('');
     $('#pdate').val('');
     $('#pamt').val('');
     $('#new_remain').val('');
 
-    $.ajax({
-        url:"get_remain.php",
-        method:"POST",
-        //data:{"shop":shop},
-        success:function(response){
+    // $.ajax({
+    //     url:"get_remain.php",
+    //     method:"POST",
+    //     //data:{"shop":shop},
+    //     success:function(response){
 
-        var remain = Number(response)
+    //     var remain = Number(response)
 
-        $('#remain').val(remain.toFixed(2));
-      }
-    });
+    //     $('#remain').val(remain.toFixed(2));
+    //   }
+    // });
   });
 
   $('#payment').on('change', function() {
     
+    $('#inum').prop('disabled', false);
     $('#pdate').prop('disabled', false);
     $('#pamt').prop('disabled', false);
 
@@ -256,6 +277,7 @@ mysqli_select_db($con,DB_NAME);
     $('#idate').prop('disabled', true);
     $('#iamt').prop('disabled', true);
 
+    $('#inum').prop('required', true);
     $('#pdate').prop('required', true);
     $('#pamt').prop('required', true);
 
@@ -264,10 +286,25 @@ mysqli_select_db($con,DB_NAME);
     $('#iamt').val('');
     $('#new_remain').val('');
 
-    $.ajax({
+  });
+
+  // $('#iamt').on('keyup', function() {
+
+  //   var value1 = $('#iamt').val();
+  //   // var remain1 = $('#remain').val();
+
+  //   // var new_remain1 = Number(remain1) + Number(value1)
+
+  //   $('#new_remain').val(value1.toFixed(2));
+ 
+  // });
+$('#inum').on('change', function() {
+
+  var invoice = $('#inum').val();
+  $.ajax({
       url:"get_remain.php",
       method:"POST",
-      //data:{"shop":shop},
+      data:{"invoice":invoice},
       success:function(response){
 
         var remain = Number(response)
@@ -275,18 +312,7 @@ mysqli_select_db($con,DB_NAME);
         $('#remain').val(remain.toFixed(2));
       }
     });
-  });
-
-  $('#iamt').on('keyup', function() {
-
-    var value1 = $('#iamt').val();
-    var remain1 = $('#remain').val();
-
-    var new_remain1 = Number(remain1) + Number(value1)
-
-    $('#new_remain').val(new_remain1.toFixed(2));
- 
-  });
+});
 
   $('#pamt').on('keyup', function() {
 
@@ -331,6 +357,7 @@ mysqli_select_db($con,DB_NAME);
     $('#ino').prop('disabled', true);
     $('#idate').prop('disabled', true);
     $('#iamt').prop('disabled', true);
+    $('#inum').prop('disabled', true);
     $('#pdate').prop('disabled', true);
     $('#pamt').prop('disabled', true);
     }

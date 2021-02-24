@@ -70,6 +70,15 @@
             <div class="row">
               <div class="col-md-8 pr-1">
                 <div class="form-group">
+                  <label>PURCHASE COST</label>
+                  <input type="text" class="form-control cal_profit1" placeholder="LKR" name="purchase1" id="purchase1" value="<?php echo $data['purchase_cost']?>" readonly required>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-8 pr-1">
+                <div class="form-group">
                   <label>EXPENSES</label>
                   <input type="text" class="form-control cal_profit1" placeholder="LKR" name = "expense1" id="expense1" value="<?php echo $data['expenses']?>"  required>
                 </div>
@@ -79,8 +88,8 @@
             <div class="row">
               <div class="col-md-8 pr-1">
                 <div class="form-group">
-                  <label>DAILY PROFIT</label>
-                  <input type="text" class="form-control" placeholder="LKR" name="profit1"  id="profit1"  value="<?php echo $data['daily_profit']?>" readonly required>
+                 <!--  <label>DAILY PROFIT</label> -->
+                  <input type="hidden" class="form-control" placeholder="LKR" name="profit1"  id="profit1"  value="<?php echo $data['daily_profit']?>" readonly required>
                 </div>
               </div>
             </div>
@@ -111,8 +120,9 @@
 
   function cal_profit1(){
     var income1 = $('#sales1').val();
+    var purch1 = $('#purchase1').val();
     var expenses1 = $('#expense1').val();
-    var pro1 = Number(income1)-Number(expenses1);
+    var pro1 = Number(income1)-(Number(purch1)+Number(expenses1));
 
     $('#profit1').val(pro1.toFixed(2));
 

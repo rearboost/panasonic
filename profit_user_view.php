@@ -107,8 +107,8 @@ mysqli_select_db($con,DB_NAME);
                         <div class="row">
                           <div class="col-md-8 pr-1">
                             <div class="form-group">
-                              <label>DAILY PROFIT</label>
-                              <input type="text" class="form-control" placeholder="LKR" name="profit"  id="profit" readonly required>
+                              <!-- <label>DAILY PROFIT</label> -->
+                              <input type="hidden" class="form-control" placeholder="LKR" name="profit"  id="profit" readonly required>
                             </div>
                           </div>
                         </div>
@@ -127,15 +127,6 @@ mysqli_select_db($con,DB_NAME);
                 </div>
               </div><!-- card body-->
               <div class="card-body">
-                  <?php
-
-                      $profit = mysqli_query($con,"SELECT SUM(daily_profit) AS tot_profit FROM profit");
-                         
-                      $row1 = mysqli_fetch_assoc($profit);
-                      $value = $row1['tot_profit'];
-                  ?>
-                       
-                      <center><h3>LKR. <?php echo number_format($value,2);?></h3></center>    
                 <div class="table-responsive">
                   <table class="table" id="myTable">
                     <thead class="text-primary">
@@ -143,7 +134,6 @@ mysqli_select_db($con,DB_NAME);
                       <th class="text-right"> SALES   </th>
                       <th class="text-right"> PURCHASE COST</th>
                       <th class="text-right"> EXPENSES</th>
-                      <th class="text-right"> PROFIT  </th>
                       <th class="text-center">EDIT 		</th>
                       <th class="text-center">DELETE 	</th>
                     </thead>
@@ -161,7 +151,6 @@ mysqli_select_db($con,DB_NAME);
                             <td class="text-right"> <?php echo $row['sales'] ?>        </td>
                             <td class="text-right"> <?php echo $row['purchase_cost'] ?></td>
                             <td class="text-right"> <?php echo $row['expenses'] ?>     </td>
-                            <td class="text-right"> <?php echo $row['daily_profit'] ?> </td>
 
                             <td class="text-center">  
                              <a href="#" onclick="editView('<?php echo $row['P_id']; ?>')" name="edit">

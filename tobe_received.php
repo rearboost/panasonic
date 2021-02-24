@@ -36,7 +36,12 @@
         <td class="text-right">  <?php echo $row['total_credit'] ?>    </td>
         <td class="text-right">  <?php echo $row['total_amt'] ?>    </td>
         <td class="text-right">  <?php echo number_format($due,2); ?> </td> 
+        <td class="text-center">      
+         <a href="#" onclick="View('<?php echo $row['shop']; ?>')" name="view"> Credit History </a>
+        </td>
       </tr>
+
+      <div id = "show_view"></div>
       
 
     </tbody>
@@ -53,5 +58,19 @@
 
  ?>
 <script>
- 
+// VIEW HISTORY
+function View(shop){
+
+  $.ajax({
+          url:"credit_history.php",
+          method:"POST",
+          data:{"shop":shop},
+
+          success:function(data){
+            $('#show_view').html(data);
+            $('#get_data_credit').modal('show');
+          }
+    });
+}
+////////////////////  
 </script>

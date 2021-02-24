@@ -10,12 +10,14 @@ include("db_config.php");
 if(isset($_POST['submit'])){
 
   $type   		= $_POST['type'];
-  $ino  		= $_POST['ino'];
+  $ino  		  = $_POST['ino'];
   $idate    	= $_POST['idate'];
   $iamt    		= $_POST['iamt'];
-  $pdate    	= $_POST['pdate'];
+
+  $inum    	  = $_POST['inum'];
+  $pdate      = $_POST['pdate'];
   $pamt    		= $_POST['pamt'];
-  $new_remain   = $_POST['new_remain'];
+  $new_remain = $_POST['new_remain'];
 
   $date1 = explode('-', $idate);
 
@@ -28,9 +30,16 @@ if(isset($_POST['submit'])){
   $year2  = $date2[0];
 
   if($type=="invoice"){
-	$insert = mysqli_query($con,"INSERT INTO credit (invoice_no,cdate,month,year,amount,type,remain) VALUES ('$ino','$idate',$month1,$year1,'$iamt','$type','$new_remain')");
+	$insert = mysqli_query($con,"INSERT INTO credit (invoice_no,cdate,month,year,amount,type,remain,credit_status) VALUES ('$ino','$idate',$month1,$year1,'$iamt','$type','$iamt',1)");
   }else{
-  	$insert = mysqli_query($con,"INSERT INTO credit (cdate,month,year,amount,type,remain) VALUES ('$pdate',$month2,$year2,'$pamt','$type','$new_remain')");
+    if($new_remain<=0){
+      $update = mysqli_query($con,"UPDATE credit
+                                    SET credit_status=0
+                                    WHERE invoice_no='$inum' AND type='invoice'");
+    }
+  $insert = mysqli_query($con,"INSERT INTO credit (invoice_no,cdate,month,year,amount,type,remain) VALUES ('$inum','$pdate',$month2,$year2,'$pamt','$type','$new_remain')");
+    
+  
   }
 
   

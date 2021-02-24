@@ -189,6 +189,17 @@ mysqli_select_db($con,DB_NAME);
                 </div>
               </div><!-- card body-->
               <div class="card-body">
+                <?php
+                  $stock = mysqli_query($con,"SELECT SUM((warehouse_stock+lorry_stock)*purchase_cost) AS tot_stock FROM item");
+                  //SELECT item_name, SUM((warehouse_stock+lorry_stock)*purchase_cost) FROM item GROUP BY item_name
+                     
+                  $row1 = mysqli_fetch_assoc($stock);
+                   $value = $row1['tot_stock'];
+                  //  $value = $row1['tot_stock'];
+                ?>
+                       
+                <center><h4 style="margin-top: 0px;">ITEMS IN STOCK <br> <font color="red">LKR. <?php echo number_format($value,2);?></font></h4></center> <br>
+
                 <div class="table-responsive">
                   <table class="table" id="myTable">
                     <thead class="text-primary">

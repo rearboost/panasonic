@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2021 at 06:48 PM
+-- Generation Time: Feb 24, 2021 at 01:19 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -100,18 +100,23 @@ CREATE TABLE `credit` (
   `year` int(5) NOT NULL,
   `amount` double(10,2) NOT NULL,
   `type` varchar(10) NOT NULL,
-  `remain` double(10,2) NOT NULL
+  `remain` double(10,2) NOT NULL,
+  `credit_status` smallint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `credit`
 --
 
-INSERT INTO `credit` (`c_id`, `invoice_no`, `cdate`, `month`, `year`, `amount`, `type`, `remain`) VALUES
-(1, 'PS1001', '2021-01-23', 1, 2021, 12500.00, 'invoice', 12500.00),
-(2, '', '2021-01-25', 1, 2021, 2000.00, 'payment', 10500.00),
-(3, 'PS1002', '2021-01-29', 1, 2021, 24000.00, 'invoice', 34500.00),
-(4, '', '2021-01-29', 1, 2021, 4000.00, 'payment', 30500.00);
+INSERT INTO `credit` (`c_id`, `invoice_no`, `cdate`, `month`, `year`, `amount`, `type`, `remain`, `credit_status`) VALUES
+(1, 'PS1001', '2021-01-23', 1, 2021, 12500.00, 'invoice', 12500.00, 0),
+(2, 'PS1001', '2021-01-25', 1, 2021, 2000.00, 'payment', 10500.00, 0),
+(3, 'PS1002', '2021-01-29', 1, 2021, 24000.00, 'invoice', 24000.00, 1),
+(4, 'PS1002', '2021-01-29', 1, 2022, 4000.00, 'payment', 20000.00, 0),
+(5, 'PS1003', '2021-02-22', 2, 2021, 10000.00, 'invoice', 10000.00, 1),
+(6, 'PS1004', '2021-02-22', 2, 2021, 5000.00, 'invoice', 5000.00, 1),
+(7, 'PS1001', '2021-02-07', 2, 2021, 5500.00, 'payment', 5000.00, 0),
+(8, 'PS1001', '2021-02-10', 2, 2021, 5000.00, 'payment', 0.00, 0);
 
 -- --------------------------------------------------------
 
@@ -191,7 +196,7 @@ CREATE TABLE `profit` (
 --
 
 INSERT INTO `profit` (`P_id`, `cdate`, `sales`, `purchase_cost`, `expenses`, `daily_profit`) VALUES
-(1, '2021-01-12', 1700.00, 750.00, 350.00, 600.00),
+(1, '2021-01-12', 1700.00, 750.00, 250.00, 700.00),
 (3, '2021-01-13', 7800.00, 6720.00, 220.00, 860.00),
 (4, '2021-01-24', 1320.00, 1200.00, 0.00, 120.00);
 
@@ -302,7 +307,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `username`, `password`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3');
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3'),
+(2, 'user', 'ee11cbb19052e40b07aac0ca060c23ee');
 
 --
 -- Indexes for dumped tables
@@ -380,7 +386,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `credit`
 --
 ALTER TABLE `credit`
-  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `debt`
 --
@@ -410,7 +416,7 @@ ALTER TABLE `trxn`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
