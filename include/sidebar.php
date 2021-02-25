@@ -109,21 +109,7 @@
 
       <?php endif ?>
      
-      <!-- <li
-        <?php // if (basename($_SERVER['PHP_SELF'])=='report.php')
-        {
-        //  echo 'class="active"';
-        } //else 
-        {
-        //  echo 'class=""'; 
-        } 
-        ?>
-        >
-        <a href="report">
-          <i class="nc-icon nc-money-coins"></i>
-          <p>DAILY SALES REPORT</p>
-        </a>
-      </li> -->
+      
       <li
         <?php if (basename($_SERVER['PHP_SELF'])=='debt.php')
         {
@@ -152,6 +138,21 @@
         <a href="credit">
           <i class="nc-icon nc-money-coins"></i>
           <p>CREDIT COLLECTION</p>
+        </a>
+      </li>
+     <li
+        <?php  if (basename($_SERVER['PHP_SELF'])=='report.php')
+        {
+         echo 'class="active"';
+        } else 
+        {
+          echo 'class=""'; 
+        } 
+        ?>
+        >
+        <a href="report">
+          <i class="nc-icon nc-paper"></i>
+          <p>SALES REPORT</p>
         </a>
       </li>
       <li

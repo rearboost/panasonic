@@ -10,7 +10,7 @@
       <th> MONTH,YEAR    </th> 
       <th class="text-right"> CASH            </th>
       <th class="text-right"> DEBT COLLECTION </th> 
-      <th class="text-right"> AMOUNT          </th>
+      <th class="text-right"> TOTAL RECEIVED          </th>
     </thead>
     <tbody>
 

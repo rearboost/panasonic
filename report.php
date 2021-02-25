@@ -47,24 +47,34 @@ mysqli_select_db($con,DB_NAME);
             <div class="card">
               <div class="row">
                 <div class="card-header">
-                  <h5 class="card-title pl-3">&nbsp;&nbsp;DAILY SALES REPORT</h5>                    
+                  <h5 class="card-title pl-3">&nbsp;&nbsp;SALES REPORT</h5>                    
                 </div>
               </div>
               <div class="card-body">
                 <form action="" method="POST">
                   <div class="col-md-12">
                     <div class="row">
-                      <div class="col-md-8">
-                        <div class="col-md-5 pl-1">
+                      <div class="col-md-9">
+                      <div class="row">
+                        <div class="col-md-4 pl-1">
                         <div class="form-group"> 
-                        <input type="date" class="form-control" id="cdate" name="cdate" required>
+                          <label>From Date</label>
+                        <input type="date" class="form-control date_func" id="from_date" name="from_date" required>
+                        </div>
+                        </div>
+                        <div class="col-md-4 pl-1">
+                        <div class="form-group"> 
+                          <label>To Date</label>
+                        <input type="date" class="form-control date_func" id="to_date" name="to_date" required>
                         </div>
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      </div>
+
+                      <div class="col-md-3">
                         <div class="col-md-12">
                           <div class="form-group" >
-                            <h6 style="text-align:'right';">Date : <?php echo date('Y-m-d'); ?> </h6>
+                            <h6 style="text-align:'right';">Today : <?php echo date('Y-m-d'); ?> </h6>
                           </div>
                         </div>
                       </div>
@@ -104,14 +114,15 @@ mysqli_select_db($con,DB_NAME);
 
   <script>
 
-    $('#cdate').on('change', function() {
+    $('.date_func').on('change', function() {
 
-        var cdate = $('#cdate').val();
+        var from_date = $('#from_date').val();
+        var to_date = $('#to_date').val();
 
         $.ajax({
               url:"view_report.php",
               method:"POST",
-              data:{"cdate":cdate},
+              data:{"from_date":from_date,"to_date":to_date},
               success:function(data){
                 $('#show_report').html(data);
               }

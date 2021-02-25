@@ -8,24 +8,20 @@
 ?>
   <table class="table" id="get_data1">
     <thead class="text-primary">
-      <th>                    BILL #       </th>
-      <th>                    ITEM         </th>
-      <th class="text-right"> TOTAL [SALE] </th>
-      <th class="text-right"> SALE QTY     </th>
-      <th class="text-right"> AF BAL [SALE]</th>
-      <th class="text-right"> TOTAL [FREE] </th>
-      <th class="text-right"> FREE QTY     </th>
-      <th class="text-right"> AF BAL[FREE] </th>
+      <th>                    ITEM          </th>
+      <th class="text-right"> SALE QUANTITY </th>
+      <th class="text-right"> FREE QUANTITY </th>
     </thead>
     <tbody>
 
   <?php
 
-  if(isset($_POST['cdate'])){
+  if(isset($_POST['from_date']) || isset($_POST['to_date'])){
 
-    $cdate = $_POST['cdate'];
+    $from_date = $_POST['from_date'];
+    $to_date = $_POST['to_date'];
 
-    $query = mysqli_query($con,"SELECT  * FROM bill INNER JOIN sale_items ON bill.bill_no = sale_items.bill_no WHERE bill.b_date = '$cdate'");
+    $query = mysqli_query($con,"SELECT sale_items.item AS item, SUM(sale)AS tot_sale, SUM(free)AS tot_free FROM bill INNER JOIN sale_items ON bill.bill_no = sale_items.bill_no WHERE bill.b_date BETWEEN '$from_date' AND '$to_date' GROUP BY sale_items.item ");
        
     $numRows = mysqli_num_rows($query);
 
@@ -34,14 +30,9 @@
 ?>
      
       <tr>
-        <td>                    <?php echo $row['bill_no'] ?>    </td>
-        <td>                    <?php echo $row['item'] ?>       </td>
-        <td class="text-right"> <?php echo $row['total'] ?>      </td>
-        <td class="text-right"> <?php echo $row['sale'] ?>       </td>
-        <td class="text-right"> <?php echo $row['af_bal'] ?>     </td>
-        <td class="text-right"> <?php echo $row['total_free'] ?> </td>
-        <td class="text-right"> <?php echo $row['free'] ?>       </td>
-        <td class="text-right"> <?php echo $row['af_free'] ?>    </td>
+        <td>                    <?php echo $row['item'] ?>    </td>
+        <td class="text-right"> <?php echo $row['tot_sale'] ?>      </td>
+        <td class="text-right"> <?php echo $row['tot_free'] ?>       </td>
       </tr>
 
     </tbody>

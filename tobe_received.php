@@ -11,7 +11,7 @@
       <th>                    SHOP       </th>
       <th class="text-right"> CREDIT     </th>
       <th class="text-right"> RECEIVED   </th>
-      <th class="text-right"> AMOUNT     </th>
+      <th class="text-right"> REMAIN     </th>
     </thead>
     <tbody>
 
