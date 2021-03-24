@@ -6,7 +6,7 @@
       die('Could not connect: ' . mysqli_error($con));
     }
 ?>
-  <table class="table" id="get_data1">
+  <table class="table" id="tobe_receivedTB">
     <thead class="text-primary">
       <th>                    SHOP       </th>
       <th class="text-right"> DEBT     </th>
@@ -60,6 +60,11 @@
 
  ?>
 <script>
+
+  $(document).ready( function () {
+    $('#tobe_receivedTB').DataTable();
+  });
+
 // VIEW HISTORY
 function View(shop){
 

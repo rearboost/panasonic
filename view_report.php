@@ -6,7 +6,7 @@
       die('Could not connect: ' . mysqli_error($con));
     }
 ?>
-  <table class="table" id="get_data1">
+  <table class="table" id="edit_trxnTB">
     <thead class="text-primary">
       <th>                    ITEM          </th>
       <th class="text-right"> SALE QUANTITY </th>
@@ -50,5 +50,10 @@
 
  ?>
 <script>
+
+  ////////////////// DataTable ////////////////////////////
+  $(document).ready( function () {
+    $('#edit_trxnTB').DataTable();
+  });
  
 </script>

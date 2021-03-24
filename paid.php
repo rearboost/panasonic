@@ -28,19 +28,17 @@
       ?>
     </select>
   </div>
-
   </div>
-  
 </form>
-
 
 <div id="get_data_table"></div>
   
   <?php
   mysqli_close($con);
-
  ?>
+
 <script>
+
  $('#year').on('change', function() {
 
     var year = $('#year').val();
@@ -51,7 +49,6 @@
         data:{"year":year},
         success:function(data){
             $('#get_data_table').html(data);
-
       }
     });
   });

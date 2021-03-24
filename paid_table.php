@@ -9,7 +9,7 @@ $con = mysqli_connect(DB_HOSTNAME,DB_USERNAME,DB_PASSWORD,DB_NAME);
  $get_year = $_POST['year'];
  if(isset($get_year)){
 ?>
-    <table class="table">
+    <table class="table" id="paidTB">
     <thead class="text-primary">
       <th>                    MONTH, YEAR   </th>
       <th class="text-right"> AMOUNT  </th>
@@ -46,8 +46,8 @@ $con = mysqli_connect(DB_HOSTNAME,DB_USERNAME,DB_PASSWORD,DB_NAME);
 ?> 
   
   </table>
-
 <script>
+
 // VIEW HISTORY
 function View(id1){
 

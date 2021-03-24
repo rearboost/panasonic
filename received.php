@@ -5,7 +5,7 @@
       die('Could not connect: ' . mysqli_error($con));
     }
 ?>
-  <table class="table" id="get_data1">
+  <table class="table" id="receivedTB">
     <thead class="text-primary">
       <th> MONTH,YEAR    </th> 
       <th class="text-right"> CASH            </th>
@@ -50,5 +50,9 @@
 
  ?>
 <script>
+
+  $(document).ready( function () {
+    $('#receivedTB').DataTable();
+  });
  
 </script>

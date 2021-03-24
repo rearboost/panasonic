@@ -23,7 +23,7 @@
 ?>
      <center><h4 style="margin-top: 0px;">You have to be paid <br> <font color="red">LKR. <?php echo number_format($value3,2);?></font></h4></center> <br>
 
-<table class="table" id="get_data1">
+<table class="table" id="tobe_paidTB">
   <thead class="text-primary">
     <th>                    INVOICE </th>
     <th>                    DATE    </th>
@@ -70,6 +70,12 @@ mysqli_close($con);
 
 ?>
 <script>
+
+ ////////////////////////////  DataTable ////////////////////////////
+ $(document).ready( function () {
+    $('#tobe_paidTB').DataTable();
+ });
+
 // VIEW HISTORY
 function View(id){
 

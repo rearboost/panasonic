@@ -5,7 +5,7 @@
       die('Could not connect: ' . mysqli_error($con));
     }
 ?>
-<table class="table" id="get_data1">
+<table class="table" id="tobe_exchangedTB">
   <thead class="text-primary">
     <th>                    VALID DATE  </th>
     <th>                    CHEQUE NO   </th>
@@ -193,6 +193,11 @@ if(isset($_POST['id'])){
  ?>
 
 <script>
+
+ $(document).ready( function () {
+    $('#tobe_exchangedTB').DataTable();
+ });
+
 function editDate(id){
 
     $.ajax({

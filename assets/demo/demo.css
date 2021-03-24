@@ -199,3 +199,9 @@
 .myInput {
   width: 50% !important;
 }
+#myTable_length {
+  display: none;
+}
+#myTable_filter {
+  display: none;
+}

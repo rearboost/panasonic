@@ -15,29 +15,8 @@ if (!isset($_SESSION['loged_user'])) {
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    PANASONIC
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-
-  <!-- CSS Files -->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="assets/demo/demo.css" rel="stylesheet" />
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
-  
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
-
-</head>
+   <!-- include head code here -->
+  <?php  include('./include/head.php');   ?>
 
 <body class="">
   <div class="wrapper ">
@@ -411,8 +390,15 @@ if (!isset($_SESSION['loged_user'])) {
   <script src="assets/demo/demo.js"></script>
     <!-- sweetalert message -->
   <script src="assets/js/sweetalert.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="assets/js/jquery.dataTables.js"></script>
   
   <script>
+
+  ////////////////////////////  DataTable ////////////////////////////
+  $(document).ready( function () {
+    $('#myTable').DataTable();
+  });
 
 //////////////////////////////GET NEW BILL NO //////////////////////////////////
 $('#cheque').on('keyup', function() {
