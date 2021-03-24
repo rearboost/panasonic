@@ -107,8 +107,8 @@ mysqli_select_db($con,DB_NAME);
                         <div class="row">
                           <div class="col-md-8 pr-1">
                             <div class="form-group">
-                              <label>DAILY PROFIT</label>
-                              <input type="text" class="form-control" placeholder="LKR" name="profit"  id="profit" readonly required>
+                              <!-- <label>DAILY PROFIT</label> -->
+                              <input type="hidden" class="form-control" placeholder="LKR" name="profit"  id="profit" readonly required>
                             </div>
                           </div>
                         </div>

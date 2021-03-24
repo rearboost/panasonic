@@ -9,7 +9,7 @@
   <table class="table" id="get_data1">
     <thead class="text-primary">
       <th>                    SHOP       </th>
-      <th class="text-right"> CREDIT     </th>
+      <th class="text-right"> DEBT     </th>
       <th class="text-right"> RECEIVED   </th>
       <th class="text-right"> REMAIN     </th>
     </thead>
@@ -17,24 +17,26 @@
 
   <?php
 
-  // need to get to be received (total credits+total cheques) from bill table - total received (total amount) from debt table according to each shop
+  // need to get to be received (total credits from bill+total amount from cheques) - total received (total amount) according to each shop
   
-    $query = mysqli_query($con,"SELECT bill.shop AS shop, SUM(bill.credit+bill.cheque)AS total_credit, A.total_amt FROM bill LEFT JOIN (SELECT SUM(debt.amt) AS total_amt, shop FROM debt GROUP BY debt.shop) A ON bill.shop=A.shop GROUP BY bill.shop HAVING total_credit>0");
+    // $query = mysqli_query($con,"SELECT bill.shop AS shop, SUM(bill.credit+bill.cheque)AS total_credit, A.total_amt FROM bill LEFT JOIN (SELECT SUM(debt.amt) AS total_amt, shop FROM debt GROUP BY debt.shop) A ON bill.shop=A.shop GROUP BY bill.shop HAVING total_credit>0");
+
+    $query = mysqli_query($con,"SELECT * FROM debt_summary GROUP BY shop HAVING debt>0 OR received>0");
 
     $numRows = mysqli_num_rows($query);
 
       if($numRows > 0) {
         while($row = mysqli_fetch_assoc($query)) {
 
-          $credit = $row['total_credit'];
-          $paid   = $row['total_amt'];
+          $credit = $row['debt'];
+          $paid   = $row['received'];
           $due    = $credit - $paid;
 ?>
      
       <tr>
-        <td>                     <?php echo $row['shop'] ?>    </td>
-        <td class="text-right">  <?php echo $row['total_credit'] ?>    </td>
-        <td class="text-right">  <?php echo $row['total_amt'] ?>    </td>
+        <td>                     <?php echo $row['shop'] ?>           </td>
+        <td class="text-right">  <?php echo $row['debt'] ?>   </td>
+        <td class="text-right">  <?php echo $row['received'] ?>      </td>
         <td class="text-right">  <?php echo number_format($due,2); ?> </td> 
         <td class="text-center">      
          <a href="#" onclick="View('<?php echo $row['shop']; ?>')" name="view"> Credit History </a>

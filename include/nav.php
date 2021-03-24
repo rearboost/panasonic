@@ -19,7 +19,16 @@
         
         <ul class="navbar-nav">
             <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="debt.php">
+                    <p style='color:red;'><b>
+                        <?php
+                            include("./notification_msg.php"); // show notification msg
+
+                            if($numRows>0){
+                            echo " " . $numRows . " NEW ";
+                        }
+                        ?>
+                    </b></p>
                 <i class="nc-icon nc-bell-55"></i>
             </a>
             </li>

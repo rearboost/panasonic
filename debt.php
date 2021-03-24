@@ -63,7 +63,18 @@ mysqli_select_db($con,DB_NAME);
                           <div class="row">
                           <button class="btn btn-primary add-btn" style="margin-left: 30px;" id="btn1" name="btn1"> Received</button> 
                           <button class="btn btn-danger add-btn" id="btn2" name="btn2"> To be Received</button> 
-                          <button class="btn btn-success add-btn" id="btn3" name="btn3"> Cheque to be Exchanged</button> 
+                          <button class="btn btn-success add-btn" id="btn3" name="btn3"> Cheque to be Exchanged &nbsp;&nbsp;
+                            <!-- <label class="btn-sm" style="background-color:red; border: 0px; color: #ffffff; padding-top: 2px; border-radius: 100px 100px 100px 0px;"> -->  
+                              <font color="red"><b>
+                                <?php
+                                    include("notification_msg.php"); // show notification msg
+
+                                    if($numRows>0){
+                                    echo " " . $numRows . " new";
+                                }
+                                ?>
+                            </b></font>
+                          </button> 
                           </div>
                         </div>
                   </div>
@@ -169,6 +180,7 @@ mysqli_select_db($con,DB_NAME);
   <script src="assets/demo/demo.js"></script>
   <!-- sweetalert message -->
   <script src="assets/js/sweetalert.min.js"></script>
+
 
   <script>
 

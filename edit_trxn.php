@@ -140,28 +140,30 @@
               </div>
             </div>
 
+            <!--open hidden area-->
             <div class="row">
               <div class="col-md-3 pr-1">
                 <div class="form-group">
-                  <input type="text" class="form-control stock_out" id="warehouse1" name="warehouse1" value="<?php  echo $data['warehouse_stock']?>" >
+                  <input type="hidden" class="form-control stock_out" id="warehouse1" name="warehouse1" value="<?php  echo $data['warehouse_stock']?>" >
                 </div>
               </div>
               <div class="col-md-3 pr-1">
                 <div class="form-group">
-                  <input type="text" class="form-control stock_out" id="warehouse_now" name="warehouse_now" >
+                  <input type="hidden" class="form-control stock_out" id="warehouse_now" name="warehouse_now" >
                 </div>
               </div>
               <div class="col-md-3 pr-1">
                 <div class="form-group">
-                  <input type="text" class="form-control stock_out" id="warehouse_free1" name="warehouse_free1" value="<?php  echo $data['free_stock']?>" >
+                  <input type="hidden" class="form-control stock_out" id="warehouse_free1" name="warehouse_free1" value="<?php  echo $data['free_stock']?>" >
                 </div>
               </div>
               <div class="col-md-3 pr-1">
                 <div class="form-group">
-                  <input type="text" class="form-control stock_out" id="free_now" name="free_now" >
+                  <input type="hidden" class="form-control stock_out" id="free_now" name="free_now" >
                 </div>
               </div>
             </div>
+            <!--close hidden area-->
 
             <div class="row">
               <div class="update ml-auto mr-auto">

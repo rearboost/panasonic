@@ -144,7 +144,7 @@ input[type="number"] {
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>WAREHOUSE SALE STOCK</label>
-                  <input type="text" class="form-control" value="<?php echo $data['warehouse_stock'] ?>" name="warehouse_stock1" id="warehouse_stock1" required>
+                  <input type="text" class="form-control" value="<?php echo $data['warehouse_stock'] ?>" name="warehouse_stock1" id="warehouse_stock1" required readonly>
                 </div>
               </div>
             </div>
@@ -153,13 +153,13 @@ input[type="number"] {
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>STOCK IN [FREE]</label>
-                  <input type="text" class="form-control new_stock" placeholder="Quantity (Number)" name="stock_free1" id="stock_free1" required>
+                  <input type="text" class="form-control new_stock" placeholder="Quantity (Number)" name="stock_free1" id="stock_free1" required >
                 </div>
               </div>
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>WAREHOUSE FREE STOCK</label>
-                  <input type="text" class="form-control" value="<?php echo $data['free_stock'] ?>" name = "free_stock1" id="free_stock1" required>
+                  <input type="text" class="form-control" value="<?php echo $data['free_stock'] ?>" name = "free_stock1" id="free_stock1" required readonly> 
                 </div>
               </div>
             </div>

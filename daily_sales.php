@@ -76,6 +76,7 @@ if (!isset($_SESSION['loged_user'])) {
                       </div> 
                       <form id="BillAdd">
                         <input type="hidden" id="myitemjson" name="myitemjson"/>
+                        <input type="hidden" id="myitemjson1" name="myitemjson1"/>
                         <div class="col-md-12">
                         <div class="row">
                           <div class="col-md-6 pr-1">
@@ -259,40 +260,63 @@ if (!isset($_SESSION['loged_user'])) {
                         </div>
 
                         <div class="row">
-                          <div class="col-md-4 pr-1">
+                          <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>CASH</label>
                               <input type="text" class="form-control" placeholder="LKR" name="cash" required>
                             </div>
                           </div>
-                          <div class="col-md-4 pr-1">
+                          <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>CREDIT</label>
                               <input type="text" class="form-control" placeholder="LKR" name="credit" required>
                             </div>
                           </div>
-                          <div class="col-md-4 pr-1">
+                          <div class="col-md-6 pr-1">
                             <div class="form-group">
-                              <label>CHEQUE</label>
-                              <input type="text" class="form-control" placeholder="LKR" name="cheque" id="cheque" required>
+                              <input type="hidden" class="form-control" placeholder="tot cheque" name="tot_cheques" id="tot_cheques">
                             </div>
                           </div>
                         </div>
 
                         <div class="row">
-                          <div class="col-md-6 pr-1">
+                          <div class="col-md-3 pr-1">
+                            <div class="form-group">
+                              <label>CHEQUE AMOUNT</label>
+                              <input type="text" class="form-control" placeholder="LKR" name="cheque" id="cheque">
+                            </div>
+                          </div>
+                          <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>CHEQUE NO:</label>
                               <input type="text" class="form-control" placeholder="LKR" name="cheque_no" id="cheque_no" disabled>
                             </div>
                           </div>
-                          <div class="col-md-6 pr-1">
+                          <div class="col-md-3 pr-1">
                             <div class="form-group">
                               <label>CHEQUE VALID DATE</label>
                               <input type="date" class="form-control" name="cheque_date" id="cheque_date" disabled>
                             </div>
                           </div>
+                          <div class="col-md-3 pr-1">
+                            <div class="form-group">
+                               <button type="button" id="chequeAdd" name="chequeAdd" class="btn btn-secondary btn-round" style="margin-top: 25px;">Add</button>
+                            </div>
+                          </div>
                         </div>
+                        <div class="table-responsive">
+                          <table id="example1" class="table table-bordered table-striped" style="width:100%">
+                              <thead>
+                                <tr>
+                                  <th>Cheque #</th>
+                                  <th>Amount</th>
+                                  <th>Valid Date</th>
+
+                                  <th>DELETE</th>  
+                                </tr>
+                              </thead>
+                          </table>
+                        </div>  
                         
 
                         <div class="row">
@@ -324,7 +348,8 @@ if (!isset($_SESSION['loged_user'])) {
                     </thead>
                     <tbody>
                       <?php
-                      $sql=mysqli_query($con,"SELECT * FROM bill");
+                      //$sql=mysqli_query($con,"SELECT * FROM bill");
+                      $sql=mysqli_query($con,"SELECT B.bill_no as bill_no,B.shop as shop,B.b_date as b_date,B.cash as cash,B.credit as credit,SUM(C.amount)as cheque  FROM bill B,cheques C WHERE B.bill_no=C.bill_no GROUP BY B.bill_no");
 
                       $numRows = mysqli_num_rows($sql); 
                  
@@ -333,12 +358,12 @@ if (!isset($_SESSION['loged_user'])) {
 
                           ?>
                           <tr>
-                            <td>                    <?php echo $row['bill_no'] ?> </td>
-                            <td>                    <?php echo $row['shop'] ?>    </td>
-                            <td>                    <?php echo $row['b_date'] ?>  </td>
-                            <td class="text-right"> <?php echo $row['cash'] ?>    </td>
-                            <td class="text-right"> <?php echo $row['credit'] ?>  </td>
-                            <td class="text-right"> <?php echo $row['cheque'] ?>  </td>
+                            <td>                   <?php echo $row['bill_no'] ?></td>
+                            <td>                   <?php echo $row['shop'] ?>   </td>
+                            <td>                   <?php echo $row['b_date'] ?> </td>
+                            <td class="text-right"><?php echo $row['cash'] ?>   </td>
+                            <td class="text-right"><?php echo $row['credit'] ?> </td>
+                            <td class="text-right"><?php echo $row['cheque'] ?> </td>
  
                             <!--<td class="text-center">  
                              <a href="#" onclick="editView('<?php // echo $row['bill_no']; ?>')" name="edit">
@@ -395,15 +420,15 @@ $('#cheque').on('keyup', function() {
   $('#cheque_no').prop('disabled', false);
   $('#cheque_date').prop('disabled', false);
 
-  var value  = $('#cheque').val();
+  // var value  = $('#cheque').val();
 
-  if(value > 0){
-    $('#cheque_no').prop('required', true);
-    $('#cheque_date').prop('required', true);
-  }else if(value == 0){
-    $('#cheque_no').prop('required', false);
-    $('#cheque_date').prop('required', false);
-  }
+  // if(value > 0){
+  //   $('#cheque_no').prop('required', true);
+  //   $('#cheque_date').prop('required', true);
+  // }else if(value == 0){
+  //   $('#cheque_no').prop('required', false);
+  //   $('#cheque_date').prop('required', false);
+  // }
 
 }); 
 
@@ -578,6 +603,9 @@ $(function () {
   $(document).ready(function() {
       $('#example').dataTable();
       $('#addbtn').click(addrow);
+
+      $('#example1').dataTable();
+      $('#chequeAdd').click(addcheque);
   });
 
  ///////////////  Add Row
@@ -639,6 +667,7 @@ $(function () {
       TotalAmt = Number(TotalAmt) + Number(tot_sales);
       PurchaseCost = Number(PurchaseCost) + Number(tot_pur);
       $('#bill_amt').val(TotalAmt);
+      $('#dis_amt').val(TotalAmt);
       $('#pur_cost').val(PurchaseCost)
 
       var z={"item":item,"tot_sale":tot_sale,"sale":sale,"af_sale":af_sale,"tot_free":tot_free,"free":free,"af_free":af_free,"tot_pur":tot_pur,"tot_sales":tot_sales};
@@ -669,6 +698,58 @@ $(function () {
       $(this).closest("tr").remove();
       reCalulate();
    });
+
+    /////////add cheque /////////////////
+
+    function addcheque() {
+
+      $('#example1').dataTable().fnAddData( [
+          $('#cheque').val(),
+          $('#cheque_no').val(),
+          $('#cheque_date').val(),
+          "<button class='btn-edit' id='DeleteButton'>Delete</button>" ] );
+
+      $('#cheque').val("")
+      $('#cheque_no').val("")
+      $('#cheque_date').val("")
+      
+      reCalulate1();
+     
+    }
+
+    function reCalulate1(){
+      
+      var array1=[];
+      var TotChq = 0;
+      var table = $("#example1");
+
+      table.find('tr:gt(0)').each(function (i) {
+
+      var $tds = $(this).find('td'),
+      cheque = $tds.eq(0).text();
+      cheque_no = $tds.eq(1).text();
+      cheque_date = $tds.eq(2).text();
+
+      TotChq = Number(TotChq) + Number(cheque);
+      $('#tot_cheques').val(TotChq);
+
+      var z={"cheque":cheque,"cheque_no":cheque_no,"cheque_date":cheque_date};
+
+      array1.push({cheque:cheque,cheque_no:cheque_no,cheque_date:cheque_date});
+
+      });
+
+      console.log(JSON.stringify(array1, null, 1));
+      $('#myitemjson1').val(JSON.stringify(array1));
+
+    }
+ 
+    /////////// Remove the Row 
+    $("#example1").on("click", "#DeleteButton", function() {
+      $(this).closest("tr").remove();
+      reCalulate1();
+   });
+
 
 
   </script>

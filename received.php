@@ -16,24 +16,25 @@
 
   <?php
 
-    // need to get received (total cash) from bill table + total debt received (total amount) from debt table according to each month,year
-  
-    $query = mysqli_query($con,"SELECT bill.month AS month, bill.year AS year, SUM(bill.cash) AS tot_collect, T.tot_debt FROM bill LEFT JOIN (SELECT SUM(debt.amt)AS tot_debt, month, year,shop  FROM debt GROUP BY debt.month, debt.year) T ON bill.shop=T.shop GROUP BY bill.month,bill.year");
+    // need to get received (total cash + total debt collection) according to each each month and year
+
+    $query = mysqli_query($con,"SELECT year,month,cash,debt FROM cash_summary GROUP BY month,year HAVING cash>0 OR debt>0 ORDER BY year DESC");
+
        
     $numRows = mysqli_num_rows($query);
 
       if($numRows > 0) {
         while($row = mysqli_fetch_assoc($query)) {
-           $total1 = $row['tot_debt'];
-           $total2 = $row['tot_collect'];
+           $total1 = $row['cash'];
+           $total2 = $row['debt'];
            $sum = $total1 + $total2;
 ?>
      
       <tr>
-        <td>                    <?php echo $row['month'] . ',' . $row['year'] ?> </td>
-         <td class="text-right"> <?php  echo $row['tot_collect'] ?>    </td>  
-         <td class="text-right"> <?php   echo $row['tot_debt'] ?>    </td>   
-        <td class="text-right">  <?php echo number_format($sum,2); ?>      </td>  
+        <td>                     <?php echo $row['month'].','.$row['year'] ?> </td>
+         <td class="text-right"> <?php echo $row['cash'] ?>                   </td>  
+         <td class="text-right"> <?php echo $row['debt'] ?>                   </td>   
+         <td class="text-right"> <?php echo number_format($sum,2); ?>         </td>  
       </tr>
 
     </tbody>
