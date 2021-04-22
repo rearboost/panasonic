@@ -323,7 +323,7 @@ if (!isset($_SESSION['loged_user'])) {
                       <th class="text-right">  CREDIT     </th>
                       <th class="text-right">  CHEQUE     </th>
                       <!-- <th class="text-center"> EDIT       </th> -->
-                      <th class="text-center"> DELETE     </th>
+                      <!-- <th class="text-center"> DELETE     </th> -->
                     </thead>
                     <tbody>
                       <?php
@@ -350,10 +350,10 @@ if (!isset($_SESSION['loged_user'])) {
                               <h6 style='color:green;'>EDIT</h6></a>
                             </td> -->
 
-                            <td class="text-center">  
-                              <a href="#" onclick="confirmation('event','<?php echo $row['bill_no']; ?>')" name="delete">
+                            <!-- <td class="text-center">  
+                              <a href="#" onclick="confirmation('event','<?php // echo $row['bill_no']; ?>')" name="delete">
                               <h6 style='color:red;'>DELETE</h6></a>
-                            </td>
+                            </td> -->
 
                           </tr>
                     </tbody>
@@ -517,6 +517,7 @@ $('#discount').on('keyup', function() {
 ///////////////////// Form values reset //////////////////////////
 function form_reset(){
   document.getElementById("BillAdd").reset();
+
   $('#cheque_no').prop('disabled', true);
   $('#cheque_date').prop('disabled', true);
 }
@@ -566,21 +567,28 @@ $(function () {
 
       e.preventDefault();
 
-      $.ajax({
-        type: 'post',
-        url: 'bill_insert.php',
-        data: $('#BillAdd').serialize(),
-        success: function () {
-          swal({
-            title: "Good job !",
-            text: "Successfully Submited",
-            icon: "success",
-            button: "Ok !",
-            });
-            setTimeout(function(){ location.reload(); }, 2500);
-           }
-      });
+      
+      var table = $('#myitemjson').val();
+      if(table == '[]'){
 
+        alert('No available Items. Try again.')
+       }else{
+
+        $.ajax({
+          type: 'post',
+          url: 'bill_insert.php',
+          data: $('#BillAdd').serialize(),
+          success: function () {
+            swal({
+              title: "Good job !",
+              text: "Successfully Submited",
+              icon: "success",
+              button: "Ok !",
+              });
+              setTimeout(function(){ location.reload(); }, 2500);
+             }
+        });
+      }
     });
 
   });
