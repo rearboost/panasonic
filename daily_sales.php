@@ -95,7 +95,7 @@ if (!isset($_SESSION['loged_user'])) {
                        
                                         if($numRows1 > 0) {
                                           while($row1 = mysqli_fetch_assoc($get_item)) {
-                                            echo "<option value = ".$row1['item_name'].">" . $row1['item_name'] . "</option>";
+                                            echo '<option value ="'.$row1["item_name"].'">' . $row1['item_name'] . '</option>';
                                             
                                           }
                                         }
@@ -328,7 +328,8 @@ if (!isset($_SESSION['loged_user'])) {
                     <tbody>
                       <?php
                       //$sql=mysqli_query($con,"SELECT * FROM bill");
-                      $sql=mysqli_query($con,"SELECT B.bill_no as bill_no,B.shop as shop,B.b_date as b_date,B.cash as cash,B.credit as credit,SUM(C.amount)as cheque  FROM bill B,cheques C WHERE B.bill_no=C.bill_no GROUP BY B.bill_no");
+                      
+                      $sql=mysqli_query($con,"SELECT B.bill_no as bill_no,B.shop as shop,B.b_date as b_date,B.cash as cash,B.credit as credit,SUM(C.amount)as cheque  FROM bill B LEFT JOIN cheques C ON B.bill_no=C.bill_no GROUP BY B.bill_no");
 
                       $numRows = mysqli_num_rows($sql); 
                  
