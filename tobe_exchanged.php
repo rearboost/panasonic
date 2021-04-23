@@ -5,12 +5,11 @@
       die('Could not connect: ' . mysqli_error($con));
     }
 ?>
-<table class="table" id="tobe_exchangedTB">
+<table class="table" id="get_data1">
   <thead class="text-primary">
     <th>                    VALID DATE  </th>
     <th>                    CHEQUE NO   </th>
     <th class="text-right"> AMOUNT      </th>
-    <th class="text-center">PICK DATE  </th>
   </thead>
   <tbody>
 
@@ -28,30 +27,9 @@
       <td>                    <?php echo $row['valid_date'] ?> </td>
       <td>                    <?php echo $row['cheque_no'] ?>   </td>
       <td class="text-right"> <?php echo $row['amount'] ?>      </td>
-      <td class="text-center"> 
-        <button type="button" id="edit_date" name="edit_date" class="btn btn-warning btn-round" onclick="editDate('<?php echo $row['id']; ?>')">Pick Date</button>
-      </td>
-      <td class="text-center"> 
-        <?php
-        $check_id = $row['id'];
-        $check_date = mysqli_query($con,"SELECT ex_date FROM cheques WHERE id='$check_id'");
-        $date_data = mysqli_fetch_array($check_date);
-        $check_exDate = $date_data['ex_date'];
-
-        if($check_exDate==''){
-        ?>
-          <a href="#" onclick="doneFUN(<?php echo $row['id']; ?>)" name="done">
-          <button class="btn btn-success btn-round" disabled="">Done</button></a>
-
-        <?php
-        }else{
-        ?>
-          <a href="#" onclick="doneFUN(<?php echo $row['id']; ?>)" name="done">
-          <button class="btn btn-success btn-round">Done</button></a>
-        <?php
-        }
-        ?> 
-        
+      <td class="text-center">  
+      <a href="#" onclick="doneFUN(<?php echo $row['id']; ?>)" name="done">
+      <button class="btn btn-success btn-round">Done</button></a>
       </td>
     </tr>
 
@@ -61,27 +39,24 @@
     }
 ?> 
 </table>
-
-<div id="show_view">
-
-</div>
-
 <?php
 
 if(isset($_POST['id'])){
 
   $id=$_POST['id']; 
 
-  $get_billNo = mysqli_query($con,"SELECT bill_no,amount,ex_date FROM cheques WHERE id='$id' "); // to get bill no using cheques id
+  $get_billNo = mysqli_query($con,"SELECT bill_no,amount FROM cheques WHERE id='$id' "); // to get bill no using cheques id
   $detail = mysqli_fetch_array($get_billNo); // fetch data
     $no  = $detail['bill_no'];
     $amt = $detail['amount'];
-    $ddate = $detail['ex_date'];
 
   $qry = mysqli_query($con,"SELECT shop FROM bill WHERE bill_no='$no' "); // select query
     $data = mysqli_fetch_array($qry); // fetch data
     $shop = $data['shop'];
     // $ddate= date("Y-m-d");
+    
+    $today    = new DateTime(null, new DateTimeZone('Asia/Colombo'));
+    $ddate = $today->format('Y-m-d');
 
     $date = explode('-', $ddate);
 
@@ -193,23 +168,6 @@ if(isset($_POST['id'])){
  ?>
 
 <script>
-
- $(document).ready( function () {
-    $('#tobe_exchangedTB').DataTable();
- });
-
-function editDate(id){
-
-    $.ajax({
-            url:"edit_date.php",
-            method:"POST",
-            data:{"id":id},
-            success:function(data){
-              $('#show_view').html(data);
-              $('#DateModal').modal('toggle');
-            }
-      });
-  }
 
 function doneFUN(id){
 

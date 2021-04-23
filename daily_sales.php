@@ -59,7 +59,7 @@ if (!isset($_SESSION['loged_user'])) {
                           <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>SHOP</label>
-                              <input type="text" class="form-control" id="shop" name="shop">
+                              <input type="text" class="form-control" id="shop" name="shop" required>
                             </div>
                           </div>
                         </div>
