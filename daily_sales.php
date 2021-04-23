@@ -54,8 +54,6 @@ if (!isset($_SESSION['loged_user'])) {
                         <h5 class="modal-title" id="staticBackdropLabel">Add New Bill</h5>
                       </div> 
                       <form id="BillAdd">
-                        <input type="hidden" id="myitemjson" name="myitemjson"/>
-                        <input type="hidden" id="myitemjson1" name="myitemjson1"/>
                         <div class="col-md-12">
                         <div class="row">
                           <div class="col-md-6 pr-1">
@@ -187,57 +185,103 @@ if (!isset($_SESSION['loged_user'])) {
                             </div>
                           </div>
                         </div>
-                        <div class="table-responsive">
-                          <table id="example" class="table table-bordered table-striped" style="width:100%">
-                              <thead>
-                                <tr>
-                                  <th>ITEM</th>
-                                  <th>TOT SALE</th>
-                                  <th>SALE</th>
-                                  <th>AF SALE</th> 
-                                  <th>TOT FREE</th> 
-                                  <th>FREE</th> 
-                                  <th>AF FREE</th>  
-                                  <th>PUR COST</th> 
-                                  <th>SALE AMT</th>
 
-                                  <th>DELETE</th>  
-                                </tr>
-                              </thead>
-                          </table>
-                        </div>           
-                        <!-- end -->
+                        <div id="here">
+                          <div class="table-responsive">
+                            <table id="example" class="table table-bordered table-striped" style="width:100%">
+                                <thead>
+                                  <tr>
+                                    <th>ITEM</th>
+                                    <th>TOT SALE</th>
+                                    <th>SALE</th>
+                                    <th>AF SALE</th> 
+                                    <th>TOT FREE</th> 
+                                    <th>FREE</th> 
+                                    <th>AF FREE</th>  
+                                    <th>PUR COST</th> 
+                                    <th>SALE AMT</th>
+                                    <th>DELETE</th>  
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <?php
+                                    $sql=mysqli_query($con,"SELECT * FROM temp");
+                                    
+                                      $numRows = mysqli_num_rows($sql); 
+                                
+                                      if($numRows > 0) {
+                                        
+                                        $bill_amt = 0;
+                                        $PurchaseCost = 0;
+                              
+                                        while($row = mysqli_fetch_assoc($sql)) {
 
-                        <div class="row">
-                          <div class="col-md-4 pr-1">
-                            <div class="form-group">
-                              <label>Bill Amount</label>
-                              <input type="text" class="form-control" placeholder="LKR" name="bill_amt" id="bill_amt" required>
+                                          $item = $row['item'];
+                                          $tot_sale  = $row['tot_sale'];
+                                          $sale   = $row['sale'];
+                                          $af_sale   = $row['af_sale'];
+                                          $tot_free   = $row['tot_free'];
+                                          $free   = $row['free'];
+                                          $af_free   = $row['af_free'];
+                                          $tot_pur   = $row['tot_pur'];
+                                          $tot_sales   = $row['tot_sales'];
+                                          $id   = $row['id'];
+                                          echo ' <tr>';
+                                          echo ' <td>'.$item.' </td>';
+                                          echo ' <td>'.$tot_sale.' </td>';
+                                          echo ' <td>'.$sale.' </td>';
+                                          echo ' <td>'.$af_sale.' </td>';
+                                          echo ' <td>'.$tot_free.' </td>';
+                                          echo ' <td>'.$free.' </td>';
+                                          echo ' <td>'.$af_free.' </td>';
+                                          echo ' <td>'.$tot_pur.' </td>';
+                                          echo ' <td>'.$tot_sales.' </td>';
+                                          echo '<td class="td-center"><button class="btn-edit" id="DeleteButton" onclick="removeForm('.$id.')">Delete</button></td>';
+                                          echo ' </tr>';
+                                          $i++;
+                                          $bill_amt = $bill_amt + $tot_sales;
+                                          $PurchaseCost = $PurchaseCost + $tot_pur;
+
+                                        }
+                                      }
+                                    ?>
+                                  </tbody>
+
+                            </table>
+                          </div>           
+                          <!-- end -->
+
+                          <div class="row">
+                            <div class="col-md-4 pr-1">
+                              <div class="form-group">
+                                <label>Bill Amount</label>
+                                <input type="text" class="form-control" placeholder="LKR" name="bill_amt" id="bill_amt" value='<?php echo number_format((float)$bill_amt, 2, '.', ''); ?>' required>
+                              </div>
+                            </div>
+                            <div class="col-md-4 pr-1">
+                              <div class="form-group">
+                                <label>Discount</label>
+                                <input type="text" class="form-control" placeholder="LKR" name="discount" id="discount" required>
+                              </div>
+                            </div>
+                            <div class="col-md-4 pr-1">
+                              <div class="form-group">
+                                <label>Discounted Amount</label>
+                                <input type="text" class="form-control" placeholder="LKR" name="dis_amt" id="dis_amt"  value='<?php echo number_format((float)$bill_amt, 2, '.', ''); ?>' required readonly>
+                              </div>
                             </div>
                           </div>
-                          <div class="col-md-4 pr-1">
-                            <div class="form-group">
-                              <label>Discount</label>
-                              <input type="text" class="form-control" placeholder="LKR" name="discount" id="discount" required>
-                            </div>
-                          </div>
-                          <div class="col-md-4 pr-1">
-                            <div class="form-group">
-                              <label>Discounted Amount</label>
-                              <input type="text" class="form-control" placeholder="LKR" name="dis_amt" id="dis_amt" required readonly>
+
+                          <div class="row">
+                            <div class="col-md-4 pr-1">
+                              <div class="form-group">
+                                <!-- <label>PURCHASE Amt</label> -->
+                                <input type="hidden" class="form-control" placeholder="Purchase Cost" name="pur_cost" id="pur_cost" value='<?php echo number_format((float)$PurchaseCost, 2, '.', ''); ?>' required>
+                              </div>
                             </div>
                           </div>
                         </div>
-
-                         <div class="row">
-                          <div class="col-md-4 pr-1">
-                            <div class="form-group">
-                              <!-- <label>PURCHASE Amt</label> -->
-                              <input type="hidden" class="form-control" placeholder="Purchase Cost" name="pur_cost" id="pur_cost" required>
-                            </div>
-                          </div>
-                        </div>
-
+                        
                         <div class="row">
                           <div class="col-md-4 pr-1">
                             <div class="form-group">
@@ -251,12 +295,7 @@ if (!isset($_SESSION['loged_user'])) {
                               <input type="text" class="form-control" placeholder="LKR" name="credit" id="credit" required>
                             </div>
                           </div>
-                          <div class="col-md-4 pr-1">
-                            <div class="form-group">
-                              <label>TotalCheque</label>
-                              <input type="text" class="form-control" placeholder="tot cheque" name="tot_cheques" id="tot_cheques" readonly="">
-                            </div>
-                          </div>
+                         
                         </div>
 
                         <div class="row">
@@ -284,19 +323,57 @@ if (!isset($_SESSION['loged_user'])) {
                             </div>
                           </div>
                         </div>
-                        <div class="table-responsive">
-                          <table id="example1" class="table table-bordered table-striped" style="width:100%">
-                              <thead>
-                                <tr>
-                                  <th>Cheque #</th>
-                                  <th>Amount</th>
-                                  <th>Valid Date</th>
+                        <div id="here_cheque"> 
+                          <div class="table-responsive">
+                            <table id="example1" class="table table-bordered table-striped" style="width:100%">
+                                <thead>
+                                  <tr>
+                                    <th>Cheque #</th>
+                                    <th>Amount</th>
+                                    <th>Valid Date</th>
+                                    <th>DELETE</th>  
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                  $sql=mysqli_query($con,"SELECT * FROM temp_cheque");
+                                  
+                                    $numRows = mysqli_num_rows($sql); 
+                              
+                                    if($numRows > 0) {
 
-                                  <th>DELETE</th>  
-                                </tr>
-                              </thead>
-                          </table>
-                        </div>  
+                                      $tot_cheques = 0;
+                                      
+                                      while($row = mysqli_fetch_assoc($sql)) {
+
+                                        $cheque = $row['cheque'];
+                                        $cheque_no  = $row['cheque_no'];
+                                        $cheque_date   = $row['cheque_date'];
+                                        $id   = $row['id'];
+                                        echo ' <tr>';
+                                        echo ' <td>'.$cheque.' </td>';
+                                        echo ' <td>'.$cheque_no.' </td>';
+                                        echo ' <td>'.$cheque_date.' </td>';
+                                        echo '<td class="td-center"><button class="btn-edit" id="DeleteButton" onclick="removeFormCheque('.$id.')">Delete</button></td>';
+                                        echo ' </tr>';
+                                        $tot_cheques = $tot_cheques + $cheque;
+
+                                      }
+                                    }
+                                  ?>
+                                </tbody>
+                            </table>
+                          </div>  
+                          <div class="row">
+                            <div class="col-md-4 pr-1">
+                              <div class="form-group">
+                                <label>TotalCheque</label>
+                                <input type="text" class="form-control" placeholder="tot cheque" name="tot_cheques" id="tot_cheques"  value='<?php echo number_format((float)$tot_cheques, 2, '.', ''); ?>' readonly="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
                         
 
                         <div class="row">
@@ -605,98 +682,96 @@ $(function () {
 
   ///////////////  Add Row
   $(document).ready(function() {
+
       $('#example').dataTable();
       $('#addbtn').click(addrow);
+      tmpEmpty();
 
       $('#example1').dataTable();
       $('#chequeAdd').click(addcheque);
+      tmpEmptyCheque();
   });
+
+  ///////////////////////////////////
+
+  function tmpEmpty() {
+
+    var tmpEmpty  ="tmpEmpty";
+
+      $.ajax({
+          type: 'post',
+          url: 'bill_insert.php',
+          data: {tmpEmpty:tmpEmpty},
+          success: function (data) {
+
+              $( "#here" ).load(window.location.href + " #here" );
+            } 
+      });
+  }
+
+  ////////////////////////////////////
+
+  function tmpEmptyCheque() {
+
+    var tmpEmptyCheque  ="tmpEmptyCheque";
+
+      $.ajax({
+          type: 'post',
+          url: 'bill_insert.php',
+          data: {tmpEmptyCheque:tmpEmptyCheque},
+          success: function (data) {
+
+              $( "#here_cheque" ).load(window.location.href + " #here_cheque" );
+            } 
+      });
+  }
 
  ///////////////  Add Row
   function addrow() {
 
-    // var amountAMT = 0;
+       var addrow  ="addrow";
 
-      $('#example').dataTable().fnAddData( [
-          $('#item option:selected').text(),
-          $('#tot_sale').val(),
-          $('#sale').val(),
-          $('#af_sale').val(),
-          $('#tot_free').val(),
-          $('#free').val(),
-          $('#af_free').val(),
-          $('#tot_pur').val(),
-          $('#tot_sales').val(),
-          "<button class='btn-edit' id='DeleteButton'>Delete</button>" ] );
+       $.ajax({
+            type: 'post',
+            url: 'bill_insert.php',
+            data: {addrow:addrow,item:$('#item option:selected').text(),tot_sale:$('#tot_sale').val(),sale:$('#sale').val(),
+            af_sale:$('#af_sale').val(),tot_free:$('#tot_free').val(),free:$('#free').val(),af_free:$('#af_free').val(),tot_pur:$('#tot_pur').val(),
+            tot_sales:$('#tot_sales').val()
+            },
+            success: function (data) {
 
-      $('#item').val("")
-      $('#tot_sale').val("")
-      $('#sale').val("")
-      $('#af_sale').val("")
-      $('#tot_free').val("")
-      $('#free').val("")
-      $('#af_free').val("")
-      $('#tot_pur').val("")
-      $('#tot_sales').val("")
-      
-      reCalulate();
-     
+              $('#item').val("")
+              $('#tot_sale').val("")
+              $('#sale').val("")
+              $('#af_sale').val("")
+              $('#tot_free').val("")
+              $('#free').val("")
+              $('#af_free').val("")
+              $('#tot_pur').val("")
+              $('#tot_sales').val("")
+
+               $( "#here" ).load(window.location.href + " #here" );
+               $('#example').dataTable();
+              } 
+        });     
+  }
+
+    /////////// Remove the Row 
+    function removeForm(id){
+
+        var removeRow  ="removeRow";
+
+         $.ajax({
+            type: 'post',
+            url: 'bill_insert.php',
+            data: {removeRow:removeRow,id:id},
+            success: function (data) {
+
+               $( "#here" ).load(window.location.href + " #here" );
+              } 
+        });
     }
 
-   /////////// Calulate Row Count
-   function reCalulate(){
-
-      //need to add above af_sale, af_free, tot_pur, tot_sales text box values as hidden fields to the list view 
-      //need to get sum of the tot_sales to bill_amt text box and sum of the tot_pur to pur_cost text box
-      
-      var array=[];
-       var TotalAmt = 0  , PurchaseCost = 0;
-      var table = $("#example");
-
-      table.find('tr:gt(0)').each(function (i) {
-
-      var $tds = $(this).find('td'),
-      item = $tds.eq(0).text();
-      tot_sale = $tds.eq(1).text();
-      sale = $tds.eq(2).text();
-      af_sale = $tds.eq(3).text();
-      tot_free = $tds.eq(4).text();
-      free = $tds.eq(5).text();
-      af_free = $tds.eq(6).text();
-      tot_pur = $tds.eq(7).text();
-      tot_sales = $tds.eq(8).text();
-
-      //alert(item_code);
-
-      TotalAmt = Number(TotalAmt) + Number(tot_sales);
-      PurchaseCost = Number(PurchaseCost) + Number(tot_pur);
-      $('#bill_amt').val(TotalAmt);
-      $('#dis_amt').val(TotalAmt);
-      $('#pur_cost').val(PurchaseCost)
-
-      var z={"item":item,"tot_sale":tot_sale,"sale":sale,"af_sale":af_sale,"tot_free":tot_free,"free":free,"af_free":af_free,"tot_pur":tot_pur,"tot_sales":tot_sales};
-
-      array.push({item:item,tot_sale:tot_sale,sale:sale,af_sale:af_sale,tot_free:tot_free,free:free,af_free:af_free,tot_pur:tot_pur,tot_sales:tot_sales});
-
-      });
-
-    
-      //var table = $('#example').DataTable();
- 
-      // Hide two columns
-      // table.columns( [5,6,7,8,9] ).visible( false );
-
-      // var z={"item":item,"total":total,"sale":sale,"free":free,"af_bal":af_bal,"af_sale":af_sale,"af_free":af_free,"tot_pur":tot_pur,"tot_sales":tot_sales,"tot_free":tot_free};
-
-      // array.push({item:item,total:total,sale:sale,free:free,af_bal:af_bal,af_sale:af_sale,af_free:af_free,tot_pur:tot_pur,tot_sales:tot_sales,tot_free:tot_free});
-
-      // });
-
-      console.log(JSON.stringify(array, null, 1));
-      $('#myitemjson').val(JSON.stringify(array));
-
-    }
- 
     /////////// Remove the Row 
     $("#example").on("click", "#DeleteButton", function() {
       $(this).closest("tr").remove();
@@ -712,52 +787,40 @@ $(function () {
 
     function addcheque() {
 
-      $('#example1').dataTable().fnAddData( [
-          $('#cheque').val(),
-          $('#cheque_no').val(),
-          $('#cheque_date').val(),
-          "<button class='btn-edit' id='DeleteButton'>Delete</button>" ] );
+       var addcheque  ="addcheque";
 
-          $('#cheque').val("")
-          $('#cheque_no').val("")
-          $('#cheque_date').val("")
-      
-      reCalulate1();
-     
-    }
+       $.ajax({
+            type: 'post',
+            url: 'bill_insert.php',
+            data: {addcheque:addcheque,cheque:$('#cheque').val(),cheque_no:$('#cheque_no').val(),cheque_date:$('#cheque_date').val()},
+            success: function (data) {
 
-    function reCalulate1(){
-      
-      var array1=[];
-      var TotChq = 0;
-      var table = $("#example1");
+              $('#cheque').val("")
+              $('#cheque_no').val("")
+              $('#cheque_date').val("")
 
-      table.find('tr:gt(0)').each(function (i) {
-
-      var $tds = $(this).find('td'),
-      cheque = $tds.eq(0).text();
-      cheque_no = $tds.eq(1).text();
-      cheque_date = $tds.eq(2).text();
-
-      TotChq = Number(TotChq) + Number(cheque);
-      $('#tot_cheques').val(TotChq);
-
-      var z={"cheque":cheque,"cheque_no":cheque_no,"cheque_date":cheque_date};
-
-      array1.push({cheque:cheque,cheque_no:cheque_no,cheque_date:cheque_date});
-
-      });
-
-      console.log(JSON.stringify(array1, null, 1));
-      $('#myitemjson1').val(JSON.stringify(array1));
-
+               $( "#here_cheque" ).load(window.location.href + " #here_cheque" );
+               $('#example1').dataTable();
+              } 
+        });     
     }
  
-    /////////// Remove the Row 
-    $("#example1").on("click", "#DeleteButton", function() {
-      $(this).closest("tr").remove();
-      reCalulate1();
-   });
+    /////////// Remove the Row  cheque
+    function removeFormCheque(id){
+
+        var removeRowCheque  ="removeRowCheque";
+
+         $.ajax({
+            type: 'post',
+            url: 'bill_insert.php',
+            data: {removeRowCheque:removeRowCheque,id:id},
+            success: function (data) {
+
+               $( "#here_cheque" ).load(window.location.href + " #here_cheque" );
+              } 
+        });
+    }
+    
 
 
 
