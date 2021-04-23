@@ -239,21 +239,22 @@ if (!isset($_SESSION['loged_user'])) {
                         </div>
 
                         <div class="row">
-                          <div class="col-md-6 pr-1">
+                          <div class="col-md-4 pr-1">
                             <div class="form-group">
                               <label>CASH</label>
-                              <input type="text" class="form-control" placeholder="LKR" name="cash" required>
+                              <input type="text" class="form-control" placeholder="LKR" name="cash" id="cash" required>
                             </div>
                           </div>
-                          <div class="col-md-6 pr-1">
+                          <div class="col-md-4 pr-1">
                             <div class="form-group">
                               <label>CREDIT</label>
-                              <input type="text" class="form-control" placeholder="LKR" name="credit" required>
+                              <input type="text" class="form-control" placeholder="LKR" name="credit" id="credit" required>
                             </div>
                           </div>
-                          <div class="col-md-6 pr-1">
+                          <div class="col-md-4 pr-1">
                             <div class="form-group">
-                              <input type="hidden" class="form-control" placeholder="tot cheque" name="tot_cheques" id="tot_cheques">
+                              <label>TotalCheque</label>
+                              <input type="text" class="form-control" placeholder="tot cheque" name="tot_cheques" id="tot_cheques" readonly="">
                             </div>
                           </div>
                         </div>
@@ -567,12 +568,20 @@ $(function () {
 
       e.preventDefault();
 
-      
-      var table = $('#myitemjson').val();
-      if(table == '[]'){
+      var cash = $('#cash').val();
+      var credit = $('#credit').val();
+      var cheque = $('#tot_cheques').val();
+      var discounted_amt = $('#dis_amt').val();
 
+      var bill_amt = Number(cash)+Number(credit)+Number(cheque);
+
+      var table = $('#myitemjson').val();
+
+      if(table == '[]'){
         alert('No available Items. Try again.')
-       }else{
+      }else if(discounted_amt!=bill_amt){
+        alert('Total Amounts does not Match with Discounted Amount.')
+      }else{
 
         $.ajax({
           type: 'post',
@@ -693,6 +702,11 @@ $(function () {
       $(this).closest("tr").remove();
       reCalulate();
    });
+    //////////required fields //////////////
+   //  $("#chequeAdd").on("click", function() {
+   //      $('#cheque_no').prop('required', true);
+   //      $('#cheque_date').prop('required', true);
+   // });
 
     /////////add cheque /////////////////
 
@@ -704,9 +718,9 @@ $(function () {
           $('#cheque_date').val(),
           "<button class='btn-edit' id='DeleteButton'>Delete</button>" ] );
 
-      $('#cheque').val("")
-      $('#cheque_no').val("")
-      $('#cheque_date').val("")
+          $('#cheque').val("")
+          $('#cheque_no').val("")
+          $('#cheque_date').val("")
       
       reCalulate1();
      
